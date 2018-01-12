@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CardGame.iml" filepath="$PROJECT_DIR$/CardGame.iml" />
+      <module fileurl="file://C:\Users\work\projects\PorkerGameAndroid\CardGame.iml" filepath="C:\Users\work\projects\PorkerGameAndroid\CardGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PorkerGameAndroid.iml" filepath="$PROJECT_DIR$/PorkerGameAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\work\projects\PorkerGameAndroid\app\app.iml" filepath="C:\Users\work\projects\PorkerGameAndroid\app\app.iml" />
     </modules>
   </component>
 </project>
