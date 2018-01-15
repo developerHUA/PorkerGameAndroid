@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hurenkeji.cardgame">
+    package="com.hurenkeji.porkergame">
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".BaseApplication"
+        android:name="com.hurenkeji.porkergame.manage.AppManager"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:hardwareAccelerated="true"
+
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.DouDiZhuGameActivity"
+        <activity
+            android:name="com.hurenkeji.porkergame.ui.LoginActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,9 +24,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask"
+            android:name="com.hurenkeji.porkergame.ui.MainActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.DouDiZhuGameActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent" />
     </application>
 
 </manifest>

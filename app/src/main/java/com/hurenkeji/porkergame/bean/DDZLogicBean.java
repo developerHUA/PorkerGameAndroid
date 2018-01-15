@@ -1,4 +1,4 @@
-package com.hurenkeji.cardgame.bean;
+package com.hurenkeji.porkergame.bean;
 
 
 import java.util.ArrayList;

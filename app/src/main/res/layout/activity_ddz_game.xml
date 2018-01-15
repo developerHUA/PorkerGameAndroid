@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
 
-    <com.hurenkeji.cardgame.widget.DDZPorkerView
+    <com.hurenkeji.porkergame.widget.DDZPorkerView
         android:id="@+id/pv_ddz_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
-    <com.hurenkeji.cardgame.widget.DDZPorkerView
+    <com.hurenkeji.porkergame.widget.DDZPorkerView
         android:id="@+id/pv_ddz_view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
