@@ -28,6 +28,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:27.0.0'
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'com.neovisionaries:nv-websocket-client:2.3'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'

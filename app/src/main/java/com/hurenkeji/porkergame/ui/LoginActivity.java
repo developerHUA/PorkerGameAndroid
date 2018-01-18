@@ -6,6 +6,7 @@ import android.widget.Button;
 import com.hurenkeji.porkergame.R;
 import com.hurenkeji.porkergame.base.BaseActivity;
 import com.hurenkeji.porkergame.bean.WXLoginParams;
+import com.hurenkeji.porkergame.manage.PorkerGameWebSocketManager;
 import com.hurenkeji.porkergame.net.HRRequstUtil;
 import com.hurenkeji.porkergame.wxapi.WXConstants;
 import com.lzy.okgo.callback.StringCallback;
@@ -26,13 +27,14 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.btn_wx_login)
     Button btnWxLogin;
     private IWXAPI api;
-
+    PorkerGameWebSocketManager webSocketManager;
 
     @Override
     public void initData() {
         super.initData();
         api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID);
-
+        webSocketManager = PorkerGameWebSocketManager.getInstance();
+        webSocketManager.init();
     }
 
     @Override
@@ -52,7 +54,7 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_wx_login:
-                wxLogin();
+                webSocketManager.sendText("这是我发送的消息");
                 break;
         }
     }
@@ -77,8 +79,11 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        webSocketManager.disconnect();
+    }
 
     private void wxLogin() {
 
