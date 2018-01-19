@@ -7,6 +7,7 @@ import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
+import com.neovisionaries.ws.client.WebSocketFrame;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,7 +43,7 @@ public class PorkerGameWebSocketManager {
     public void init() {
         try {
             mWebSocket = new WebSocketFactory().setConnectionTimeout(10000)
-                    .createSocket(HRNetConfig.PORKER_GAME_SOCKET_URL);
+                    .createSocket(HRNetConfig.PORKER_GAME_SOCKET_URL+"/2001/wadsdawde");
             mWebSocket.addListener(new MyWebSocketAdapter());
             mWebSocket.connectAsynchronously();
 
@@ -85,6 +86,11 @@ public class PorkerGameWebSocketManager {
         public void onError(WebSocket websocket, WebSocketException cause) throws Exception {
             LogUtil.i(TAG,"连接失败");
             cause.printStackTrace();
+        }
+
+        @Override
+        public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception {
+            LogUtil.i(TAG,"断开连接");
         }
     }
 
