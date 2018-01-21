@@ -40,10 +40,10 @@ public class PorkerGameWebSocketManager {
     }
 
 
-    public void init() {
+    public void init(int roomNumber, String token, int userId) {
         try {
             mWebSocket = new WebSocketFactory().setConnectionTimeout(10000)
-                    .createSocket(HRNetConfig.PORKER_GAME_SOCKET_URL+"/2001/wadsdawde");
+                    .createSocket(HRNetConfig.PORKER_GAME_SOCKET_URL + "/" + roomNumber + "/" + token + "/" + userId);
             mWebSocket.addListener(new MyWebSocketAdapter());
             mWebSocket.connectAsynchronously();
 
@@ -73,24 +73,24 @@ public class PorkerGameWebSocketManager {
         @Override
         public void onTextMessage(WebSocket websocket, String text) throws Exception {
 
-            LogUtil.i(TAG,"onTextMessage text = "+text);
+            LogUtil.i(TAG, "onTextMessage text = " + text);
 
         }
 
         @Override
         public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception {
-            LogUtil.i(TAG,"连接成功");
+            LogUtil.i(TAG, "连接成功");
         }
 
         @Override
         public void onError(WebSocket websocket, WebSocketException cause) throws Exception {
-            LogUtil.i(TAG,"连接失败");
+            LogUtil.i(TAG, "连接失败");
             cause.printStackTrace();
         }
 
         @Override
         public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception {
-            LogUtil.i(TAG,"断开连接");
+            LogUtil.i(TAG, "断开连接");
         }
     }
 

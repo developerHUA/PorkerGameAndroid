@@ -6,34 +6,75 @@
     android:orientation="vertical">
 
 
-    <com.hurenkeji.porkergame.widget.DDZPorkerView
-        android:id="@+id/pv_ddz_view"
+    <RelativeLayout
+        android:id="@+id/rl_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-    <com.hurenkeji.porkergame.widget.DDZPorkerView
-        android:id="@+id/pv_ddz_view2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-    <Button
-        android:id="@+id/btn_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="上家出牌"
-        />
-    <Button
-        android:id="@+id/btn_out_porker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="出牌" />
+        android:layout_alignParentBottom="true"
+        >
 
-    <Button
-        android:id="@+id/btn_send_porker"
+
+        <ImageView
+            android:id="@+id/iv_user_headimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+
+
+    </RelativeLayout>
+
+    <com.hurenkeji.porkergame.widget.DDZPorkerView
+        android:id="@+id/pv_porker_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rl_user_info" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/pv_porker_view"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_out_porker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="出牌" />
+
+        <Button
+            android:id="@+id/btn_Landlord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="叫地主" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_user_info2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_user2_headimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_user_info3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="发牌" />
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/iv_user3_headimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

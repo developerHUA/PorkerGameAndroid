@@ -22,7 +22,7 @@ public class AppManager extends BaseApplication {
         super.onCreate();
 
         initOkGo();
-
+        UserManager.getInstance().init();
 
 
     }

@@ -1,9 +1,14 @@
 package com.hurenkeji.porkergame.bean;
 
+import java.io.Serializable;
+
 /**
  * 微信登录
  */
-public class WXLoginParams {
+public class User implements Serializable{
+
+
+    private int UserId;
     private String access_token;
     private String unionid; // 用户统一标识。针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
     private String openId; //开发者帐号对应用户的唯一标识
@@ -13,6 +18,25 @@ public class WXLoginParams {
     private String city; //城市
     private String headimgurl; // 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
+
+
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int userId) {
+        UserId = userId;
+    }
     public String getAccess_token() {
         return access_token;
     }

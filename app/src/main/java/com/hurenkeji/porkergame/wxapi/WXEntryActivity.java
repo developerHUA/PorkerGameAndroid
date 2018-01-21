@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
-import com.hurenkeji.porkergame.bean.Constants;
-import com.hurenkeji.porkergame.bean.WXLoginParams;
+import com.hurenkeji.porkergame.bean.IntentConstants;
+import com.hurenkeji.porkergame.bean.User;
 import com.hurenkeji.porkergame.net.HRRequstUtil;
 import com.hurenkeji.porkergame.utils.ToastUtils;
 import com.lzy.okgo.callback.StringCallback;
@@ -95,7 +95,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onSuccess(Response<String> response) {
                 Intent intent = new Intent();
-                intent.putExtra(Constants.WX_LOGIN_RESULT_KEY, response.body());
+                intent.putExtra(IntentConstants.WX_LOGIN_RESULT_KEY, response.body());
                 setResult(RESULT_OK, intent);
             }
         });
@@ -108,7 +108,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         HRRequstUtil.get(url, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                WXLoginParams wxLoginParams = new Gson().fromJson(response.body(), WXLoginParams.class);
+                User wxLoginParams = new Gson().fromJson(response.body(), User.class);
                 getUserInfo(wxLoginParams.getOpenId(), wxLoginParams.getAccess_token());
             }
 
