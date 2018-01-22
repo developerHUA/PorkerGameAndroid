@@ -6,20 +6,23 @@
     android:orientation="vertical">
 
 
+    <FrameLayout
+        android:id="@+id/fl_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
     <RelativeLayout
         android:id="@+id/rl_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        >
-
+        android:layout_alignParentBottom="true">
 
         <ImageView
             android:id="@+id/iv_user_headimg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher" />
-
 
     </RelativeLayout>
 
@@ -29,12 +32,28 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/rl_user_info" />
 
+
+    <com.hurenkeji.porkergame.widget.DDZPorkerView
+        android:id="@+id/pv_play_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/pv_porker_view" />
+
+
     <LinearLayout
+        android:id="@+id/ll_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/pv_porker_view"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/btn_ready"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="准备" />
 
         <Button
             android:id="@+id/btn_out_porker"
@@ -43,38 +62,17 @@
             android:text="出牌" />
 
         <Button
-            android:id="@+id/btn_Landlord"
+            android:id="@+id/btn_no_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不出" />
+
+        <Button
+            android:id="@+id/btn_landlord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="叫地主" />
     </LinearLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_user_info2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/iv_user2_headimg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_user_info3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
-
-        <ImageView
-            android:id="@+id/iv_user3_headimg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-    </RelativeLayout>
 
 
 </RelativeLayout>

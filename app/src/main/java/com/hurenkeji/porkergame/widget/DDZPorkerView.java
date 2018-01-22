@@ -32,9 +32,8 @@ public class DDZPorkerView extends View {
     private float porkerHeight;
     private float porkerMarginTop; //扑克牌距上位置
     private static final float PNG_WIDTH = 10; // 图片透明区域大小
-    private boolean isCilck;
+    private boolean isClick;
     private float downX;
-    private float downPosition = -1;// 当前落下的点距左边牌的距离
     private RectF grayRectF = new RectF();
     private List<DDZPorker> mPorkers = new ArrayList<>();
     private Paint mPorkerPaint = new Paint();
@@ -160,7 +159,7 @@ public class DDZPorkerView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(!isCilck) return super.onTouchEvent(event);
+        if(!isClick) return super.onTouchEvent(event);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -268,8 +267,8 @@ public class DDZPorkerView extends View {
     }
 
 
-    public void setIsClick(boolean isClick) {
-        this.isCilck  = isClick;
+    public void isClick(boolean isClick) {
+        this.isClick = isClick;
     }
 
     @Override
