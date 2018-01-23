@@ -14,5 +14,7 @@ public class HRNetConfig {
 
 
     public static final String WX_LOGIN = "";
+    public static final String CREATE_ROOM_URL = "/room/create";
+    public static final String JOIN_ROOM_URL = "/room/join";
 
 }

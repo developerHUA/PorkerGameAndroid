@@ -20,7 +20,7 @@ public class AppManager extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        appManager = this;
         initOkGo();
         UserManager.getInstance().init();
 

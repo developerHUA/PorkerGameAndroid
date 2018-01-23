@@ -59,7 +59,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private int userId;
     private String token;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
-    private RoomResult room;
+    private RoomResult.Result room;
     private DDZSocketNotify fSocketNotify; // 通知fragment
     public User leftUser; // 左边玩家
     public User topUser; // 上边玩家
@@ -81,11 +81,11 @@ public class DouDiZhuGameActivity extends BaseActivity {
     public void initData() {
         userId = UserManager.getInstance().getUserId();
         token = UserManager.getInstance().getToken();
-        room = (RoomResult) getIntent().getSerializableExtra(IntentConstants.ROOM_KEY);
+        room = (RoomResult.Result) getIntent().getSerializableExtra(IntentConstants.ROOM_KEY);
         mSocketManager.init(room.roomNumber, token, userId, new NotifyHandler());
-        if (room.type == RoomResult.D_D_Z_THREE_TYPE) {
+        if (room.playType == RoomResult.D_D_Z_THREE_TYPE) {
             initThreeDDZFragment();
-        } else if (room.type == RoomResult.D_D_Z_FOUR_TYPE) {
+        } else if (room.playType == RoomResult.D_D_Z_FOUR_TYPE) {
 
         }
 
@@ -141,6 +141,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void noPlay() {
         btnNoPlay.setEnabled(false);
+        String message = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.NO_PLAY);
+        mSocketManager.sendText(message);
     }
 
     /**
@@ -148,7 +150,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void ready() {
         btnReady.setEnabled(false);
-        String message = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.PLAY_PORKER);
+        String message = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.READY);
         mSocketManager.sendText(message);
 
     }

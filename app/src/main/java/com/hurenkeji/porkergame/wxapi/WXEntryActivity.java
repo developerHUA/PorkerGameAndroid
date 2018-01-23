@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.hurenkeji.porkergame.bean.IntentConstants;
 import com.hurenkeji.porkergame.bean.User;
-import com.hurenkeji.porkergame.net.HRRequstUtil;
+import com.hurenkeji.porkergame.net.HRRequestUtil;
 import com.hurenkeji.porkergame.utils.ToastUtils;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -91,7 +91,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private void getUserInfo(String openId, String accessToken) {
         String url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken + "&openid=" + openId;
-        HRRequstUtil.get(url, new StringCallback() {
+        HRRequestUtil.get(url, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Intent intent = new Intent();
@@ -105,7 +105,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private void getAccessToken() {
         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WXConstants.APP_ID +
                 "&secret=" + WXConstants.APP_KEY + "&code=" + code + "&grant_type=authorization_code";
-        HRRequstUtil.get(url, new StringCallback() {
+        HRRequestUtil.get(url, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 User wxLoginParams = new Gson().fromJson(response.body(), User.class);

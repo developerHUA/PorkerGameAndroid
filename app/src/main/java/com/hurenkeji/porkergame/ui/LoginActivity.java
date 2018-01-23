@@ -6,7 +6,7 @@ import android.widget.Button;
 import com.hurenkeji.porkergame.R;
 import com.hurenkeji.porkergame.base.BaseActivity;
 import com.hurenkeji.porkergame.bean.User;
-import com.hurenkeji.porkergame.net.HRRequstUtil;
+import com.hurenkeji.porkergame.net.HRRequestUtil;
 import com.hurenkeji.porkergame.wxapi.WXConstants;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity {
 
         User wxLoginParams = new User();
 
-        HRRequstUtil.postJson(WX_LOGIN, wxLoginParams, new StringCallback() {
+        HRRequestUtil.postJson(WX_LOGIN, wxLoginParams, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
 

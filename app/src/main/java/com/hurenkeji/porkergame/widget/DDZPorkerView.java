@@ -25,6 +25,11 @@ import static android.graphics.BitmapFactory.decodeResource;
  */
 public class DDZPorkerView extends View {
 
+
+    public static final int CENTER = 1;
+    public static final int LEFT = 2;
+    public static final int RIGHT = 3;
+
     private float mWidth; // View宽度
     private float marginX; // 扑克牌之间的间距
     private float startX; // 扑克牌开始位置
@@ -40,7 +45,7 @@ public class DDZPorkerView extends View {
     private Paint mGrayPaint = new Paint();
     private List<Integer> clickIndex = new ArrayList<>();
     private Path mPath = new Path();
-
+    private int gravity = CENTER;
 
     public DDZPorkerView(Context context) {
         this(context, null);
@@ -155,11 +160,17 @@ public class DDZPorkerView extends View {
         mPath.lineTo(left, top + porkerHeight);
     }
 
+
+    public void setGravity(int gravity) {
+        this.gravity = gravity;
+
+    }
+
     boolean isFlag;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(!isClick) return super.onTouchEvent(event);
+        if (!isClick) return super.onTouchEvent(event);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -299,12 +310,17 @@ public class DDZPorkerView extends View {
         if (marginX > porkerWidth / 2) {
             marginX = porkerWidth / 2;
         }
-        startX = (mWidth / 2) - ((marginX * porkers.size() + (porkerWidth - marginX)) / 2);
-
+        if (gravity == LEFT) {
+            startX = 0;
+        } else if (gravity == CENTER) {
+            startX = (mWidth / 2) - ((marginX * porkers.size() + (porkerWidth - marginX)) / 2);
+        } else if (gravity == RIGHT) {
+            startX = mWidth - (marginX * porkers.size() + (porkerWidth - marginX));
+        }
         invalidate();
     }
 
-    public List<DDZPorker> getPorkers () {
+    public List<DDZPorker> getPorkers() {
         return mPorkers;
     }
 }

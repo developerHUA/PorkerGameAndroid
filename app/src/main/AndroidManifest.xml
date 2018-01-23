@@ -15,7 +15,7 @@
 
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.hurenkeji.porkergame.ui.LoginActivity"
+            android:name="com.hurenkeji.porkergame.ui.RoomActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -35,7 +35,12 @@
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
+            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

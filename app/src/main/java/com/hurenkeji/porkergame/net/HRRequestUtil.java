@@ -8,7 +8,7 @@ import com.lzy.okgo.callback.Callback;
 /**
  * 网络请求工具类
  */
-public class HRRequstUtil {
+public class HRRequestUtil {
 
     private static final java.lang.String TAG = HRNetConfig.class.getName();
 
