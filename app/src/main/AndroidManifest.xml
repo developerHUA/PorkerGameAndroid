@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hurenkeji.porkergame">
+    package="com.yunke.xiaovo">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
-        android:name="com.hurenkeji.porkergame.manage.AppManager"
+        android:name="com.yunke.xiaovo.manage.AppManager"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +19,7 @@
 
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.hurenkeji.porkergame.ui.RoomActivity"
+            android:name="com.yunke.xiaovo.ui.LoginActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -24,21 +28,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hurenkeji.porkergame.ui.MainActivity"
+            android:name="com.yunke.xiaovo.ui.MainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.DouDiZhuGameActivity"
+            android:name="com.yunke.xiaovo.ui.DouDiZhuGameActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.yunke.xiaovo.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
+            android:label="小沃学堂"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name="com.yunke.xiaovo.ui.RoomActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
     </application>

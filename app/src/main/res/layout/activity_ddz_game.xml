@@ -25,14 +25,14 @@
 
     </RelativeLayout>
 
-    <com.hurenkeji.porkergame.widget.DDZPorkerView
+    <com.yunke.xiaovo.widget.DDZPorkerView
         android:id="@+id/pv_porker_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/rl_user_info" />
 
 
-    <com.hurenkeji.porkergame.widget.DDZPorkerView
+    <com.yunke.xiaovo.widget.DDZPorkerView
         android:id="@+id/pv_play_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

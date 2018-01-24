@@ -60,13 +60,13 @@
 
             android:orientation="horizontal">
 
-            <com.hurenkeji.porkergame.widget.DDZPorkerView
+            <com.yunke.xiaovo.widget.DDZPorkerView
                 android:id="@+id/pv_left_porker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <com.hurenkeji.porkergame.widget.DDZPorkerView
+            <com.yunke.xiaovo.widget.DDZPorkerView
                 android:id="@+id/pv_right_porker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

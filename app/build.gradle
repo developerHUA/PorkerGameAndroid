@@ -5,14 +5,33 @@ android {
     compileSdkVersion 27
     buildToolsVersion "27.0.0"
     defaultConfig {
-        applicationId "com.hurenkeji.porkergame"
+        applicationId "com.yunke.xiaovo"
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
+
+
+    // 签名
+    signingConfigs {
+        config {
+            storeFile file('xiaovo_release.jks')
+            storePassword "123456"
+            keyAlias "Xiao vo"
+            keyPassword "123456"
+
+        }
+    }
     buildTypes {
+
+        debug {
+            versionNameSuffix "-debug"
+            signingConfig signingConfigs.config
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
