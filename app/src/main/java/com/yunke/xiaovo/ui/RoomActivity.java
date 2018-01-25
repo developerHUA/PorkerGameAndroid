@@ -149,7 +149,7 @@ public class RoomActivity extends BaseActivity {
         int ruleTypeId = rgPlayRule.getCheckedRadioButtonId();
         int type;
         int ruleType;
-        if (typeId == R.id.rb_rule_three) {
+        if (typeId == R.id.rb_play_three) {
             type = RoomResult.D_D_Z_THREE_TYPE;
         } else {
             type = RoomResult.D_D_Z_FOUR_TYPE;

@@ -69,7 +69,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     @Override
     public void initView() {
         btnOutPorker.setOnClickListener(this);
-        btnNoPlay.setOnClickListener(this);
+        btnReady.setOnClickListener(this);
         btnLandlord.setOnClickListener(this);
         btnNoPlay.setOnClickListener(this);
         porkerView.isClick(true);
@@ -98,7 +98,12 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 outPorker();
                 break;
             case R.id.btn_ready:
-                ready();
+                if (btnReady.getText().equals("取消准备")) {
+                    ready(PorkerGameWebSocketManager.CANCEL_READY);
+
+                } else {
+                    ready(PorkerGameWebSocketManager.READY);
+                }
                 break;
             case R.id.btn_no_play:
                 noPlay();
@@ -148,11 +153,10 @@ public class DouDiZhuGameActivity extends BaseActivity {
     /**
      * 准备
      */
-    private void ready() {
+    private void ready(int type) {
         btnReady.setEnabled(false);
-        String message = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.READY);
+        String message = SocketBean.messageFromType(userId, type);
         mSocketManager.sendText(message);
-
     }
 
 
@@ -240,8 +244,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 处理用户取消准备
      */
     private void processCancelReady(int userId) {
+        btnReady.setEnabled(true);
         if (userId == this.userId) {
-
+            btnReady.setText("准备");
         } else {
             fSocketNotify.processCancelReady(userId);
         }
@@ -252,8 +257,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 处理用户准备
      */
     private void processReady(int userId) {
+        btnReady.setEnabled(true);
         if (userId == this.userId) {
-
+            btnReady.setText("取消准备");
         } else {
             fSocketNotify.processReady(userId);
         }

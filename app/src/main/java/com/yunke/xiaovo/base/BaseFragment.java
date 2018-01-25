@@ -22,7 +22,7 @@ public class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = null;
         if (getLayoutId() != 0) {
-            view = inflater.inflate(getLayoutId(), container);
+            view = inflater.inflate(getLayoutId(), container,false);
         } else {
             view = super.onCreateView(inflater, container, savedInstanceState);
         }

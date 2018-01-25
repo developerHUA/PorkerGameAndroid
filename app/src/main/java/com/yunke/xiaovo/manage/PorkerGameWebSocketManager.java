@@ -22,7 +22,7 @@ import java.util.Map;
  * 游戏的socket管理
  */
 public class PorkerGameWebSocketManager {
-    private static final String MESSAGE_TYPE_KEY = "playType"; //消息类型
+    private static final String MESSAGE_TYPE_KEY = "type"; //消息类型
     public static final String USER_ID_KEY = "uid"; //用户id
     public static final String MESSAGE_PARAMS_KEY = "message_params_key"; //用户id
 
@@ -96,13 +96,13 @@ public class PorkerGameWebSocketManager {
 
         @Override
         public void onTextMessage(WebSocket websocket, String text) throws Exception {
+            LogUtil.i(TAG, "onTextMessage text = " + text);
             JSONObject jsonObject = new JSONObject(text);
             int type = jsonObject.getInt(MESSAGE_TYPE_KEY);
             Message message = Message.obtain();
             message.what = type;
             message.obj = text;
             mHandler.sendMessage(message);
-            LogUtil.i(TAG, "onTextMessage text = " + text);
 
         }
 
