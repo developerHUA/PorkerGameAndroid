@@ -18,28 +18,7 @@ public class Porker {
 
 
     public int getResourceId() {
-        int id = 0;
-        switch (porkerType) {
-            case RED_HEART:
-                id = PorkerResourceId.RED_HEART_ID[porkerId];
-                break;
-            case PLUM_BLOSSOM:
-                id = PorkerResourceId.PLUM_BLOSSOM_ID[porkerId];
-                break;
-            case BLACK_HEART:
-                id = PorkerResourceId.BLACK_HEART_ID[porkerId];
-                break;
-            case BLOCK:
-                id = PorkerResourceId.BLOCK_ID[porkerId];
-                break;
-            case SMALL_KING:
-                id = PorkerResourceId.SMALL_KING_ID;
-                break;
-            case BIG_KING:
-                id = PorkerResourceId.BIG_KING_ID;
-                break;
-        }
-        return id;
+        return  PorkerResourceId.PORKER_ID[porkerId];
     }
 
 

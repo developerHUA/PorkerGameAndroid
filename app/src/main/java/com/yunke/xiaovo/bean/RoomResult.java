@@ -10,9 +10,9 @@ public class RoomResult extends Result {
     public static final int D_D_Z_FOUR_TYPE = 4; //四人人斗地主类型
 
 
-    public static final int ABANDON_DOUBLE_TWO = 1; // 去掉两个2
-    public static final int ABANDON_DOUBLE_THREE = 2; // 去掉两个3
-    public static final int ABANDON_ONE_AND_TWEO = 3; // 去掉一个2一个A
+    public static final int REMOVE_DOUBLE_TWO = 1; // 去掉两个2
+    public static final int REMOVE_DOUBLE_THREE = 2; // 去掉两个3
+    public static final int REMOVE_ONE_AND_TWEO = 3; // 去掉一个2一个A
 
     public Result result;
 

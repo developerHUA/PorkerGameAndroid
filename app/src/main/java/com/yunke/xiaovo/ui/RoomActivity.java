@@ -155,9 +155,9 @@ public class RoomActivity extends BaseActivity {
             type = RoomResult.D_D_Z_FOUR_TYPE;
         }
         if (ruleTypeId == R.id.rb_rule_two) {
-            ruleType = RoomResult.ABANDON_DOUBLE_TWO;
+            ruleType = RoomResult.REMOVE_DOUBLE_TWO;
         } else {
-            ruleType = RoomResult.ABANDON_DOUBLE_THREE;
+            ruleType = RoomResult.REMOVE_DOUBLE_THREE;
         }
 
         RoomParams params = new RoomParams(mUserManager.getUserId(),
