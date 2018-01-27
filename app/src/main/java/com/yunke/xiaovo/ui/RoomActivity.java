@@ -117,7 +117,7 @@ public class RoomActivity extends BaseActivity {
     private void requestJoinRoom(int roomNumber) {
         RoomParams params = new RoomParams(roomNumber, mUserManager.getUserId(),
                 mUserManager.getToken());
-        HRRequestUtil.postJson(HRNetConfig.CREATE_ROOM_URL, params, joinRoomCallback);
+        HRRequestUtil.postJson(HRNetConfig.JOIN_ROOM_URL, params, joinRoomCallback);
     }
 
 

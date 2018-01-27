@@ -1,22 +1,27 @@
 package com.yunke.xiaovo.ui;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
-import com.yunke.xiaovo.R;
-import com.yunke.xiaovo.base.BaseActivity;
-import com.yunke.xiaovo.bean.User;
-import com.yunke.xiaovo.net.HRRequestUtil;
-import com.yunke.xiaovo.wxapi.WXConstants;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.yunke.xiaovo.R;
+import com.yunke.xiaovo.base.BaseActivity;
+import com.yunke.xiaovo.bean.User;
+import com.yunke.xiaovo.bean.UserResult;
+import com.yunke.xiaovo.manage.AppManager;
+import com.yunke.xiaovo.manage.UserManager;
+import com.yunke.xiaovo.net.HRNetConfig;
+import com.yunke.xiaovo.net.HRRequestUtil;
+import com.yunke.xiaovo.utils.StringUtil;
+import com.yunke.xiaovo.utils.ToastUtils;
+import com.yunke.xiaovo.wxapi.WXConstants;
 
 import butterknife.BindView;
-
-import static com.yunke.xiaovo.net.HRNetConfig.WX_LOGIN;
 
 /**
  * 登录界面
@@ -51,28 +56,34 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_wx_login:
-                wxLogin();
+                if(UserManager.getInstance().getUser() != null) {
+                    requestWXLogin(UserManager.getInstance().getUser());
+                }else {
+                    wxLogin();
+                }
                 break;
         }
     }
 
 
-    private void requestLogin() {
+    private void requestWXLogin(User user) {
 
-        User wxLoginParams = new User();
-
-        HRRequestUtil.postJson(WX_LOGIN, wxLoginParams, new StringCallback() {
+        HRRequestUtil.postJson(HRNetConfig.WX_LOGIN, user, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                UserResult userResult = StringUtil.jsonToObject(response.body(), UserResult.class);
+                if (userResult != null && userResult.result != null) {
+                    UserManager.getInstance().upDateUser(userResult.result);
+                    AppManager.getInstance().finishActivity(LoginActivity.class);
+                    finish();
+                    startActivity(new Intent(LoginActivity.this, RoomActivity.class));
+                } else {
 
+                    ToastUtils.showToast("登录失败");
+                }
             }
 
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-            }
         });
-
 
     }
 

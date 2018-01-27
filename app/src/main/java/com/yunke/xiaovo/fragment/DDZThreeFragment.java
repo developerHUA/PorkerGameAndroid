@@ -27,14 +27,14 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
     DDZPorkerView leftPlayPorker;
     @BindView(R.id.pv_right_porker)
     DDZPorkerView rightPlayPorker;
-    @BindView(R.id.tv_left_ready)
-    TextView tvLeftReady;
+    @BindView(R.id.iv_left_ready)
+    ImageView ivLeftReady;
     @BindView(R.id.tv_right_ready)
     TextView tvRightReady;
     @BindView(R.id.iv_left_no_play)
     ImageView ivLeftNoPlay;
     @BindView(R.id.iv_right_no_play)
-    ImageView ivLRightNoPlay;
+    ImageView ivRightNoPlay;
     private User leftUser;
     private User rightUser;
 
@@ -53,7 +53,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
 
 
     private void updateLeftUI() {
-        if(rightUser != null) {
+        if(leftUser != null) {
             Picasso.with(getActivity()).load(leftUser.getHeadimgurl()).into(ivLeftUser);
         }else {
             Picasso.with(getActivity()).load(R.mipmap.ic_launcher).into(ivLeftUser);
@@ -86,7 +86,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (rightUser != null && rightUser.getUserId() == userId) {
             tvRightReady.setVisibility(View.VISIBLE);
         } else if (leftUser != null && leftUser.getUserId() == userId) {
-            tvLeftReady.setVisibility(View.VISIBLE);
+            ivLeftReady.setVisibility(View.VISIBLE);
         }
     }
 
@@ -95,22 +95,24 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (rightUser != null && rightUser.getUserId() == userId) {
             tvRightReady.setVisibility(View.GONE);
         } else if (leftUser != null && leftUser.getUserId() == userId) {
-            tvLeftReady.setVisibility(View.GONE);
+            ivLeftReady.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void processNoPlay(int userId) {
         if (rightUser != null && rightUser.getUserId() == userId) {
-            ivLRightNoPlay.setVisibility(View.VISIBLE);
+            ivRightNoPlay.setVisibility(View.VISIBLE);
+            rightPlayPorker.clear();
         } else if (leftUser != null && leftUser.getUserId() == userId) {
             ivLeftNoPlay.setVisibility(View.VISIBLE);
+            leftPlayPorker.clear();
         }
     }
 
     @Override
     public void processSendPoker() {
-        tvLeftReady.setVisibility(View.GONE);
+        ivLeftReady.setVisibility(View.GONE);
         tvRightReady.setVisibility(View.GONE);
     }
 
@@ -140,8 +142,10 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
     public void processPlayPorker(SocketBean<ArrayList<DDZPorker>> socketBean) {
         if (rightUser != null && rightUser.getUserId() == socketBean.uid) {
             rightPlayPorker.upDatePorker(socketBean.params);
+            ivRightNoPlay.setVisibility(View.GONE);
         } else if (leftUser != null && leftUser.getUserId() == socketBean.uid) {
             leftPlayPorker.upDatePorker(socketBean.params);
+            ivLeftNoPlay.setVisibility(View.GONE);
         }
     }
 

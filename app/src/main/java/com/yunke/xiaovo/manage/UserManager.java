@@ -80,4 +80,9 @@ public class UserManager {
     }
 
 
+    public User getUser() {
+        return mUser;
+    }
+
+
 }

@@ -1,14 +1,17 @@
 package com.yunke.xiaovo.ui;
 
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
 import com.yunke.xiaovo.bean.DDZPorker;
@@ -20,7 +23,7 @@ import com.yunke.xiaovo.fragment.DDZSocketNotify;
 import com.yunke.xiaovo.fragment.DDZThreeFragment;
 import com.yunke.xiaovo.manage.PorkerGameWebSocketManager;
 import com.yunke.xiaovo.manage.UserManager;
-import com.yunke.xiaovo.utils.LogUtil;
+import com.yunke.xiaovo.utils.DialogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.DDZPorkerView;
@@ -42,7 +45,10 @@ public class DouDiZhuGameActivity extends BaseActivity {
 
     private static final java.lang.String TAG = DouDiZhuGameActivity.class.getName();
 
-
+    @BindView(R.id.iv_user_headimg)
+    ImageView ivUserHeadimg;
+    @BindView(R.id.iv_no_play)
+    ImageView ivNoPlay;
     @BindView(R.id.pv_porker_view)
     DDZPorkerView porkerView;
     @BindView(R.id.btn_out_porker)
@@ -57,9 +63,11 @@ public class DouDiZhuGameActivity extends BaseActivity {
     Button btnReady;
     @BindView(R.id.btn_landlord)
     Button btnLandlord;
+    @BindView(R.id.btn_no_landlord)
+    Button btnNoLandlord;
 
     private int userId;
-    private String token;
+    private User mUser;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
     private RoomResult.Result room;
     private DDZSocketNotify fSocketNotify; // 通知fragment
@@ -67,6 +75,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
     public User topUser; // 上边玩家
     public User rightUser;// 右边玩家
     private List<DDZPorker> currentPorker = new ArrayList<>();
+    private boolean isFirstPlay;
+    private int noLandlordCount;
+    private boolean isLandlord; // 是否为地主
 
     @Override
     public void initView() {
@@ -76,21 +87,34 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnNoPlay.setOnClickListener(this);
         porkerView.isClick(true);
         pvPlayView.isClick(false);
+        btnNoLandlord.setOnClickListener(this);
+
     }
 
 
     @Override
     public void initData() {
         userId = UserManager.getInstance().getUserId();
-        token = UserManager.getInstance().getToken();
+        mUser = UserManager.getInstance().getUser();
         room = (RoomResult.Result) getIntent().getSerializableExtra(IntentConstants.ROOM_KEY);
-        mSocketManager.init(room.roomNumber, token, userId, new NotifyHandler());
+        Picasso.with(this).load(mUser.getHeadimgurl()).into(ivUserHeadimg);
+        if (room.users.size() == 2) {
+            leftUser = room.users.get(0);
+        } else if (room.users.size() == 3) {
+            rightUser = room.users.get(0);
+            leftUser = room.users.get(1);
+        } else if (room.users.size() == 4) {
+            rightUser = room.users.get(0);
+            topUser = room.users.get(1);
+            leftUser = room.users.get(2);
+        }
+        mSocketManager.init(room.roomNumber, mUser.getToken(), userId, new NotifyHandler());
         if (room.playType == RoomResult.D_D_Z_THREE_TYPE) {
             initThreeDDZFragment();
         } else if (room.playType == RoomResult.D_D_Z_FOUR_TYPE) {
 
         }
-
+        processReadyUI();
     }
 
     @Override
@@ -113,8 +137,19 @@ public class DouDiZhuGameActivity extends BaseActivity {
             case R.id.btn_landlord:
                 landlord();
                 break;
+            case R.id.btn_no_landlord:
+                noLandlord();
+                break;
 
         }
+    }
+
+    /**
+     * 不叫地主
+     */
+    private void noLandlord() {
+        String json = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.NO_LANDLORD);
+        mSocketManager.sendText(json);
     }
 
     /**
@@ -178,6 +213,86 @@ public class DouDiZhuGameActivity extends BaseActivity {
     }
 
 
+    /**
+     * 更新准备UI
+     */
+    private void processReadyUI() {
+        llButtons.setVisibility(View.VISIBLE);
+        btnReady.setText("准备");
+        porkerView.clear();
+        btnReady.setVisibility(View.VISIBLE);
+        btnReady.setEnabled(true);
+        btnNoLandlord.setVisibility(View.GONE);
+        btnLandlord.setVisibility(View.GONE);
+        btnNoPlay.setVisibility(View.GONE);
+        btnOutPorker.setVisibility(View.GONE);
+        ivNoPlay.setVisibility(View.GONE);
+    }
+
+    /**
+     * 更新准备出牌UI
+     */
+    private void processReadyPlayPorkerUI() {
+        llButtons.setVisibility(View.VISIBLE);
+        btnNoPlay.setVisibility(isFirstPlay ? View.GONE : View.VISIBLE);
+        pvPlayView.clear();
+        pvPlayView.setVisibility(View.VISIBLE);
+        btnOutPorker.setVisibility(View.VISIBLE);
+        btnOutPorker.setEnabled(true);
+        btnNoPlay.setEnabled(true);
+        btnNoLandlord.setVisibility(View.GONE);
+        btnReady.setVisibility(View.GONE);
+        ivNoPlay.setVisibility(View.GONE);
+        btnReady.setEnabled(false);
+        btnLandlord.setVisibility(View.GONE);
+    }
+
+    /**
+     * 更新出牌UI
+     */
+    private void processPlayPorkerUI(List<DDZPorker> playPorkers, List<DDZPorker> porkers) {
+        llButtons.setVisibility(View.GONE);
+        pvPlayView.setVisibility(View.VISIBLE);
+        pvPlayView.clear();
+        pvPlayView.upDatePorker(playPorkers);
+        porkerView.upDatePorker(porkers);
+    }
+
+    /**
+     * 更新不出牌UI
+     */
+    private void processNoPlayPorkerUI() {
+        llButtons.setVisibility(View.GONE);
+        ivNoPlay.setVisibility(View.VISIBLE);
+        ivNoPlay.setImageResource(R.drawable.no_play);
+        pvPlayView.setVisibility(View.GONE);
+        pvPlayView.clear();
+    }
+
+    /**
+     * 更新准备叫地主UI
+     */
+    private void processReadyLandlordUI() {
+        llButtons.setVisibility(View.VISIBLE);
+        btnLandlord.setVisibility(View.VISIBLE);
+        btnNoLandlord.setVisibility(View.VISIBLE);
+        btnNoLandlord.setEnabled(true);
+        btnLandlord.setEnabled(true);
+        btnNoPlay.setVisibility(View.GONE);
+        btnOutPorker.setVisibility(View.GONE);
+        btnReady.setVisibility(View.GONE);
+    }
+
+
+    /**
+     * 更新不叫地主UI
+     */
+    private void processNoLandlordUI() {
+        llButtons.setVisibility(View.GONE);
+        ivNoPlay.setVisibility(View.VISIBLE);
+        ivNoPlay.setImageResource(R.drawable.no_landlord);
+    }
+
     private class NotifyHandler extends Handler {
 
         @Override
@@ -210,7 +325,15 @@ public class DouDiZhuGameActivity extends BaseActivity {
                     processExit(userId);
                     break;
                 case PorkerGameWebSocketManager.LANDLORD: // 叫地主
+                case PorkerGameWebSocketManager.LANDLORD_COUNT_FINISH: // 不叫地主次数已用完(直接是地主)
                     processLandlord(userId, json);
+                    break;
+                case PorkerGameWebSocketManager.NO_LANDLORD: // 不叫地主
+                    btnNoLandlord.setEnabled(false);
+                    processNoLandlord(userId);
+                    break;
+                case PorkerGameWebSocketManager.CURRENT_IS_LANDLORD: // 地主信号
+                    processIsLandlord(userId);
                     break;
                 case PorkerGameWebSocketManager.SURPLUS_ONE: // 剩余一张牌
                     processSurplus(userId, PorkerGameWebSocketManager.SURPLUS_ONE);
@@ -227,17 +350,52 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 case PorkerGameWebSocketManager.DEAL_PORKER: // 发牌
                     processSendPoker(json);
                     break;
+                case PorkerGameWebSocketManager.LANDLORD_VICTORY: // 游戏结束,地主胜利
+                    processLandlordVictory();
+                    break;
+                case PorkerGameWebSocketManager.FARMER_VICTORY: // 游戏结束,地主胜利
+                    processFarmerVictory();
+                    break;
                 case PorkerGameWebSocketManager.UNKNOWN_PORKER: // 牌型不正确
                     processUnknownType();
                     break;
+
             }
         }
     }
 
     /**
+     * 处理农民胜利
+     */
+    private void processFarmerVictory() {
+        processReadyUI();
+        if (isLandlord) {
+            ToastUtils.showToast("你是地主，你输了");
+        } else {
+            ToastUtils.showToast("你是农民，你赢了");
+        }
+    }
+
+    /**
+     * 处理地主胜利
+     */
+    private void processLandlordVictory() {
+        processReadyUI();
+        if (isLandlord) {
+            ToastUtils.showToast("你是地主，你赢了");
+        } else {
+            ToastUtils.showToast("你是农民，你输了");
+        }
+
+
+    }
+
+
+    /**
      * 当前出的牌型不正确
      */
     private void processUnknownType() {
+        processReadyPlayPorkerUI();
         ToastUtils.showToast("牌型不正确");
     }
 
@@ -246,9 +404,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 处理用户取消准备
      */
     private void processCancelReady(int userId) {
-        btnReady.setEnabled(true);
         if (userId == this.userId) {
-            btnReady.setText("准备");
+            processReadyUI();
         } else {
             fSocketNotify.processCancelReady(userId);
         }
@@ -260,6 +417,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processReady(int userId) {
         btnReady.setEnabled(true);
+        noLandlordCount = 0;
+        isLandlord = false;
         if (userId == this.userId) {
             btnReady.setText("取消准备");
         } else {
@@ -275,6 +434,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private void processSendPoker(String message) {
         Type type = new TypeToken<SocketBean<ArrayList<DDZPorker>>>() {
         }.getType();
+        llButtons.setVisibility(View.GONE);
         SocketBean<ArrayList<DDZPorker>> socketBean = StringUtil.jsonToObject(message, type);
         if (socketBean != null) {
             currentPorker = socketBean.params;
@@ -294,10 +454,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
         SocketBean<ArrayList<DDZPorker>> socketBean = StringUtil.jsonToObject(message, type);
         if (socketBean != null) {
             if (socketBean.uid == this.userId) {
-                pvPlayView.setVisibility(View.VISIBLE);
-                llButtons.setVisibility(View.GONE);
-                btnOutPorker.setEnabled(true);
-                pvPlayView.upDatePorker(socketBean.params);
                 for (int i = currentPorker.size() - 1; i >= 0; i--) {
                     for (int j = socketBean.params.size() - 1; j >= 0; j--) {
                         if (currentPorker.get(i).porkerId == socketBean.params.get(j).porkerId) {
@@ -306,11 +462,16 @@ public class DouDiZhuGameActivity extends BaseActivity {
                         }
                     }
                 }
-                porkerView.upDatePorker(currentPorker);
+                // 当前用户出牌了 更新UI
+                processPlayPorkerUI(socketBean.params, currentPorker);
             } else {
-                if (userId == leftUser.getUserId()) {
-                    llButtons.setVisibility(View.VISIBLE);
+                isFirstPlay = false;
+                if (socketBean.uid == leftUser.getUserId()) {
+                    // 该当前用户出牌了 更新UI
+
+                    processReadyPlayPorkerUI();
                 }
+                // 其他用户出牌了，通知更新UI
                 fSocketNotify.processPlayPorker(socketBean);
             }
         }
@@ -324,11 +485,13 @@ public class DouDiZhuGameActivity extends BaseActivity {
 
         if (userId == this.userId) {
             // 当前用户不出牌
-            llButtons.setVisibility(View.GONE);
+            processNoPlayPorkerUI();
         } else {
             if (leftUser.getUserId() == userId) {
                 // 该当前用户出牌
-                llButtons.setVisibility(View.VISIBLE);
+                processReadyPlayPorkerUI();
+            } else if (rightUser.getUserId() == userId) {
+                isFirstPlay = true;
             }
             fSocketNotify.processNoPlay(userId);
         }
@@ -344,7 +507,22 @@ public class DouDiZhuGameActivity extends BaseActivity {
         }.getType();
 
         SocketBean<User> socketBean = StringUtil.jsonToObject(message, type);
-        if (socketBean != null) {
+        if (socketBean != null && socketBean.params.getUserId() != userId) {
+            if (room.playType == RoomResult.D_D_Z_THREE_TYPE) {
+                if (rightUser == null) {
+                    rightUser = socketBean.params;
+                } else {
+                    leftUser = socketBean.params;
+                }
+            } else {
+                if (rightUser == null) {
+                    rightUser = socketBean.params;
+                } else if (topUser == null) {
+                    topUser = socketBean.params;
+                } else {
+                    leftUser = socketBean.params;
+                }
+            }
             fSocketNotify.processJoin(socketBean.params);
         }
     }
@@ -360,29 +538,67 @@ public class DouDiZhuGameActivity extends BaseActivity {
         }
     }
 
+
+    /**
+     * 处理地主信号
+     *
+     * @param userId 地主的用户id
+     */
+    private void processIsLandlord(int userId) {
+        if (userId == this.userId) {
+            processReadyLandlordUI();
+        } else {
+            if (userId == rightUser.getUserId() && noLandlordCount != 0) {
+                processNoLandlordUI();
+            }
+            fSocketNotify.processLandlord(userId);
+        }
+    }
+
     /**
      * 处理用户叫地主
      */
     private void processLandlord(int userId, String message) {
-        if (userId == this.userId) {
-            Type type = new TypeToken<SocketBean<ArrayList<DDZPorker>>>() {
-            }.getType();
-            SocketBean<ArrayList<DDZPorker>> socketBean = StringUtil.jsonToObject(message, type);
-            if (socketBean != null) {
+        Type type = new TypeToken<SocketBean<ArrayList<DDZPorker>>>() {
+        }.getType();
+        SocketBean<ArrayList<DDZPorker>> socketBean = StringUtil.jsonToObject(message, type);
+        if (socketBean != null) {
+            if (userId == this.userId) {
                 for (int i = 0; i < socketBean.params.size(); i++) {
                     socketBean.params.get(i).isClick = true;
                     currentPorker.add(socketBean.params.get(i));
                 }
                 Collections.sort(currentPorker);
                 porkerView.upDatePorker(currentPorker);
+                isFirstPlay = true;
+                isLandlord = true;
+                processReadyPlayPorkerUI();
+            } else {
+                llButtons.setVisibility(View.GONE);
+                fSocketNotify.processLandlord(userId);
             }
 
+        }
+    }
+
+
+    /**
+     * 处理用户不叫地主
+     *
+     * @param userId 不叫地主的用户id
+     */
+    private void processNoLandlord(int userId) {
+        if (userId == this.userId) {
+            noLandlordCount++;
+            processNoLandlordUI();
         } else {
+            if (userId == leftUser.getUserId()) {
+                processReadyLandlordUI();
+            }
             fSocketNotify.processLandlord(userId);
         }
-
-
     }
+
 
     /**
      * 处理用户剩牌
@@ -391,14 +607,26 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processSurplus(int userId, int surplus) {
         if (userId == this.userId) {
-
             ToastUtils.showToast("我就剩两张牌了，注意点");
-
         } else {
             ToastUtils.showToast("别人剩两张牌了，注意点");
             fSocketNotify.processSurplus(userId, surplus);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
+    }
+
+    private void showExitDialog() {
+        DialogUtil.showConfirmDialog(this, "", "确定要退出房间吗？", "确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mSocketManager.sendText(SocketBean.messageFromType(userId, PorkerGameWebSocketManager.EXIT_ROOM));
+            }
+        });
     }
 
 

@@ -3,8 +3,10 @@ package com.yunke.xiaovo.widget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -305,6 +307,9 @@ public class DDZPorkerView extends View {
 
     public void upDatePorker(List<DDZPorker> porkers) {
         this.mPorkers = porkers;
+        if (porkers == null || porkers.size() == 0) {
+            return;
+        }
         if (this.mPorkers.size() > 0)
             marginX = (mWidth - porkerWidth) / this.mPorkers.size();
         if (marginX > porkerWidth / 2) {
@@ -319,6 +324,12 @@ public class DDZPorkerView extends View {
         }
         invalidate();
     }
+
+    public void clear() {
+        mPorkers = new ArrayList<>();
+        invalidate();
+    }
+
 
     public List<DDZPorker> getPorkers() {
         return mPorkers;

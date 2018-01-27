@@ -38,7 +38,11 @@ public class PorkerGameWebSocketManager {
     public static final int CANCEL_READY = 9; //取消准备
     public static final int DEAL_PORKER = 10; //发牌
     public static final int UNKNOWN_PORKER = 11; // 牌型不正确
-
+    public static final int NO_LANDLORD = 12;// 处理不叫地主
+    public static final int CURRENT_IS_LANDLORD = 13;// 当前是地主
+    public static final int LANDLORD_COUNT_FINISH = 14;// 不叫地主次数已用完
+    public static final int LANDLORD_VICTORY = 15;// 游戏结束,地主胜利
+    public static final int FARMER_VICTORY = 16;//游戏结束,农民胜利
 
     private static final java.lang.String TAG = PorkerGameWebSocketManager.class.getName();
     private static PorkerGameWebSocketManager socketManager;
