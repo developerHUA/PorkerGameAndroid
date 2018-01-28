@@ -48,6 +48,9 @@ public class PorkerGameWebSocketManager {
     private static PorkerGameWebSocketManager socketManager;
     private WebSocket mWebSocket;
     private Handler mHandler;
+    private static final int TIME_OUT = 10000;
+    private static final int FRAME_QUEUE_SIZE = 5;
+    private String url;
 
     private PorkerGameWebSocketManager() {
     }
@@ -67,13 +70,21 @@ public class PorkerGameWebSocketManager {
 
 
     public void init(int roomNumber, String token, int userId, Handler notifyHandler) {
+
+        this.mHandler = notifyHandler;
+        url = HRNetConfig.PORKER_GAME_SOCKET_URL + "/" + roomNumber + "/" + token + "/" + userId;
+        connect();
+    }
+
+
+    private void connect() {
         try {
-            this.mHandler = notifyHandler;
-            mWebSocket = new WebSocketFactory().setConnectionTimeout(10000)
-                    .createSocket(HRNetConfig.PORKER_GAME_SOCKET_URL + "/" + roomNumber + "/" + token + "/" + userId);
+            mWebSocket = new WebSocketFactory()
+                    .createSocket(url, TIME_OUT)
+                    .setFrameQueueSize(FRAME_QUEUE_SIZE)//设置帧队列最大值为5
+                    .setMissingCloseFrameAllowed(false);//设置不允许服务端关闭连接却未发送关闭帧;
             mWebSocket.addListener(new DDZSocketAdapter());
             mWebSocket.connectAsynchronously();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,6 +99,8 @@ public class PorkerGameWebSocketManager {
     public void sendText(String message) {
         mWebSocket.sendText(message);
     }
+
+
 
 
     public class DDZSocketAdapter extends WebSocketAdapter {

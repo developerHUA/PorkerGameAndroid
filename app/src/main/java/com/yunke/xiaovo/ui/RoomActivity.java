@@ -72,6 +72,8 @@ public class RoomActivity extends BaseActivity {
                 llCreateView.setVisibility(View.GONE);
                 break;
             case R.id.btn_join:
+                btnJoin.setVisibility(View.GONE);
+                rlJoinView.setVerticalGravity(View.GONE);
                 UIHelper.showDDZActivity(this, room);
                 break;
             case R.id.btn_find:

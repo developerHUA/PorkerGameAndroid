@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
@@ -19,6 +20,7 @@ import com.yunke.xiaovo.bean.IntentConstants;
 import com.yunke.xiaovo.bean.RoomResult;
 import com.yunke.xiaovo.bean.SocketBean;
 import com.yunke.xiaovo.bean.User;
+import com.yunke.xiaovo.fragment.DDZFourFragment;
 import com.yunke.xiaovo.fragment.DDZSocketNotify;
 import com.yunke.xiaovo.fragment.DDZThreeFragment;
 import com.yunke.xiaovo.manage.PorkerGameWebSocketManager;
@@ -65,9 +67,10 @@ public class DouDiZhuGameActivity extends BaseActivity {
     Button btnLandlord;
     @BindView(R.id.btn_no_landlord)
     Button btnNoLandlord;
+    @BindView(R.id.tv_room_number)
+    TextView tvRoomNumber;
 
     private int userId;
-    private User mUser;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
     private RoomResult.Result room;
     private DDZSocketNotify fSocketNotify; // 通知fragment
@@ -95,9 +98,10 @@ public class DouDiZhuGameActivity extends BaseActivity {
     @Override
     public void initData() {
         userId = UserManager.getInstance().getUserId();
-        mUser = UserManager.getInstance().getUser();
+        User mUser = UserManager.getInstance().getUser();
         room = (RoomResult.Result) getIntent().getSerializableExtra(IntentConstants.ROOM_KEY);
         Picasso.with(this).load(mUser.getHeadimgurl()).into(ivUserHeadimg);
+        tvRoomNumber.setText("房间号：" + room.roomNumber);
         if (room.users.size() == 2) {
             leftUser = room.users.get(0);
         } else if (room.users.size() == 3) {
@@ -112,7 +116,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         if (room.playType == RoomResult.D_D_Z_THREE_TYPE) {
             initThreeDDZFragment();
         } else if (room.playType == RoomResult.D_D_Z_FOUR_TYPE) {
-
+            initFourDDZFragment();
         }
         processReadyUI();
     }
@@ -205,7 +209,14 @@ public class DouDiZhuGameActivity extends BaseActivity {
         fragmentTransaction.replace(R.id.fl_fragment, ddzThreeFragment);
         fragmentTransaction.commit();
     }
-
+    private void initFourDDZFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        DDZFourFragment ddzFourFragment = new DDZFourFragment();
+        fSocketNotify = ddzFourFragment;
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fl_fragment, ddzFourFragment);
+        fragmentTransaction.commit();
+    }
 
     @Override
     protected int getLayoutId() {
@@ -532,7 +543,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processExit(int userId) {
         if (userId == this.userId) {
-
+            finish();
         } else {
             fSocketNotify.processExit(userId);
         }

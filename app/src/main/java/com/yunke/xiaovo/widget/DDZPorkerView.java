@@ -3,10 +3,8 @@ package com.yunke.xiaovo.widget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -287,9 +285,13 @@ public class DDZPorkerView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
+        if (isClick) {
+            setMeasuredDimension(width, (int) (porkerHeight + porkerHeight / 2));
 
-        setMeasuredDimension(width, (int) (porkerHeight + porkerHeight / 2));
+        } else {
+            setMeasuredDimension(width, (int) (porkerHeight));
 
+        }
 
     }
 

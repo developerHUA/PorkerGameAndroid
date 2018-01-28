@@ -36,7 +36,6 @@ public class LoginActivity extends BaseActivity {
     public void initData() {
         super.initData();
         api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID);
-
     }
 
     @Override
