@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_left_user"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ready"
+            android:src="@drawable/game_ready"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -41,7 +41,7 @@
         <ImageView
             android:id="@+id/iv_right_ready"
             android:layout_width="wrap_content"
-            android:src="@drawable/ready"
+            android:src="@drawable/game_ready"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_right_user"
             android:layout_centerHorizontal="true"

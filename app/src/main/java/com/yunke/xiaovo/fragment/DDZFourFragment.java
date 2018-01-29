@@ -49,7 +49,7 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_three_ddz;
+        return R.layout.fragment_four_ddz;
     }
 
 

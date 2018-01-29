@@ -12,12 +12,12 @@
 
     <TextView
         android:id="@+id/tv_room_number"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:textColor="#ffff00"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textColor="#ffff00" />
+
     <RelativeLayout
         android:id="@+id/rl_user_info"
         android:layout_width="match_parent"
@@ -66,34 +66,36 @@
         <Button
             android:id="@+id/btn_ready"
             android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/x20"
             android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:text="准备"
-            android:textColor="#ffffff" />
-
-        <Button
-            android:id="@+id/btn_out_porker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="出牌" />
+            android:background="@drawable/game_btn_ready" />
 
         <Button
             android:id="@+id/btn_no_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="不出" />
+            android:layout_marginRight="@dimen/x20"
+            android:background="@drawable/game_btn_no_play" />
+
+        <Button
+            android:id="@+id/btn_out_porker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/game_bt_play_porker" />
+
 
         <Button
             android:id="@+id/btn_no_landlord"
             android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/x20"
             android:layout_height="wrap_content"
-            android:text="不叫" />
+            android:background="@drawable/game_btn_no_landlord" />
 
         <Button
             android:id="@+id/btn_landlord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="叫地主" />
+            android:background="@drawable/game_btn_landlord" />
     </LinearLayout>
 
 
