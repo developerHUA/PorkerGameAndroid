@@ -2,15 +2,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/start_bg"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#44000000" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:gravity="center"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30"
+        android:text="@string/game_tip"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size_10" />
+
+    <TextView
+        android:id="@+id/tv_application_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/black_gradient"
+        android:gravity="center"
+        android:textColor="@color/gray"
+        android:text="@string/application_info"
+        android:textSize="@dimen/text_size_10" />
+
+    <TextView
+        android:id="@+id/tv_game_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="all"
+        android:layout_marginBottom="@dimen/y20"
+        android:layout_above="@id/tv_application_info"
+        android:layout_centerHorizontal="true"
+        android:text="@string/game_terms" />
 
     <Button
+        android:layout_above="@id/tv_game_item"
         android:id="@+id/btn_wx_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="微信登录" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/y30"
+        android:background="@drawable/weixin_login" />
 
 
 </RelativeLayout>

@@ -6,4 +6,11 @@
     </style>
 
 
+    <style name="progress_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@drawable/rect_bg_transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

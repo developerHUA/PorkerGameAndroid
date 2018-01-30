@@ -1,6 +1,8 @@
 package com.yunke.xiaovo.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +19,7 @@ import com.yunke.xiaovo.manage.AppManager;
 import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.net.HRNetConfig;
 import com.yunke.xiaovo.net.HRRequestUtil;
+import com.yunke.xiaovo.utils.DialogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.wxapi.WXConstants;
@@ -55,10 +58,12 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_wx_login:
+                DialogUtil.showLoadingDialog(this,false);
                 if(UserManager.getInstance().getUser() != null) {
+
                     requestWXLogin(UserManager.getInstance().getUser());
                 }else {
-                    wxLogin();
+//                    wxLogin();
                 }
                 break;
         }
@@ -71,6 +76,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(Response<String> response) {
                 UserResult userResult = StringUtil.jsonToObject(response.body(), UserResult.class);
+                DialogUtil.hideWaitDialog();
                 if (userResult != null && userResult.result != null) {
                     UserManager.getInstance().upDateUser(userResult.result);
                     AppManager.getInstance().finishActivity(LoginActivity.class);
@@ -84,6 +90,12 @@ public class LoginActivity extends BaseActivity {
 
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DialogUtil.hideWaitDialog();
     }
 
     @Override
