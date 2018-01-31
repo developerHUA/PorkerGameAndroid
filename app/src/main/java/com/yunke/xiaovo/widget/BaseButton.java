@@ -37,7 +37,7 @@ public class BaseButton extends Button {
 
 
     private void downAnimation() {
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 1.1f, 1f, 1.1f,
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.9f, 1f, 0.9f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f  );
         scaleAnimation.setDuration(100);
         scaleAnimation.setFillAfter(true);
@@ -46,7 +46,7 @@ public class BaseButton extends Button {
 
 
     private void upAnimation() {
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1.1f, 1.0f, 1.1f, 1.0f,
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.9f, 1.0f, 0.9f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
         scaleAnimation.setFillAfter(true);
