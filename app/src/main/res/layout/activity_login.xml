@@ -5,18 +5,28 @@
     android:background="@drawable/start_bg"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_marginTop="@dimen/x120"
+        android:layout_below="@+id/tv_game_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/hua_yao_font" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#44000000" />
+        android:background="#55000000" />
+
 
     <TextView
+        android:id="@+id/tv_game_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y10"
+        android:layout_marginTop="@dimen/x20"
         android:gravity="center"
-        android:paddingLeft="@dimen/x30"
-        android:paddingRight="@dimen/x30"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:text="@string/game_tip"
         android:textColor="@color/gray"
         android:textSize="@dimen/text_size_10" />
@@ -28,27 +38,27 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/black_gradient"
         android:gravity="center"
-        android:textColor="@color/gray"
         android:text="@string/application_info"
+        android:textColor="@color/gray"
         android:textSize="@dimen/text_size_10" />
 
     <TextView
         android:id="@+id/tv_game_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autoLink="all"
-        android:layout_marginBottom="@dimen/y20"
         android:layout_above="@id/tv_application_info"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/x40"
+        android:autoLink="all"
         android:text="@string/game_terms" />
 
-    <Button
-        android:layout_above="@id/tv_game_item"
+    <com.yunke.xiaovo.widget.BaseButton
         android:id="@+id/btn_wx_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/tv_game_item"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/y30"
+        android:layout_marginBottom="@dimen/x40"
         android:background="@drawable/weixin_login" />
 
 

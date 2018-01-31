@@ -22,6 +22,7 @@ import com.yunke.xiaovo.net.HRRequestUtil;
 import com.yunke.xiaovo.utils.DialogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
+import com.yunke.xiaovo.widget.BaseButton;
 import com.yunke.xiaovo.wxapi.WXConstants;
 
 import butterknife.BindView;
@@ -32,7 +33,7 @@ import butterknife.BindView;
 public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.btn_wx_login)
-    Button btnWxLogin;
+    BaseButton btnWxLogin;
     private IWXAPI api;
 
     @Override
@@ -58,12 +59,11 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_wx_login:
-                DialogUtil.showLoadingDialog(this,false);
                 if(UserManager.getInstance().getUser() != null) {
-
+                    DialogUtil.showLoadingDialog(this,false);
                     requestWXLogin(UserManager.getInstance().getUser());
                 }else {
-//                    wxLogin();
+                    wxLogin();
                 }
                 break;
         }

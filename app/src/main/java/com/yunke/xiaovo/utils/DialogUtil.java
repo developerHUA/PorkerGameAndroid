@@ -25,6 +25,11 @@ public class DialogUtil {
     private static Dialog _waitDialog;
 
 
+    public static Dialog showLoadingDialog(Context context) {
+        return showLoadingDialog(context, false);
+    }
+
+
     public static Dialog showLoadingDialog(Context context, boolean cancelable) {
         if (_waitDialogIsVisible) {
             hideWaitDialog();
@@ -51,6 +56,7 @@ public class DialogUtil {
         _waitDialogIsVisible = true;
         return _waitDialog;
     }
+
 
     /**
      * 隐藏虚拟按键，并且全屏

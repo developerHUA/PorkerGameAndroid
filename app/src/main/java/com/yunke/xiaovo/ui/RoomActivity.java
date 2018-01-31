@@ -1,17 +1,23 @@
 package com.yunke.xiaovo.ui;
 
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
 import com.yunke.xiaovo.bean.RoomParams;
 import com.yunke.xiaovo.bean.RoomResult;
+import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.net.HRNetConfig;
 import com.yunke.xiaovo.net.HRRequestUtil;
@@ -20,6 +26,8 @@ import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.utils.UIHelper;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.yunke.xiaovo.widget.BaseButton;
+import com.yunke.xiaovo.widget.CropSquareTransformation;
 
 import butterknife.BindView;
 
@@ -29,9 +37,9 @@ import butterknife.BindView;
 public class RoomActivity extends BaseActivity {
 
     @BindView(R.id.btn_create_room)
-    Button btnCreateRoom;
+    BaseButton btnCreateRoom;
     @BindView(R.id.btn_find_room)
-    Button btnFindRoom;
+    BaseButton btnFindRoom;
     @BindView(R.id.join_view)
     RelativeLayout rlJoinView;
     @BindView(R.id.create_view)
@@ -52,8 +60,14 @@ public class RoomActivity extends BaseActivity {
     Button btnCancel;
     @BindView(R.id.btn_join_cancel)
     Button btnJoinCancel;
-
+    @BindView(R.id.iv_user_headimg)
+    ImageView ivHeadImag;
+    @BindView(R.id.tv_nick_name)
+    TextView tvNickname;
+    @BindView(R.id.tv_user_number)
+    TextView tvUserNumber;
     private UserManager mUserManager = UserManager.getInstance();
+    private User user = mUserManager.getUser();
     private RoomResult.Result room;
 
     @Override
@@ -108,6 +122,11 @@ public class RoomActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
+
+        Picasso.with(this).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517388506466&di=6eaed8f1071608db0677c30cd96b5348&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-12%2F233235835.jpg").
+                transform(new CropSquareTransformation()).into(ivHeadImag);
+        tvNickname.setText(user.getNickname());
+        tvUserNumber.setText(getString(R.string.room_user_id, user.getUserId() + ""));
     }
 
     @Override

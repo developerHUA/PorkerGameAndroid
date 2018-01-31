@@ -3,8 +3,10 @@
     <string name="make_sure">确定</string>
     <string name="cancel">取消</string>
     <string name="game_tip">抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当。适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活。</string>
-    <string name="application_info">公安备：42018502000478　文网文：[2018]8934-199号　ICP：鄂B2-20120057\n
-        软著：2017Sr44934　文网游备字[2018]M-CBG 0902 号　出版物号：ISBN 978-7-498-00603-5\n
-    出版服务单位：临汾滑人科技计算机科技有限公司　著作权人：临汾滑人科技计算机科技有限公司　批准文号：新广初审[2017]7571号</string>
+    <string name="application_info">公安备:42018502000478 文网文:[2018]8934-199号 ICP:鄂B2-20120057\n
+        软著:2017Sr44934 文网游备字[2018]M-CBG 0902 号 出版物号:ISBN 978-7-498-00603-5\n
+    出版服务单位:临汾滑人科技计算机科技有限公司 著作权人:临汾滑人科技计算机科技有限公司 批准文号:新广初审[2017]7571号</string>
     <string name="game_terms"><u>同意用户协议 隐私条款及免责条款</u></string>
+    <string name="room_game_tip">本游戏仅供娱乐休闲使用，请文明游戏，拒绝赌博</string>
+    <string name="room_user_id">ID：%s</string>
 </resources>

@@ -1,24 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/create_room_bg"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/create_room_bg">
 
+    <RelativeLayout
+        android:id="@+id/rl_function_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x120"
+        android:background="@drawable/room_function_bg">
 
-    <Button
-        android:id="@+id/btn_create_room"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/iv_user_headimg"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/y30"
+            android:background="@drawable/head_image_border_bg"
+            android:padding="@dimen/x3"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/y10"
+            android:layout_marginTop="@dimen/x15"
+            android:layout_toRightOf="@+id/iv_user_headimg"
+            android:textColor="#F1D2A6"
+            android:textSize="@dimen/text_size_12" />
+
+        <TextView
+            android:id="@+id/tv_user_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_nick_name"
+            android:layout_marginLeft="@dimen/y10"
+            android:layout_toRightOf="@+id/iv_user_headimg"
+            android:textColor="#F9B702"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:text="创建房间" />
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_find_room"
-        android:layout_width="wrap_content"
+        <com.yunke.xiaovo.widget.BaseButton
+            android:id="@+id/btn_create_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/create_room_btn"
+            android:visibility="visible" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/create_room_btn"
+            android:visibility="invisible" />
+
+        <com.yunke.xiaovo.widget.BaseButton
+            android:id="@+id/btn_find_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/join_room_btn" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:text="查找房间" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/y10"
+        android:gravity="center"
+        android:text="@string/room_game_tip"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size_12" />
+
 
     <include
         android:id="@+id/create_view"
@@ -29,4 +89,5 @@
         android:id="@+id/join_view"
         layout="@layout/view_join_room"
         android:visibility="gone" />
+
 </RelativeLayout>
