@@ -28,6 +28,8 @@
             android:id="@+id/iv_user_headimg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:background="@drawable/head_image_border_bg"
             android:src="@mipmap/ic_launcher" />
 
     </RelativeLayout>
@@ -63,39 +65,43 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
-        <Button
+        <com.yunke.xiaovo.widget.BaseButton
             android:id="@+id/btn_ready"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/x20"
-            android:layout_height="wrap_content"
-            android:background="@drawable/game_btn_ready" />
+            style="@style/button_style"
+            android:layout_width="@dimen/y170"
+            android:layout_height="@dimen/x65"
+            android:background="@drawable/button_bg"
+            android:text="取消准备" />
 
-        <Button
+        <com.yunke.xiaovo.widget.BaseButton
             android:id="@+id/btn_no_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/button_style"
+            android:layout_width="@dimen/y120"
+            android:layout_height="@dimen/x55"
             android:layout_marginRight="@dimen/x20"
-            android:background="@drawable/game_btn_no_play" />
+            android:text="不出" />
 
-        <Button
+        <com.yunke.xiaovo.widget.BaseButton
             android:id="@+id/btn_out_porker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/game_bt_play_porker" />
+            style="@style/confirm_button_style"
+            android:layout_width="@dimen/y120"
+            android:layout_height="@dimen/x55"
+            android:text="出牌" />
 
-
-        <Button
+        <com.yunke.xiaovo.widget.BaseButton
             android:id="@+id/btn_no_landlord"
-            android:layout_width="wrap_content"
+            style="@style/button_style"
+            android:layout_width="@dimen/y120"
+            android:layout_height="@dimen/x55"
             android:layout_marginRight="@dimen/x20"
-            android:layout_height="wrap_content"
-            android:background="@drawable/game_btn_no_landlord" />
+            android:text="不叫" />
 
-        <Button
+        <com.yunke.xiaovo.widget.BaseButton
             android:id="@+id/btn_landlord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/game_btn_landlord" />
+            style="@style/button_style"
+            android:layout_width="@dimen/y120"
+            android:layout_height="@dimen/x55"
+            android:text="叫地主" />
     </LinearLayout>
 
 

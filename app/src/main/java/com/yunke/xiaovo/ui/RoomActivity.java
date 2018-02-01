@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ import butterknife.BindView;
 /**
  *
  */
-public class RoomActivity extends BaseActivity {
+public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     @BindView(R.id.btn_create_room)
     BaseButton btnCreateRoom;
@@ -55,7 +56,7 @@ public class RoomActivity extends BaseActivity {
     @BindView(R.id.rg_play_type)
     RadioGroup rgPlayType;
     @BindView(R.id.btn_confirm)
-    Button btnConfirm;
+    BaseButton btnConfirm;
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_join_cancel)
@@ -66,6 +67,10 @@ public class RoomActivity extends BaseActivity {
     TextView tvNickname;
     @BindView(R.id.tv_user_number)
     TextView tvUserNumber;
+    @BindView(R.id.rb_no_remove)
+    RadioButton rbNoRemove;
+
+
     private UserManager mUserManager = UserManager.getInstance();
     private User user = mUserManager.getUser();
     private RoomResult.Result room;
@@ -116,6 +121,7 @@ public class RoomActivity extends BaseActivity {
         btnCancel.setOnClickListener(this);
         btnJoin.setOnClickListener(this);
         btnJoinCancel.setOnClickListener(this);
+        rgPlayType.setOnCheckedChangeListener(this);
     }
 
 
@@ -206,4 +212,15 @@ public class RoomActivity extends BaseActivity {
         }
     };
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (checkedId == R.id.rb_play_three) {
+            rbNoRemove.setVisibility(View.VISIBLE);
+        } else if (checkedId == R.id.rb_play_four) {
+            if (rgPlayRule.getCheckedRadioButtonId() == R.id.rb_no_remove) {
+                rgPlayRule.check(R.id.rb_rule_two);
+            }
+            rbNoRemove.setVisibility(View.GONE);
+        }
+    }
 }
