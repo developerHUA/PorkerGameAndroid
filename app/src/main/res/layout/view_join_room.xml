@@ -6,37 +6,86 @@
     android:clickable="true"
     android:focusable="true">
 
-    <Button
-        android:id="@+id/btn_find"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="right"
-        android:text="查找" />
+    <RelativeLayout
+        android:layout_width="@dimen/y800"
+        android:layout_height="@dimen/x500"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_bg">
 
-    <EditText
-        android:id="@+id/et_room_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/btn_find"
-        android:hint="请输入房间号"
-        android:inputType="number" />
+        <TextView
+            style="@style/dialog_text_style"
+            android:text="加入房间" />
 
-    <Button
-        android:id="@+id/btn_join_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_room_number"
-        android:text="取消" />
+        <Button
+            android:id="@+id/btn_join_cancel"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/y20"
+            android:layout_marginTop="@dimen/x20"
+            android:background="@drawable/dialog_close" />
 
-    <Button
-        android:id="@+id/btn_join"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_room_number"
-        android:layout_toRightOf="@id/btn_join_cancel"
-        android:text="加入"
-        android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_dialog_text"
+            android:layout_marginBottom="@dimen/x20"
+            android:layout_marginLeft="@dimen/y20"
+            android:layout_marginRight="@dimen/y20"
+            android:background="@drawable/dialog_content_bg"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.yunke.xiaovo.widget.CommonTextView
+                    android:id="@+id/tv_room_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/x60"
+                    android:layout_marginLeft="@dimen/y15"
+                    android:layout_marginTop="@dimen/x20"
+                    android:background="@drawable/input_text_bg"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/white" />
+
+                <com.yunke.xiaovo.widget.CommonButton
+                    android:id="@+id/btn_find"
+                    style="@style/button_style"
+                    android:layout_marginTop="@dimen/x30"
+                    android:layout_width="@dimen/y130"
+                    android:layout_height="@dimen/y50"
+                    android:layout_below="@id/tv_room_number"
+                    android:text="查找" />
+
+                <com.yunke.xiaovo.widget.CommonButton
+                    android:id="@+id/btn_join"
+                    style="@style/button_style"
+                    android:layout_marginTop="@dimen/x30"
+                    android:layout_marginLeft="@dimen/y20"
+                    android:layout_width="@dimen/y130"
+                    android:layout_height="@dimen/y50"
+                    android:layout_below="@id/tv_room_number"
+                    android:layout_toRightOf="@id/btn_find"
+                    android:text="加入"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <com.yunke.xiaovo.widget.NumberInputView
+                android:id="@+id/number_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/x30"
+                android:paddingLeft="@dimen/y20"
+                android:paddingRight="@dimen/y20"
+                android:paddingTop="@dimen/x30" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

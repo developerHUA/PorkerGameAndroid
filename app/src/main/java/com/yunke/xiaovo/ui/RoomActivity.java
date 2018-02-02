@@ -1,10 +1,8 @@
 package com.yunke.xiaovo.ui;
 
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -12,8 +10,9 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
 import com.yunke.xiaovo.bean.RoomParams;
@@ -25,28 +24,25 @@ import com.yunke.xiaovo.net.HRRequestUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.utils.UIHelper;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-import com.yunke.xiaovo.widget.BaseButton;
+import com.yunke.xiaovo.widget.CommonButton;
 import com.yunke.xiaovo.widget.CropSquareTransformation;
+import com.yunke.xiaovo.widget.NumberInputView;
 
 import butterknife.BindView;
 
 /**
  *
  */
-public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, NumberInputView.OnNumberClickListener {
 
     @BindView(R.id.btn_create_room)
-    BaseButton btnCreateRoom;
+    CommonButton btnCreateRoom;
     @BindView(R.id.btn_find_room)
-    BaseButton btnFindRoom;
+    CommonButton btnFindRoom;
     @BindView(R.id.join_view)
     RelativeLayout rlJoinView;
     @BindView(R.id.create_view)
     LinearLayout llCreateView;
-    @BindView(R.id.et_room_number)
-    EditText etRoomNumber;
     @BindView(R.id.btn_find)
     Button btnFind;
     @BindView(R.id.btn_join)
@@ -56,7 +52,7 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @BindView(R.id.rg_play_type)
     RadioGroup rgPlayType;
     @BindView(R.id.btn_confirm)
-    BaseButton btnConfirm;
+    CommonButton btnConfirm;
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_join_cancel)
@@ -69,11 +65,15 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     TextView tvUserNumber;
     @BindView(R.id.rb_no_remove)
     RadioButton rbNoRemove;
-
+    @BindView(R.id.tv_room_number)
+    TextView tvRoomNumber;
+    @BindView(R.id.number_view)
+    NumberInputView numberView;
 
     private UserManager mUserManager = UserManager.getInstance();
     private User user = mUserManager.getUser();
     private RoomResult.Result room;
+    private StringBuilder roomNumber = new StringBuilder();
 
     @Override
     public void onClick(View v) {
@@ -96,15 +96,19 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 UIHelper.showDDZActivity(this, room);
                 break;
             case R.id.btn_find:
-                String roomNumber = etRoomNumber.getText().toString().trim();
-                if (TextUtils.isEmpty(roomNumber)) {
+                if (TextUtils.isEmpty(roomNumber.toString())) {
                     ToastUtils.showToast("请输入房间号");
                     return;
                 }
                 btnJoin.setVisibility(View.GONE);
-                requestJoinRoom(Integer.parseInt(roomNumber));
+                requestJoinRoom(Integer.parseInt(roomNumber.toString()));
                 break;
             case R.id.btn_join_cancel:
+                btnJoin.setVisibility(View.GONE);
+                if (roomNumber.length() > 0) {
+                    roomNumber.delete(0, roomNumber.length());
+                }
+                tvRoomNumber.setText(roomNumber.toString());
                 rlJoinView.setVisibility(View.GONE);
                 break;
         }
@@ -122,6 +126,7 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         btnJoin.setOnClickListener(this);
         btnJoinCancel.setOnClickListener(this);
         rgPlayType.setOnCheckedChangeListener(this);
+        numberView.setOnNumberClickListener(this);
     }
 
 
@@ -222,5 +227,23 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             }
             rbNoRemove.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onNumberClick(CommonButton button, int position) {
+        if (position == 9) {
+            if (roomNumber.length() > 0) {
+                roomNumber.delete(0, roomNumber.length());
+            }
+        } else if (position == 11) {
+            if (roomNumber.length() > 0) {
+                roomNumber.deleteCharAt(roomNumber.length() - 1);
+            }
+        } else if (position == 10) {
+            roomNumber.append("0");
+        } else {
+            roomNumber.append(position + 1);
+        }
+        tvRoomNumber.setText(roomNumber.toString());
     }
 }

@@ -11,6 +11,7 @@
     <color name="white55">#55FFFFFF</color>
     <color name="white56">#ededed</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="gray">#aaaaaa</color>
     <color name="btn_border_text">#666666</color>
 </resources>

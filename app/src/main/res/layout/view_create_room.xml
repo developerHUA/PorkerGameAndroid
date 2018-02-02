@@ -13,7 +13,7 @@
         android:layout_height="@dimen/x500"
         android:background="@drawable/dialog_bg">
 
-        <com.yunke.xiaovo.widget.BaseButton
+        <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_cancel"
             android:layout_width="@dimen/x50"
             android:layout_height="@dimen/x50"
@@ -23,17 +23,12 @@
             android:background="@drawable/dialog_close" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/dialog_text_bg"
-            android:gravity="center"
-            android:text="创建房间"
-            android:textColor="#A33E17"
-            android:textSize="@dimen/text_size_18" />
+            android:id="@+id/tv_dialog_text"
+            style="@style/dialog_text_style"
+            android:text="创建房间" />
 
 
-        <com.yunke.xiaovo.widget.BaseButton
+        <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_confirm"
             style="@style/confirm_button_style"
             android:layout_width="@dimen/y200"
@@ -49,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/btn_confirm"
-            android:layout_below="@+id/btn_cancel"
+            android:layout_below="@+id/tv_dialog_text"
             android:layout_marginLeft="@dimen/y40"
             android:layout_marginRight="@dimen/y40"
             android:background="@drawable/dialog_content_bg"

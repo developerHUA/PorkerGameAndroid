@@ -54,4 +54,5 @@ dependencies {
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.android.support:recyclerview-v7:27.0.0'
 }

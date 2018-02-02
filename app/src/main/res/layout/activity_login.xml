@@ -52,7 +52,7 @@
         android:autoLink="all"
         android:text="@string/game_terms" />
 
-    <com.yunke.xiaovo.widget.BaseButton
+    <com.yunke.xiaovo.widget.CommonButton
         android:id="@+id/btn_wx_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

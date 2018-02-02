@@ -1,10 +1,7 @@
 package com.yunke.xiaovo.ui;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.Button;
 
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -22,7 +19,7 @@ import com.yunke.xiaovo.net.HRRequestUtil;
 import com.yunke.xiaovo.utils.DialogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
-import com.yunke.xiaovo.widget.BaseButton;
+import com.yunke.xiaovo.widget.CommonButton;
 import com.yunke.xiaovo.wxapi.WXConstants;
 
 import butterknife.BindView;
@@ -33,7 +30,7 @@ import butterknife.BindView;
 public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.btn_wx_login)
-    BaseButton btnWxLogin;
+    CommonButton btnWxLogin;
     private IWXAPI api;
 
     @Override

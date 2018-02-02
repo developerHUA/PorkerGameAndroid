@@ -49,7 +49,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.yunke.xiaovo.widget.BaseButton
+        <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_create_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             android:background="@drawable/create_room_btn"
             android:visibility="invisible" />
 
-        <com.yunke.xiaovo.widget.BaseButton
+        <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_find_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
