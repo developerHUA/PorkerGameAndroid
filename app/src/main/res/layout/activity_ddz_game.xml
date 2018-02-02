@@ -26,8 +26,8 @@
 
         <ImageView
             android:id="@+id/iv_user_headimg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/x120"
+            android:layout_height="@dimen/x120"
             android:scaleType="fitXY"
             android:background="@drawable/head_image_border_bg"
             android:src="@mipmap/ic_launcher" />

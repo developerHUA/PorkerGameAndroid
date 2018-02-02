@@ -186,7 +186,9 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         } else {
             type = RoomResult.D_D_Z_FOUR_TYPE;
         }
-        if (ruleTypeId == R.id.rb_rule_two) {
+        if (ruleTypeId == R.id.rb_no_remove) {
+            ruleType = RoomResult.NO_REMOVE;
+        } else if (ruleTypeId == R.id.rb_rule_two) {
             ruleType = RoomResult.REMOVE_DOUBLE_TWO;
         } else {
             ruleType = RoomResult.REMOVE_DOUBLE_THREE;

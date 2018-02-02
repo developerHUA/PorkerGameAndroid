@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/iv_left_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/x120"
+            android:layout_height="@dimen/x120"
             android:src="@mipmap/ic_launcher" />
 
         <ImageView
@@ -34,8 +34,8 @@
 
         <ImageView
             android:id="@+id/iv_right_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/x120"
+            android:layout_height="@dimen/x120"
             android:src="@mipmap/ic_launcher" />
 
         <ImageView
