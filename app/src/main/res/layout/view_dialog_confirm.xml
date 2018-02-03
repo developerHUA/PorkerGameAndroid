@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:id="@+id/ll_confirm_dialog"
+    android:background="@color/dialog_bg"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <com.yunke.xiaovo.widget.DialogView
+        android:id="@+id/dv_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/x15">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_content_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/x40">
+
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/transparent_black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/x20">
+
+                <com.yunke.xiaovo.widget.CommonButton
+                    android:id="@+id/btn_dialog_cancel"
+                    style="@style/button_style"
+                    android:layout_width="@dimen/y150"
+                    android:layout_height="@dimen/x70"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/x40" />
+
+                <com.yunke.xiaovo.widget.CommonButton
+                    android:id="@+id/btn_dialog_confirm"
+                    style="@style/confirm_button_style"
+                    android:layout_width="@dimen/y150"
+                    android:layout_height="@dimen/x70"
+                    android:layout_alignParentBottom="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.yunke.xiaovo.widget.DialogView>
+
+</LinearLayout>

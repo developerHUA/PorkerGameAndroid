@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:id="@+id/ll_progress"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:visibility="gone"
+    android:background="@color/dialog_bg"
+    android:gravity="center">
 
-    <ImageView
-        android:padding="@dimen/x40"
-        android:id="@+id/iv_loading"
+    <com.yunke.xiaovo.widget.DialogView
+        android:id="@+id/dialog_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/game_loading" />
+        android:padding="@dimen/y10">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_content_bg"
+            android:paddingBottom="@dimen/x20"
+            android:paddingLeft="@dimen/y30"
+            android:paddingRight="@dimen/y30"
+            android:paddingTop="@dimen/x20">
+
+            <ImageView
+                android:id="@+id/iv_loading"
+                android:layout_width="@dimen/x65"
+                android:layout_height="@dimen/x65"
+                android:src="@drawable/progress_loading" />
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_toRightOf="@id/iv_loading"
+                android:textColor="@color/transparent_black"
+                android:textSize="@dimen/text_size_15" />
+        </RelativeLayout>
+    </com.yunke.xiaovo.widget.DialogView>
 </LinearLayout>

@@ -15,9 +15,6 @@ public class HRNetConfig {
 
 
 
-
-
-//
 //    public static final String HTTP = "http://";
 //    public static final String HOST = "192.168.0.14/";
 //    public static final String URL = HTTP + HOST + "%s";

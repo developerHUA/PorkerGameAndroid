@@ -16,7 +16,6 @@ import com.yunke.xiaovo.manage.AppManager;
 import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.net.HRNetConfig;
 import com.yunke.xiaovo.net.HRRequestUtil;
-import com.yunke.xiaovo.utils.DialogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.CommonButton;
@@ -37,6 +36,13 @@ public class LoginActivity extends BaseActivity {
     public void initData() {
         super.initData();
         api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID);
+//        User user = new User();
+//        user.setOpenid("120190sd934");
+//        user.setSex(2);
+//        user.setUnionid("321312ds3");
+//        user.setNickname("司马仲达");
+//        user.setHeadimgurl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517637195346&di=08758661e3c1ca3c2fabb4caf8df9c7c&imgtype=jpg&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D801756313%2C1418308637%26fm%3D214%26gp%3D0.jpg");
+//        UserManager.getInstance().upDateUser(user);
     }
 
     @Override
@@ -56,10 +62,10 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_wx_login:
-                if(UserManager.getInstance().getUser() != null) {
-                    DialogUtil.showLoadingDialog(this,false);
+                if (UserManager.getInstance().getUser() != null) {
+                    showProgressDialog("正在登录...", false);
                     requestWXLogin(UserManager.getInstance().getUser());
-                }else {
+                } else {
                     wxLogin();
                 }
                 break;
@@ -73,7 +79,6 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(Response<String> response) {
                 UserResult userResult = StringUtil.jsonToObject(response.body(), UserResult.class);
-                DialogUtil.hideWaitDialog();
                 if (userResult != null && userResult.result != null) {
                     UserManager.getInstance().upDateUser(userResult.result);
                     AppManager.getInstance().finishActivity(LoginActivity.class);
@@ -92,7 +97,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DialogUtil.hideWaitDialog();
     }
 
     @Override

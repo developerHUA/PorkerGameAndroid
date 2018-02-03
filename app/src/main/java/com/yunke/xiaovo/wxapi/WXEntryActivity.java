@@ -20,7 +20,6 @@ import com.yunke.xiaovo.net.HRNetConfig;
 import com.yunke.xiaovo.net.HRRequestUtil;
 import com.yunke.xiaovo.ui.LoginActivity;
 import com.yunke.xiaovo.ui.RoomActivity;
-import com.yunke.xiaovo.utils.DialogUtil;
 import com.yunke.xiaovo.utils.LogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
@@ -70,9 +69,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     //发送到微信请求的响应结果
     @Override
     public void onResp(BaseResp resp) {
-        LogUtil.i(TAG, "resp " + resp.errCode);
-        LogUtil.i(TAG, "resp " + resp.errStr);
-        LogUtil.i(TAG, "resp " + resp.openId);
         switch (resp.errCode) {
             case BaseResp.ErrCode.ERR_OK: //发送成功
                 switch (resp.getType()) {
@@ -125,7 +121,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
-                DialogUtil.hideWaitDialog();
                 ToastUtils.showToast("获取微信用户信息失败");
                 finish();
 
@@ -147,7 +142,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     finish();
                     startActivity(new Intent(WXEntryActivity.this, RoomActivity.class));
                 } else {
-                    DialogUtil.hideWaitDialog();
                     ToastUtils.showToast("登录失败");
                     finish();
                 }
@@ -156,7 +150,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
-                DialogUtil.hideWaitDialog();
                 ToastUtils.showToast("登录失败");
                 finish();
 
@@ -168,7 +161,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     }
 
     private void getAccessToken() {
-        DialogUtil.showLoadingDialog(this);
         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WXConstants.APP_ID +
                 "&secret=" + WXConstants.APP_KEY + "&code=" + code + "&grant_type=authorization_code";
         HRRequestUtil.get(url, new StringCallback() {
@@ -181,7 +173,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
-                DialogUtil.hideWaitDialog();
                 ToastUtils.showToast("获取微信信息失败");
                 finish();
 

@@ -46,7 +46,7 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @BindView(R.id.btn_find)
     Button btnFind;
     @BindView(R.id.btn_join)
-    Button btnJoin;
+    CommonButton btnJoin;
     @BindView(R.id.rg_play_rule)
     RadioGroup rgPlayRule;
     @BindView(R.id.rg_play_type)
@@ -91,9 +91,8 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 llCreateView.setVisibility(View.GONE);
                 break;
             case R.id.btn_join:
-                btnJoin.setVisibility(View.GONE);
-                rlJoinView.setVerticalGravity(View.GONE);
                 UIHelper.showDDZActivity(this, room);
+                hideJoinRoomView();
                 break;
             case R.id.btn_find:
                 if (TextUtils.isEmpty(roomNumber.toString())) {
@@ -104,12 +103,7 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 requestJoinRoom(Integer.parseInt(roomNumber.toString()));
                 break;
             case R.id.btn_join_cancel:
-                btnJoin.setVisibility(View.GONE);
-                if (roomNumber.length() > 0) {
-                    roomNumber.delete(0, roomNumber.length());
-                }
-                tvRoomNumber.setText(roomNumber.toString());
-                rlJoinView.setVisibility(View.GONE);
+                hideJoinRoomView();
                 break;
         }
     }
@@ -129,6 +123,15 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         numberView.setOnNumberClickListener(this);
     }
 
+
+    private void hideJoinRoomView() {
+        btnJoin.setVisibility(View.GONE);
+        if (roomNumber.length() > 0) {
+            roomNumber.delete(0, roomNumber.length());
+        }
+        tvRoomNumber.setText(roomNumber.toString());
+        rlJoinView.setVisibility(View.GONE);
+    }
 
     @Override
     public void initData() {
@@ -247,5 +250,6 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             roomNumber.append(position + 1);
         }
         tvRoomNumber.setText(roomNumber.toString());
+        btnJoin.setVisibility(View.GONE);
     }
 }

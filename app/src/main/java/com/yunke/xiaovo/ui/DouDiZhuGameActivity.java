@@ -1,6 +1,5 @@
 package com.yunke.xiaovo.ui;
 
-import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +24,6 @@ import com.yunke.xiaovo.fragment.DDZSocketNotify;
 import com.yunke.xiaovo.fragment.DDZThreeFragment;
 import com.yunke.xiaovo.manage.PorkerGameWebSocketManager;
 import com.yunke.xiaovo.manage.UserManager;
-import com.yunke.xiaovo.utils.DialogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.DDZPorkerView;
@@ -79,7 +77,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
     public User rightUser;// 右边玩家
     private List<DDZPorker> currentPorker = new ArrayList<>();
     private boolean isFirstPlay;
-    private int noLandlordCount;
     private boolean isLandlord; // 是否为地主
 
     @Override
@@ -101,12 +98,16 @@ public class DouDiZhuGameActivity extends BaseActivity {
         User mUser = UserManager.getInstance().getUser();
         room = (RoomResult.Result) getIntent().getSerializableExtra(IntentConstants.ROOM_KEY);
         Picasso.with(this).load(mUser.getHeadimgurl()).into(ivUserHeadimg);
-        tvRoomNumber.setText("房间号：" + room.roomNumber);
+        tvRoomNumber.setText(String.format("房间号：%s", room.roomNumber));
         if (room.users.size() == 2) {
             leftUser = room.users.get(0);
         } else if (room.users.size() == 3) {
             rightUser = room.users.get(0);
-            leftUser = room.users.get(1);
+            if (room.playType == RoomResult.D_D_Z_FOUR_TYPE) {
+                rightUser = room.users.get(1);
+            } else {
+                leftUser = room.users.get(1);
+            }
         } else if (room.users.size() == 4) {
             rightUser = room.users.get(0);
             topUser = room.users.get(1);
@@ -209,6 +210,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         fragmentTransaction.replace(R.id.fl_fragment, ddzThreeFragment);
         fragmentTransaction.commit();
     }
+
     private void initFourDDZFragment() {
         FragmentManager fm = getSupportFragmentManager();
         DDZFourFragment ddzFourFragment = new DDZFourFragment();
@@ -428,7 +430,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processReady(int userId) {
         btnReady.setEnabled(true);
-        noLandlordCount = 0;
         isLandlord = false;
         if (userId == this.userId) {
             btnReady.setText("取消准备");
@@ -542,9 +543,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 处理用户退出房间
      */
     private void processExit(int userId) {
-        if (userId == this.userId) {
-            finish();
-        } else {
+        if (userId != this.userId) {
             fSocketNotify.processExit(userId);
         }
     }
@@ -559,9 +558,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
         if (userId == this.userId) {
             processReadyLandlordUI();
         } else {
-            if (userId == rightUser.getUserId() && noLandlordCount != 0) {
-                processNoLandlordUI();
-            }
             fSocketNotify.processLandlord(userId);
         }
     }
@@ -600,12 +596,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processNoLandlord(int userId) {
         if (userId == this.userId) {
-            noLandlordCount++;
             processNoLandlordUI();
         } else {
-            if (userId == leftUser.getUserId()) {
-                processReadyLandlordUI();
-            }
             fSocketNotify.processLandlord(userId);
         }
     }
@@ -632,14 +624,15 @@ public class DouDiZhuGameActivity extends BaseActivity {
     }
 
     private void showExitDialog() {
-        DialogUtil.showConfirmDialog(this, "", "确定要退出房间吗？", "确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mSocketManager.sendText(SocketBean.messageFromType(userId, PorkerGameWebSocketManager.EXIT_ROOM));
-            }
-        });
+        showConfirmDialog("确定要退出房间吗？", "确定");
     }
 
+    @Override
+    protected void dialogConfirm() {
+        super.dialogConfirm();
+        mSocketManager.sendText(SocketBean.messageFromType(userId, PorkerGameWebSocketManager.EXIT_ROOM));
+        finish();
+    }
 
     @Override
     protected void onDestroy() {

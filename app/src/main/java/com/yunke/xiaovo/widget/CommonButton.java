@@ -29,7 +29,11 @@ public class CommonButton extends android.support.v7.widget.AppCompatButton {
     }
 
 
-
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+        clearAnimation();
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

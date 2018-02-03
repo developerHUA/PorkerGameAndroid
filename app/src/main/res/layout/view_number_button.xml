@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/x70"
-    android:layout_height="@dimen/x70"
+    android:layout_width="@dimen/x80"
+    android:layout_height="@dimen/x80"
     android:orientation="vertical">
 
     <com.yunke.xiaovo.widget.CommonButton
-        android:layout_width="@dimen/x70"
-        android:layout_height="@dimen/x70" />
+        android:layout_width="@dimen/x80"
+        android:layout_height="@dimen/x80" />
 
 </LinearLayout>
