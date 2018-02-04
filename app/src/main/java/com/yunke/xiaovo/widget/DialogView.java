@@ -5,8 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yunke.xiaovo.R;
-
 /**
  *
  */
@@ -25,7 +23,6 @@ public class DialogView extends ViewGroup {
 
     public DialogView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setBackgroundResource(R.drawable.dialog_bg);
     }
 
 
@@ -47,10 +44,10 @@ public class DialogView extends ViewGroup {
         this.widthMeasureSpec = widthMeasureSpec;
         this.heightMeasureSpec = heightMeasureSpec;
         View view = getChildAt(0);
-        int height = view.getMeasuredHeight();
-        int width = view.getMeasuredWidth();
 
         measureChildren(widthMeasureSpec, heightMeasureSpec);
+        int height = view.getMeasuredHeight();
+        int width = view.getMeasuredWidth();
         setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(),
                 height + getPaddingTop() + getPaddingBottom());
 

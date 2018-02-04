@@ -1,8 +1,11 @@
 package com.yunke.xiaovo.utils;
 
+import android.view.View;
 import android.widget.Toast;
 
+import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.manage.AppManager;
+import com.yunke.xiaovo.widget.CommonTextView;
 
 /**
  * 作者：滑尧伟
@@ -13,9 +16,19 @@ import com.yunke.xiaovo.manage.AppManager;
  */
 public class ToastUtils {
 
-    public static void showToast(String text) {
 
-        Toast.makeText(AppManager.getInstance(), text, Toast.LENGTH_SHORT).show();
+
+
+
+    public static void showToast(String text) {
+        View toastView = View.inflate(AppManager.getInstance(), R.layout.view_toast,null);
+        CommonTextView tvToastView = toastView.findViewById(R.id.tv_toast_message);
+        tvToastView.setText(text);
+        Toast toast = new Toast(AppManager.getInstance());
+        toast.setDuration(Toast.LENGTH_SHORT);
+//        toast.setGravity(Gravity.BOTTOM,20,20);
+        toast.setView(toastView);
+        toast.show();
     }
 
 }
