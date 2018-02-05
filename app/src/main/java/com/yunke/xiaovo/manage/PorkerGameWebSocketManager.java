@@ -27,6 +27,11 @@ public class PorkerGameWebSocketManager {
     public static final String MESSAGE_PARAMS_KEY = "message_params_key"; //用户id
 
 
+    // APP常量
+    public static final int CONNECT_SUCCESS = -1;
+
+
+    // 服务端常量
     public static final int READY = 1; //准备
     public static final int PLAY_PORKER = 2;//出牌
     public static final int JOIN_ROOM = 3; // 有人加入房间
@@ -90,6 +95,12 @@ public class PorkerGameWebSocketManager {
         }
     }
 
+    public void reconnect() {
+        if (mWebSocket != null && !mWebSocket.isOpen()) {
+            LogUtil.i(TAG,"reconnect... ");
+            connect();
+        }
+    }
 
     public void disconnect() {
         mWebSocket.disconnect();
@@ -99,8 +110,6 @@ public class PorkerGameWebSocketManager {
     public void sendText(String message) {
         mWebSocket.sendText(message);
     }
-
-
 
 
     public class DDZSocketAdapter extends WebSocketAdapter {
@@ -126,6 +135,10 @@ public class PorkerGameWebSocketManager {
         @Override
         public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception {
             LogUtil.i(TAG, "连接成功");
+            Message message = Message.obtain();
+            message.what = CONNECT_SUCCESS;
+            message.obj = "{\"message\":\"连接成功\",\"uid\":0}";
+            mHandler.sendMessage(message);
         }
 
         @Override
@@ -135,8 +148,10 @@ public class PorkerGameWebSocketManager {
         }
 
         @Override
-        public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception {
+        public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame,
+                                   WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception {
             LogUtil.i(TAG, "断开连接");
+            LogUtil.i(TAG, closedByServer + "  ");
         }
 
 

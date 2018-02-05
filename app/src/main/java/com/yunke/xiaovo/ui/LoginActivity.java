@@ -78,6 +78,7 @@ public class LoginActivity extends BaseActivity {
         HRRequestUtil.postJson(HRNetConfig.WX_LOGIN, user, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                hideProgressDialog();
                 UserResult userResult = StringUtil.jsonToObject(response.body(), UserResult.class);
                 if (userResult != null && userResult.result != null) {
                     UserManager.getInstance().upDateUser(userResult.result);
@@ -85,11 +86,16 @@ public class LoginActivity extends BaseActivity {
                     finish();
                     startActivity(new Intent(LoginActivity.this, RoomActivity.class));
                 } else {
-
                     ToastUtils.showToast("登录失败");
                 }
             }
 
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                hideProgressDialog();
+                ToastUtils.showToast("登录失败");
+            }
         });
 
     }

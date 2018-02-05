@@ -1,5 +1,11 @@
 package com.yunke.xiaovo.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +30,7 @@ import com.yunke.xiaovo.fragment.DDZSocketNotify;
 import com.yunke.xiaovo.fragment.DDZThreeFragment;
 import com.yunke.xiaovo.manage.PorkerGameWebSocketManager;
 import com.yunke.xiaovo.manage.UserManager;
+import com.yunke.xiaovo.utils.LogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.DDZPorkerView;
@@ -78,6 +85,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private List<DDZPorker> currentPorker = new ArrayList<>();
     private boolean isFirstPlay;
     private boolean isLandlord; // 是否为地主
+    private NetworkChange mNetworkChange;
 
     @Override
     public void initView() {
@@ -88,7 +96,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         porkerView.isClick(true);
         pvPlayView.isClick(false);
         btnNoLandlord.setOnClickListener(this);
-
+        showProgressDialog("正在连接...");
     }
 
 
@@ -122,6 +130,13 @@ public class DouDiZhuGameActivity extends BaseActivity {
         processReadyUI();
     }
 
+    private void initNetBroadcast() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        mNetworkChange = new NetworkChange();
+        registerReceiver(mNetworkChange, filter);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -153,6 +168,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 不叫地主
      */
     private void noLandlord() {
+        showProgressDialog("加载中...");
         String json = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.NO_LANDLORD);
         mSocketManager.sendText(json);
     }
@@ -161,6 +177,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 出牌
      */
     private void outPorker() {
+        showProgressDialog("加载中...");
         btnOutPorker.setEnabled(false);
         List<Integer> indexList = porkerView.getClickIndex();
         SocketBean<List<DDZPorker>> socketBean = new SocketBean<>();
@@ -178,6 +195,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 叫地主
      */
     private void landlord() {
+        showProgressDialog("加载中...");
         btnLandlord.setEnabled(false);
         String message = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.LANDLORD);
         mSocketManager.sendText(message);
@@ -187,6 +205,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 不出
      */
     private void noPlay() {
+        showProgressDialog("加载中...");
         btnNoPlay.setEnabled(false);
         String message = SocketBean.messageFromType(userId, PorkerGameWebSocketManager.NO_PLAY);
         mSocketManager.sendText(message);
@@ -196,6 +215,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 准备
      */
     private void ready(int type) {
+        showProgressDialog("加载中...");
         btnReady.setEnabled(false);
         String message = SocketBean.messageFromType(userId, type);
         mSocketManager.sendText(message);
@@ -311,6 +331,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            hideProgressDialog();
             String json = (String) msg.obj;
             JSONObject jsonObject = null;
             int userId = 0;
@@ -325,6 +346,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
             }
 
             switch (msg.what) {
+                case PorkerGameWebSocketManager.CONNECT_SUCCESS: // 准备
+                    initNetBroadcast();
+                    break;
                 case PorkerGameWebSocketManager.READY: // 准备
                     processReady(userId);
                     break;
@@ -606,7 +630,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
     /**
      * 处理用户剩牌
      *
-     * @param userId
      */
     private void processSurplus(int userId, int surplus) {
         if (userId == this.userId) {
@@ -634,9 +657,38 @@ public class DouDiZhuGameActivity extends BaseActivity {
         finish();
     }
 
+
+    public class NetworkChange extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            LogUtil.i(TAG,"NetworkChange");
+            if (!networkInfo.isConnected() && !wifiInfo.isConnected()) {
+                // 网络不可用!
+                ToastUtils.showToast("无网络!");
+            } else {
+                if (wifiInfo.isConnected()) {
+                    // wifi
+                    mSocketManager.reconnect();
+                }
+                if (networkInfo.isConnected()) {
+                    // 移动网络
+                    mSocketManager.reconnect();
+                }
+            }
+
+        }
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mSocketManager.disconnect();
+        if (mNetworkChange != null) {
+            unregisterReceiver(mNetworkChange);
+        }
     }
 }
