@@ -2,9 +2,6 @@ package com.yunke.xiaovo.bean;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  *

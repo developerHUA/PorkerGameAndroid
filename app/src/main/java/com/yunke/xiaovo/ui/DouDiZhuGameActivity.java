@@ -33,7 +33,6 @@ import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.utils.LogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
-import com.yunke.xiaovo.widget.DDZPorkerView;
 import com.yunke.xiaovo.widget.PorkerListView;
 
 import org.json.JSONException;

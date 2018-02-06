@@ -17,10 +17,6 @@ public class Porker {
     public int porkerId;
 
 
-    public int getResourceId() {
-        return  PorkerResourceId.PORKER_ID[porkerId];
-    }
-
 
     @Override
     public String toString() {

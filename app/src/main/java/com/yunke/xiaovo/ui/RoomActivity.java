@@ -137,7 +137,7 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void initData() {
         super.initData();
 
-        Picasso.with(this).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517388506466&di=6eaed8f1071608db0677c30cd96b5348&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2015-01-12%2F233235835.jpg").
+        Picasso.with(this).load(user.getHeadimgurl()).
                 transform(new CropSquareTransformation()).into(ivHeadImag);
         tvNickname.setText(user.getNickname());
         tvUserNumber.setText(getString(R.string.room_user_id, user.getUserId() + ""));

@@ -10,7 +10,7 @@ import com.yunke.xiaovo.bean.DDZPorker;
 import com.yunke.xiaovo.bean.SocketBean;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.ui.DouDiZhuGameActivity;
-import com.yunke.xiaovo.widget.DDZPorkerView;
+import com.yunke.xiaovo.widget.PorkerListView;
 
 import java.util.ArrayList;
 
@@ -25,11 +25,11 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
     @BindView(R.id.iv_top_user)
     ImageView ivTopUser;
     @BindView(R.id.pv_left_porker)
-    DDZPorkerView leftPlayPorker;
+    PorkerListView leftPlayPorker;
     @BindView(R.id.pv_right_porker)
-    DDZPorkerView rightPlayPorker;
+    PorkerListView rightPlayPorker;
     @BindView(R.id.pv_top_porker)
-    DDZPorkerView topPlayPorker;
+    PorkerListView topPlayPorker;
     @BindView(R.id.iv_left_ready)
     ImageView ivLeftReady;
     @BindView(R.id.iv_right_ready)
@@ -56,9 +56,9 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
     @Override
     protected void initView(View view) {
         super.initView(view);
-        leftPlayPorker.setGravity(DDZPorkerView.LEFT);
-        rightPlayPorker.setGravity(DDZPorkerView.RIGHT);
-        topPlayPorker.setGravity(DDZPorkerView.CENTER);
+        leftPlayPorker.setGravity(PorkerListView.LEFT);
+        rightPlayPorker.setGravity(PorkerListView.RIGHT);
+        topPlayPorker.setGravity(PorkerListView.CENTER);
     }
 
 
