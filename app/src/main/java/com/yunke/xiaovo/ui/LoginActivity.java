@@ -10,6 +10,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
+import com.yunke.xiaovo.bean.DDZPorker;
+import com.yunke.xiaovo.bean.Porker;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.bean.UserResult;
 import com.yunke.xiaovo.manage.AppManager;
@@ -19,7 +21,13 @@ import com.yunke.xiaovo.net.HRRequestUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.CommonButton;
+import com.yunke.xiaovo.widget.PorkerListView;
+import com.yunke.xiaovo.widget.PorkerView;
 import com.yunke.xiaovo.wxapi.WXConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 

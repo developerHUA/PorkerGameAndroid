@@ -12,7 +12,7 @@ public class Porker {
     public static final int BLOCK = 4; //方块
     public static final int SMALL_KING = 5;
     public static final int BIG_KING = 6;
-
+    
     public int porkerType;
     public int porkerId;
 

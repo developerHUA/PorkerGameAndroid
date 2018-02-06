@@ -13,9 +13,9 @@ import com.yunke.xiaovo.utils.LogUtil;
  *
  */
 public class NumberInputView extends ViewGroup {
-    private static final int[] BACKGROUND_ID = {R.drawable.number_1,R.drawable.number_2,
-            R.drawable.number_3,R.drawable.number_4,R.drawable.number_5,R.drawable.number_6,
-            R.drawable.number_7,R.drawable.number_8,R.drawable.number_9,R.drawable.number_clear,R.drawable.number_0, R.drawable.number_delete,};
+    private static final int[] BACKGROUND_ID = {R.drawable.room_number_1,R.drawable.room_number_2,
+            R.drawable.room_number_3,R.drawable.room_number_4,R.drawable.room_number_5,R.drawable.room_number_6,
+            R.drawable.room_number_7,R.drawable.room_number_8,R.drawable.room_number_9,R.drawable.room_number_retype,R.drawable.room_number_0, R.drawable.room_number_delete,};
     private float mChildWidth;
     private float mChildHeight;
     private float rowHeight; //每个行的高度

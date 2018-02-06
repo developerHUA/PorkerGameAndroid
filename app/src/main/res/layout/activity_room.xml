@@ -7,19 +7,22 @@
     <RelativeLayout
         android:id="@+id/rl_function_info"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x120"
-        android:background="@drawable/room_function_bg">
+        android:layout_height="wrap_content"
+        android:background="@drawable/room_user_info">
 
         <ImageView
             android:id="@+id/iv_user_headimg"
             android:layout_width="@dimen/x80"
             android:layout_height="@dimen/x80"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/y30"
-            android:background="@drawable/head_image_border_bg"
-            android:padding="@dimen/x3"
+            android:layout_marginLeft="@dimen/y20"
+            android:background="@drawable/room_user_head"
+            android:paddingBottom="@dimen/x12"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/y10"
+            android:paddingTop="@dimen/x10"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/room_user_default_head" />
 
         <TextView
             android:id="@+id/tv_nick_name"
@@ -46,8 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:gravity="center_vertical|right"
+        android:orientation="vertical">
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_create_room"
@@ -55,12 +58,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/create_room_btn"
             android:visibility="visible" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/create_room_btn"
-            android:visibility="invisible" />
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_find_room"
@@ -79,6 +76,62 @@
         android:textColor="@color/gray"
         android:textSize="@dimen/text_size_12" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/room_menu_bottom"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_room_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/y70"
+            android:background="@drawable/room_settings" />
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_room_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/y70"
+            android:background="@drawable/room_email" />
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_room_shard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/y70"
+            android:background="@drawable/room_shard" />
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_room_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/y70"
+            android:background="@drawable/room_rule" />
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_room_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/y70"
+            android:background="@drawable/room_user_feedback" />
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_room_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/y70"
+            android:background="@drawable/room_record" />
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/room_shop" />
+    </LinearLayout>
 
     <include
         android:id="@+id/create_view"

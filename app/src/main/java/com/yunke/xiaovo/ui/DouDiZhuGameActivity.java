@@ -34,6 +34,7 @@ import com.yunke.xiaovo.utils.LogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.DDZPorkerView;
+import com.yunke.xiaovo.widget.PorkerListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,11 +58,11 @@ public class DouDiZhuGameActivity extends BaseActivity {
     @BindView(R.id.iv_no_play)
     ImageView ivNoPlay;
     @BindView(R.id.pv_porker_view)
-    DDZPorkerView porkerView;
+    PorkerListView porkerView;
     @BindView(R.id.btn_out_porker)
     Button btnOutPorker;
     @BindView(R.id.pv_play_view)
-    DDZPorkerView pvPlayView; // 用户出牌view
+    PorkerListView pvPlayView; // 用户出牌view
     @BindView(R.id.ll_buttons)
     LinearLayout llButtons;
     @BindView(R.id.btn_no_play)
