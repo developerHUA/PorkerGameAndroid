@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:CommonButton = "http://schemas.android.com/apk/res-auto"
+    xmlns:CommonButton="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/game_bg"
@@ -69,12 +69,10 @@
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_ready"
-            style="@style/button_style"
-            CommonButton:textImage="@drawable/game_start_game_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/confirm_button_long_bg"
-          />
+            CommonButton:textImage="@drawable/game_start_game_text" />
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_no_play"
@@ -86,18 +84,18 @@
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_out_porker"
-            style="@style/confirm_button_style"
-            android:layout_width="@dimen/y120"
-            android:layout_height="@dimen/x55"
-            android:text="出牌" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            CommonButton:textImage="@drawable/game_play_text"
+            android:background="@drawable/confirm_button_bg" />
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_no_landlord"
-            style="@style/button_style"
-            android:layout_width="@dimen/y120"
-            android:layout_height="@dimen/x55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/x20"
-            android:text="不叫" />
+            android:background="@drawable/button_bg"
+            CommonButton:textImage="@drawable/game_no_landlord_text" />
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_landlord"
