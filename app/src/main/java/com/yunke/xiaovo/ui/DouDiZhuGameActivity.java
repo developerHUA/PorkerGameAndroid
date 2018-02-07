@@ -33,6 +33,7 @@ import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.utils.LogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
+import com.yunke.xiaovo.widget.CommonButton;
 import com.yunke.xiaovo.widget.PorkerListView;
 
 import org.json.JSONException;
@@ -67,7 +68,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     @BindView(R.id.btn_no_play)
     Button btnNoPlay;
     @BindView(R.id.btn_ready)
-    Button btnReady;
+    CommonButton btnReady;
     @BindView(R.id.btn_landlord)
     Button btnLandlord;
     @BindView(R.id.btn_no_landlord)
@@ -251,7 +252,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processReadyUI() {
         llButtons.setVisibility(View.VISIBLE);
-        btnReady.setText("准备");
+//        btnReady.setText("准备");
         porkerView.clear();
         btnReady.setVisibility(View.VISIBLE);
         btnReady.setEnabled(true);

@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.bean.Porker;
+import com.yunke.xiaovo.utils.BitmapUtil;
 
 /**
  *
@@ -165,30 +166,19 @@ public class PorkerView extends View {
 
     }
 
-    private Bitmap scaleBitmap(Bitmap bitmap, float scaleWidth, float scaleHeight) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
 
-        // 取得想要缩放的matrix参数
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // 得到新的图片
-        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix,
-                true);
-    }
 
 
     private void scaleAllBitmap() {
         float scaleWidth = mWidth / mPorkerBitmap.getWidth();
         float scaleHeight = mHeight / mPorkerBitmap.getHeight();
 
-        mPorkerBitmap = scaleBitmap(mPorkerBitmap, scaleWidth, scaleHeight);
-        mPorkerType = scaleBitmap(mPorkerType, scaleWidth, scaleHeight);
+        mPorkerBitmap = BitmapUtil.scaleBitmap(mPorkerBitmap, scaleWidth, scaleHeight);
+        mPorkerType = BitmapUtil.scaleBitmap(mPorkerType, scaleWidth, scaleHeight);
         if (mPorkerText != null) {
-            mPorkerText = scaleBitmap(mPorkerText, scaleWidth, scaleHeight);
-            mPorkerTextRB = scaleBitmap(mPorkerTextRB, scaleWidth, scaleHeight);
-            mPorkerTypeRB = scaleBitmap(mPorkerTypeRB, scaleWidth, scaleHeight);
+            mPorkerText = BitmapUtil.scaleBitmap(mPorkerText, scaleWidth, scaleHeight);
+            mPorkerTextRB = BitmapUtil.scaleBitmap(mPorkerTextRB, scaleWidth, scaleHeight);
+            mPorkerTypeRB = BitmapUtil.scaleBitmap(mPorkerTypeRB, scaleWidth, scaleHeight);
         }
     }
 

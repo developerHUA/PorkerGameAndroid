@@ -69,6 +69,8 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     TextView tvRoomNumber;
     @BindView(R.id.number_view)
     NumberInputView numberView;
+    @BindView(R.id.tv_user_diamond)
+    TextView tvRoomCard;
 
     private UserManager mUserManager = UserManager.getInstance();
     private User user = mUserManager.getUser();
@@ -140,6 +142,7 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         Picasso.with(this).load(user.getHeadimgurl()).
                 transform(new CropSquareTransformation()).into(ivHeadImag);
         tvNickname.setText(user.getNickname());
+        tvRoomCard.setText(getString(R.string.room_card_count, user.getDiamond()+""));
         tvUserNumber.setText(getString(R.string.room_user_id, user.getUserId() + ""));
     }
 

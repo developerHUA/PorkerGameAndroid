@@ -15,7 +15,7 @@ import com.yunke.xiaovo.manage.AppManager;
  */
 public class CropSquareTransformation implements Transformation {
     private RectF mRectF = new RectF();
-    private float roundSize = AppManager.getInstance().getResources().getDimension(R.dimen.x20);
+    private float roundSize = AppManager.getInstance().getResources().getDimension(R.dimen.x10);
 
     @Override
     public Bitmap transform(Bitmap source) {

@@ -7,42 +7,65 @@
     <RelativeLayout
         android:id="@+id/rl_function_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/room_user_info">
+        android:layout_height="@dimen/x83"
+        android:background="@drawable/room_user_info"
+        android:paddingBottom="@dimen/x5">
 
         <ImageView
             android:id="@+id/iv_user_headimg"
-            android:layout_width="@dimen/x80"
-            android:layout_height="@dimen/x80"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/y20"
+            android:layout_width="@dimen/x83"
+            android:layout_height="@dimen/x81"
             android:background="@drawable/room_user_head"
-            android:paddingBottom="@dimen/x12"
-            android:paddingLeft="@dimen/x15"
-            android:paddingRight="@dimen/y10"
-            android:paddingTop="@dimen/x10"
-            android:scaleType="fitXY"
+            android:paddingBottom="@dimen/x5"
+            android:paddingLeft="@dimen/y15"
+            android:paddingRight="@dimen/x10"
+            android:paddingTop="@dimen/x5"
             android:src="@drawable/room_user_default_head" />
 
-        <TextView
-            android:id="@+id/tv_nick_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/y10"
-            android:layout_marginTop="@dimen/x15"
-            android:layout_toRightOf="@+id/iv_user_headimg"
-            android:textColor="#F1D2A6"
-            android:textSize="@dimen/text_size_12" />
 
         <TextView
             android:id="@+id/tv_user_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_nick_name"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/x10"
             android:layout_marginLeft="@dimen/y10"
             android:layout_toRightOf="@+id/iv_user_headimg"
+            android:background="@drawable/room_user_number_bg"
             android:textColor="#F9B702"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_10" />
+
+        <TextView
+            android:id="@+id/tv_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_user_number"
+            android:layout_marginLeft="@dimen/y10"
+            android:layout_toRightOf="@+id/iv_user_headimg"
+            android:textColor="#F1D2A6"
+            android:textSize="@dimen/text_size_10" />
+
+        <TextView
+            android:id="@+id/tv_user_diamond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/x10"
+            android:layout_marginLeft="@dimen/y10"
+            android:layout_toRightOf="@+id/tv_user_number"
+            android:background="@drawable/room_user_number_bg"
+            android:paddingLeft="@dimen/y30"
+            android:text="@string/room_card_count"
+            android:textColor="#F9B702"
+            android:textSize="@dimen/text_size_10" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_nick_name"
+            android:layout_toRightOf="@+id/tv_user_number"
+            android:src="@drawable/room_user_card" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -68,10 +91,28 @@
             android:background="@drawable/join_room_btn" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_alignParentBottom="true"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/room_notice_bg">
+
+        <ImageView
+            android:layout_marginTop="@dimen/x20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/room_notice_text" />
+
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/ll_join_and_create_room"
         android:src="@drawable/room_role" />
 

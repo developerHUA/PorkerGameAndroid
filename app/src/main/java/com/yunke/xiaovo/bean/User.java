@@ -18,6 +18,15 @@ public class User implements Serializable{
     private String city; //城市
     private String headimgurl; // 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
 
+    public int getDiamond() {
+        return diamond;
+    }
+
+    public void setDiamond(int diamond) {
+        this.diamond = diamond;
+    }
+
+    private int diamond;
     public String getToken() {
         return token;
     }
