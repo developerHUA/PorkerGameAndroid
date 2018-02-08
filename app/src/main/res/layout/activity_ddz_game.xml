@@ -77,17 +77,17 @@
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_no_play"
             style="@style/button_style"
-            android:layout_width="@dimen/y120"
-            android:layout_height="@dimen/x55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/x20"
-            android:text="不出" />
+            CommonButton:textImage="@drawable/game_no_play_text" />
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_out_porker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            CommonButton:textImage="@drawable/game_play_text"
-            android:background="@drawable/confirm_button_bg" />
+            android:background="@drawable/confirm_button_bg"
+            CommonButton:textImage="@drawable/game_play_text" />
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_no_landlord"
@@ -100,11 +100,17 @@
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_landlord"
             style="@style/button_style"
-            android:layout_width="@dimen/y120"
-            android:layout_height="@dimen/x55"
-            android:background="@drawable/button_gb_long"
-            android:text="叫地主" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            CommonButton:textImage="@drawable/game_landlord_text" />
     </LinearLayout>
 
+
+    <com.yunke.xiaovo.widget.CommonButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_img" />
 
 </RelativeLayout>

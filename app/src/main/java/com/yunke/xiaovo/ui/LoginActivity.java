@@ -44,13 +44,13 @@ public class LoginActivity extends BaseActivity {
     public void initData() {
         super.initData();
         api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID);
-//        User user = new User();
-//        user.setOpenid("120190sd934");
-//        user.setSex(2);
-//        user.setUnionid("321312ds3");
-//        user.setNickname("司马仲达");
-//        user.setHeadimgurl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517637195346&di=08758661e3c1ca3c2fabb4caf8df9c7c&imgtype=jpg&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D801756313%2C1418308637%26fm%3D214%26gp%3D0.jpg");
-//        UserManager.getInstance().upDateUser(user);
+        User user = new User();
+        user.setOpenid("120190sd934");
+        user.setSex(2);
+        user.setUnionid("321312ds3");
+        user.setNickname("司马仲达");
+        user.setHeadimgurl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517637195346&di=08758661e3c1ca3c2fabb4caf8df9c7c&imgtype=jpg&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D801756313%2C1418308637%26fm%3D214%26gp%3D0.jpg");
+        UserManager.getInstance().upDateUser(user);
     }
 
     @Override

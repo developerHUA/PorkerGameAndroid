@@ -1,140 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#55000000"
     android:clickable="true"
     android:focusable="true"
-    android:gravity="center"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="@dimen/y900"
-        android:layout_height="@dimen/x500"
-        android:background="@drawable/dialog_bg">
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_dialog_bg"
+            android:layout_width="@dimen/y900"
+            android:layout_height="@dimen/x500"
+            android:layout_centerInParent="true"
+            android:background="@drawable/room_dialog_bg">
+
+
+            <com.yunke.xiaovo.widget.CommonButton
+                android:id="@+id/btn_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/x30"
+                android:layout_marginTop="@dimen/x20"
+                android:background="@drawable/dialog_button_bg"
+                app:textImage="@drawable/dialog_confirm_text" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btn_confirm"
+                android:layout_marginLeft="@dimen/y40"
+                android:layout_marginRight="@dimen/y40"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="玩法："
+                        android:textColor="#000" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_play_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_play_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="三个人"
+                            android:textColor="#000" />
+
+                        <RadioButton
+                            android:id="@+id/rb_play_four"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="四个人"
+                            android:textColor="#000" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="规则："
+                        android:textColor="#000" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_play_rule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_rule_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="去俩二"
+                            android:textColor="#000" />
+
+                        <RadioButton
+                            android:id="@+id/rb_rule_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="去俩三"
+                            android:textColor="#000" />
+
+                        <RadioButton
+                            android:id="@+id/rb_no_remove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="不去牌"
+                            android:textColor="#000" />
+                    </RadioGroup>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_cancel"
-            android:layout_width="@dimen/x50"
-            android:layout_height="@dimen/x50"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/y20"
-            android:layout_marginTop="@dimen/x20"
-            android:background="@drawable/dialog_close" />
-
-        <TextView
-            android:id="@+id/tv_dialog_text"
-            style="@style/dialog_text_style"
-            android:text="创建房间" />
-
-
-        <com.yunke.xiaovo.widget.CommonButton
-            android:id="@+id/btn_confirm"
-            style="@style/confirm_button_style"
-            android:layout_width="@dimen/y200"
-            android:layout_height="@dimen/x64"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/x30"
-            android:layout_marginTop="@dimen/x20"
-            android:text="确定" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="-60px"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btn_confirm"
-            android:layout_below="@+id/tv_dialog_text"
-            android:layout_marginLeft="@dimen/y40"
-            android:layout_marginRight="@dimen/y40"
-            android:background="@drawable/dialog_content_bg"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="玩法："
-                    android:textColor="#000" />
-
-                <RadioGroup
-                    android:id="@+id/rg_play_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_play_three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="三个人"
-                        android:textColor="#000" />
-
-                    <RadioButton
-                        android:id="@+id/rb_play_four"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="四个人"
-                        android:textColor="#000" />
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="规则："
-                    android:textColor="#000" />
-
-                <RadioGroup
-                    android:id="@+id/rg_play_rule"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_rule_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="去俩二"
-                        android:textColor="#000" />
-
-                    <RadioButton
-                        android:id="@+id/rb_rule_three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="去俩三"
-                        android:textColor="#000" />
-
-                    <RadioButton
-                        android:id="@+id/rb_no_remove"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="不去牌"
-                        android:textColor="#000" />
-                </RadioGroup>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
+            android:layout_marginTop="@dimen/x40"
+            android:layout_toRightOf="@id/rl_dialog_bg"
+            android:background="@drawable/dialog_close" />
     </RelativeLayout>
 </LinearLayout>

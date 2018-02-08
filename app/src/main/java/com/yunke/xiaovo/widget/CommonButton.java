@@ -75,6 +75,8 @@ public class CommonButton extends android.support.v7.widget.AppCompatButton {
                 float scaleWidth = getMeasuredWidth() * 0.65f / bitmapWidth;
                 float scaleHeight = getMeasuredHeight() * 0.5f / bitmapHeight;
                 imageBitmap = BitmapUtil.scaleBitmap(bitmap, scaleWidth, scaleHeight);
+            }else {
+                imageBitmap = bitmap;
             }
         }
 

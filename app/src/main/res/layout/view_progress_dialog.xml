@@ -4,25 +4,21 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:visibility="gone"
     android:background="@color/dialog_bg"
-    android:gravity="center">
+    android:gravity="center"
+    android:visibility="gone">
 
     <com.yunke.xiaovo.widget.DialogView
         android:id="@+id/dialog_progress"
         android:layout_width="wrap_content"
-        android:background="@drawable/dialog_bg"
         android:layout_height="wrap_content"
-        android:padding="@dimen/y10">
+        android:background="@drawable/progress_bg">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/dialog_content_bg"
-            android:paddingBottom="@dimen/x20"
-            android:paddingLeft="@dimen/y30"
-            android:paddingRight="@dimen/y30"
-            android:paddingTop="@dimen/x20">
+            android:gravity="center"
+            android:padding="@dimen/x20">
 
             <ImageView
                 android:id="@+id/iv_loading"
@@ -34,11 +30,9 @@
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/x30"
-                android:layout_toRightOf="@id/iv_loading"
-                android:textColor="@color/transparent_black"
+                android:textColor="@color/dialog_text"
                 android:textSize="@dimen/text_size_15" />
-        </RelativeLayout>
+        </LinearLayout>
     </com.yunke.xiaovo.widget.DialogView>
 </LinearLayout>

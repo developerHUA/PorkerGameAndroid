@@ -105,7 +105,6 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/room_notice_text" />
 
-
     </RelativeLayout>
 
 
@@ -115,17 +114,6 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/ll_join_and_create_room"
         android:src="@drawable/room_role" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/y10"
-        android:gravity="center"
-        android:text="@string/room_game_tip"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/text_size_12" />
 
     <LinearLayout
         android:layout_width="match_parent"

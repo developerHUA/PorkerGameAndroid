@@ -75,6 +75,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
     Button btnNoLandlord;
     @BindView(R.id.tv_room_number)
     TextView tvRoomNumber;
+    @BindView(R.id.btn_back)
+    CommonButton btnBack;
 
     private int userId;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
@@ -94,6 +96,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnReady.setOnClickListener(this);
         btnLandlord.setOnClickListener(this);
         btnNoPlay.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
         porkerView.isClick(true);
         pvPlayView.isClick(false);
         btnNoLandlord.setOnClickListener(this);
@@ -160,6 +163,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 break;
             case R.id.btn_no_landlord:
                 noLandlord();
+                break;
+            case R.id.btn_back:
+                showExitDialog();
                 break;
 
         }
@@ -457,7 +463,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnReady.setEnabled(true);
         isLandlord = false;
         if (userId == this.userId) {
-            btnReady.setText("取消准备");
+
         } else {
             fSocketNotify.processReady(userId);
         }
@@ -648,7 +654,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     }
 
     private void showExitDialog() {
-        showConfirmDialog("确定要退出房间吗？", "确定");
+        showConfirmDialog("确定要退出房间吗？", "","");
     }
 
     @Override

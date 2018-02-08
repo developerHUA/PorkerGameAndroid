@@ -16,4 +16,5 @@
     <color name="gray">#aaaaaa</color>
     <color name="btn_border_text">#666666</color>
     <color name="toast_text">#eed1a1</color>
+    <color name="dialog_text">#99634D</color>
 </resources>
