@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.yunke.xiaovo.R;
-import com.yunke.xiaovo.utils.LogUtil;
 
 /**
  *
@@ -64,7 +63,6 @@ public class NumberInputView extends ViewGroup {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        LogUtil.i("onSizeChanged paddingLeft = " + getPaddingLeft());
         float mWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
         float mHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
         mChildWidth = getChildAt(0).getMeasuredWidth();
@@ -75,10 +73,7 @@ public class NumberInputView extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        LogUtil.i("paddingLeft = " + getPaddingLeft());
-        LogUtil.i("left = " + (columnWidth / 2 - mChildWidth / 2));
         float left = columnWidth / 2 - mChildWidth / 2 + getPaddingLeft();
-        LogUtil.i("left = " + left);
 
         float top = rowHeight / 2 - mChildHeight / 2 - rowHeight + getPaddingTop();
         float right;

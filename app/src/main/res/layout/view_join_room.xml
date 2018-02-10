@@ -4,32 +4,40 @@
     android:layout_height="match_parent"
     android:background="#88000000"
     android:clickable="true"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:focusable="true">
 
     <RelativeLayout
         android:layout_width="@dimen/y800"
         android:layout_height="@dimen/x500"
         android:layout_centerInParent="true"
-        android:background="@drawable/dialog_bg">
+        android:background="@drawable/room_dialog_bg">
 
-
+        <ImageView
+            android:id="@+id/iv_join_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/x30"
+            android:src="@drawable/room_dialog_join_text" />
 
         <Button
             android:id="@+id/btn_join_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/y20"
-            android:layout_marginTop="@dimen/x20"
+            android:layout_marginRight="-60px"
+            android:layout_marginTop="-55px"
             android:background="@drawable/dialog_close" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/iv_join_text"
             android:layout_marginBottom="@dimen/x20"
             android:layout_marginLeft="@dimen/y20"
             android:layout_marginRight="@dimen/y20"
-            android:background="@drawable/dialog_content_bg"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -42,28 +50,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/x60"
                     android:layout_marginLeft="@dimen/y15"
-                    android:layout_marginTop="@dimen/x20"
+                    android:layout_marginTop="@dimen/x30"
                     android:background="@drawable/input_text_bg"
                     android:gravity="left|center_vertical"
+                    android:maxLength="10"
                     android:textColor="@color/white" />
 
                 <com.yunke.xiaovo.widget.CommonButton
                     android:id="@+id/btn_find"
                     style="@style/button_style"
-                    android:layout_marginTop="@dimen/x30"
-                    android:layout_width="@dimen/y130"
-                    android:layout_height="@dimen/y50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/tv_room_number"
+                    android:layout_marginTop="@dimen/x30"
                     android:text="查找" />
 
                 <com.yunke.xiaovo.widget.CommonButton
                     android:id="@+id/btn_join"
                     style="@style/button_style"
-                    android:layout_marginTop="@dimen/x30"
-                    android:layout_marginLeft="@dimen/y20"
                     android:layout_width="@dimen/y130"
                     android:layout_height="@dimen/y50"
                     android:layout_below="@id/tv_room_number"
+                    android:layout_marginLeft="@dimen/y20"
+                    android:layout_marginTop="@dimen/x30"
                     android:layout_toRightOf="@id/btn_find"
                     android:text="加入"
                     android:visibility="gone" />
