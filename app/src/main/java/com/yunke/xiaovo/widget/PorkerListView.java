@@ -84,7 +84,7 @@ public class PorkerListView extends ViewGroup {
     }
 
 
-    public void setPorkerWidthAndHeight(int porkerWidth, int porkerHeight) {
+    public void setPorkerWidthAndHeight(float porkerWidth, float porkerHeight) {
         if (this.porkerWidth == porkerWidth && this.porkerHeight == porkerHeight) {
             return;
         }

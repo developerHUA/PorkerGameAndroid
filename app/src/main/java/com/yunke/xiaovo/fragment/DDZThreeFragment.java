@@ -61,6 +61,8 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         super.initView(view);
         leftPlayPorker.setGravity(PorkerListView.LEFT);
         rightPlayPorker.setGravity(PorkerListView.RIGHT);
+        leftPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
+        rightPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
     }
 
 
@@ -175,6 +177,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         } else if (leftUser != null && leftUser.getUserId() == socketBean.uid) {
             leftPlayPorker.upDatePorker(socketBean.params);
             ivLeftNoPlay.setVisibility(View.GONE);
+            ivLeftCountDown.setVisibility(View.GONE);
         }
     }
 

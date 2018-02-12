@@ -79,6 +79,14 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
         leftPlayPorker.setGravity(PorkerListView.LEFT);
         rightPlayPorker.setGravity(PorkerListView.RIGHT);
         topPlayPorker.setGravity(PorkerListView.CENTER);
+
+
+        leftPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
+        rightPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
+        topPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
+
+
+
     }
 
 
@@ -166,6 +174,7 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
             ivRightNoPlay.setImageResource(R.drawable.game_no_play);
             ivLeftNoPlay.setVisibility(View.VISIBLE);
             leftPlayPorker.clear();
+            ivLeftCountDown.setVisibility(View.GONE);
         }
     }
 
@@ -217,6 +226,7 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
         } else if (leftUser != null && leftUser.getUserId() == socketBean.uid) {
             leftPlayPorker.upDatePorker(socketBean.params);
             ivLeftNoPlay.setVisibility(View.GONE);
+            ivTopCountDown.setVisibility(View.GONE);
         }
     }
 
@@ -289,7 +299,7 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
 
     private void notifyLeftUpdateCountDownUI() {
         if(leftUser != null) {
-            ivRightCountDown.setVisibility(View.GONE);
+            ivTopCountDown.setVisibility(View.GONE);
             processCountDown(leftUser.getUserId());
         }
     }

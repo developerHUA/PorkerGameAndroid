@@ -102,6 +102,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
         porkerView.isClick(true);
         pvPlayView.isClick(false);
         btnNoLandlord.setOnClickListener(this);
+        pvPlayView.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
+
         showProgressDialog("正在连接...");
     }
 
@@ -619,7 +621,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 isFirstPlay = true;
                 isLandlord = true;
                 processReadyPlayPorkerUI();
-                fSocketNotify.processCountDown(rightUser.getUserId());
             } else {
                 llButtons.setVisibility(View.GONE);
                 fSocketNotify.processLandlord(userId);

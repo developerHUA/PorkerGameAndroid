@@ -15,6 +15,7 @@ import android.view.View;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.bean.Porker;
 import com.yunke.xiaovo.utils.BitmapUtil;
+import com.yunke.xiaovo.utils.LogUtil;
 
 /**
  *
@@ -75,6 +76,9 @@ public class PorkerView extends View {
             mPorkerTextRB = convert(mPorkerText);
             mPorkerTypeRB = convert(mPorkerType);
         }
+
+        scaleAllBitmap();
+
     }
 
 
@@ -99,12 +103,12 @@ public class PorkerView extends View {
     }
 
 
-    public void setWidthAndHeight(int width, int height) {
+    public void setWidthAndHeight(float width, float height) {
         if (mWidth == width && mHeight == height) {
             return;
         }
-        this.mWidth = mWidth;
-        this.mHeight = mHeight;
+        this.mWidth = width;
+        this.mHeight = height;
         setMeasuredDimension((int) mWidth, (int) mHeight);
         scaleAllBitmap();
         invalidate();
@@ -123,7 +127,6 @@ public class PorkerView extends View {
         this.isSelected = !isSelected;
         invalidate();
     }
-
 
 
     @Override
@@ -170,16 +173,21 @@ public class PorkerView extends View {
     }
 
 
-
-
     private void scaleAllBitmap() {
+        if (mPorkerType == null) {
+            return;
+        }
+
         float scaleWidth = mWidth / mPorkerBitmap.getWidth();
         float scaleHeight = mHeight / mPorkerBitmap.getHeight();
+        if (mPorkerBitmap != null) {
 
-        mPorkerBitmap = BitmapUtil.scaleBitmap(mPorkerBitmap, scaleWidth, scaleHeight);
+            mPorkerBitmap = BitmapUtil.scaleBitmap(mPorkerBitmap, scaleWidth, scaleHeight);
+        }
         mPorkerType = BitmapUtil.scaleBitmap(mPorkerType, scaleWidth, scaleHeight);
         if (mPorkerText != null) {
             mPorkerText = BitmapUtil.scaleBitmap(mPorkerText, scaleWidth, scaleHeight);
+
             mPorkerTextRB = BitmapUtil.scaleBitmap(mPorkerTextRB, scaleWidth, scaleHeight);
             mPorkerTypeRB = BitmapUtil.scaleBitmap(mPorkerTypeRB, scaleWidth, scaleHeight);
         }
