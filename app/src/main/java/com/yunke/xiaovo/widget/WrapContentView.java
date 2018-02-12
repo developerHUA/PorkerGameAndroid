@@ -6,22 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- *
+ *  不按背景大小的包裹内容View
  */
-public class DialogView extends ViewGroup {
+public class WrapContentView extends ViewGroup {
 
     private int widthMeasureSpec;
     private int heightMeasureSpec;
 
-    public DialogView(Context context) {
+    public WrapContentView(Context context) {
         this(context, null);
     }
 
-    public DialogView(Context context, AttributeSet attrs) {
+    public WrapContentView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DialogView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public WrapContentView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

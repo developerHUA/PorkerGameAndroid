@@ -62,6 +62,9 @@ public class PorkerView extends View {
 
 
     public void setPorker(int porkerId, int porkerType) {
+        porkerId = porkerId % 13;
+        mPorkerText = null;
+
         if (porkerType == Porker.RED_HEART || porkerType == Porker.BLOCK) {
             mPorkerText = BitmapFactory.decodeResource(getResources(), PORKER_RED_TEXT_ID[porkerId]);
         } else if (porkerType == Porker.BLACK_HEART || porkerType == Porker.PLUM_BLOSSOM) {

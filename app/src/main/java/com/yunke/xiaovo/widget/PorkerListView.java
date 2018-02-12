@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static android.graphics.BitmapFactory.decodeResource;
-
 /**
  * 斗地主扑克View
  */
@@ -101,7 +99,7 @@ public class PorkerListView extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!isClick) return super.onTouchEvent(event);
+        if (!isClick || viewCount == 0) return super.onTouchEvent(event);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -118,10 +116,10 @@ public class PorkerListView extends ViewGroup {
                     int index = getCurrentIndex(moveX);
                     if (lastSelectedIndex != index) {
                         if (getPorkerView(index).isSelected() && lastSelectedIndex != -1) {
-                            completionIndex(lastSelectedIndex,index);
+                            completionIndex(lastSelectedIndex, index);
                             getPorkerView(lastSelectedIndex).setSelected();
                         } else {
-                            completionIndex(index,lastSelectedIndex);
+                            completionIndex(index, lastSelectedIndex);
                             getPorkerView(index).setSelected();
                         }
                     }
@@ -155,6 +153,7 @@ public class PorkerListView extends ViewGroup {
 
     public void clear() {
         removeAllViews();
+        viewCount = 0;
     }
 
     public void clearIndex() {
@@ -220,6 +219,7 @@ public class PorkerListView extends ViewGroup {
 
     public void isClick(boolean isClick) {
         this.isClick = isClick;
+//        setMeasuredDimension((int) mWidth, (int) (porkerHeight + porkerHeight / 2));
     }
 
     public void upDatePorker(List<DDZPorker> porkers) {
@@ -279,12 +279,16 @@ public class PorkerListView extends ViewGroup {
         super.onSizeChanged(w, h, oldw, oldh);
         this.mWidth = getMeasuredWidth();
         float mHeight = getMeasuredHeight();
+        porkerMarginTop = (mHeight - porkerHeight) / 2;
+
         if (viewCount > 0) {
-            porkerMarginTop = (mHeight - porkerHeight) / 2;
             initLocation();
             layoutChildView();
         }
         LogUtil.i("onSizeChanged width = " + mWidth);
+        LogUtil.i("onSizeChanged mHeight = " + mHeight);
+        LogUtil.i("onSizeChanged porkerMarginTop = " + porkerMarginTop);
+        LogUtil.i("onSizeChanged porkerHeight = " + porkerHeight);
     }
 
 }

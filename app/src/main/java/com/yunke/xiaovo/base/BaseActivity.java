@@ -1,6 +1,5 @@
 package com.yunke.xiaovo.base;
 
-import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -19,7 +18,7 @@ import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.manage.AppManager;
 import com.yunke.xiaovo.widget.CommonButton;
 import com.yunke.xiaovo.widget.CommonTextView;
-import com.yunke.xiaovo.widget.DialogView;
+import com.yunke.xiaovo.widget.WrapContentView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +27,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.dialog_progress)
-    DialogView progressDialog;
+    WrapContentView progressDialog;
     @BindView(R.id.iv_loading)
     ImageView ivLoading;
     @BindView(R.id.tv_content)
@@ -44,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @BindView(R.id.btn_dialog_confirm)
     CommonButton btnDialogConfirm;
     @BindView(R.id.dv_confirm)
-    DialogView dvConfirm;
+    WrapContentView dvConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

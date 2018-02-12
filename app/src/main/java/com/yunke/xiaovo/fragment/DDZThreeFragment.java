@@ -10,6 +10,7 @@ import com.yunke.xiaovo.bean.DDZPorker;
 import com.yunke.xiaovo.bean.SocketBean;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.ui.DouDiZhuGameActivity;
+import com.yunke.xiaovo.widget.CommonTextView;
 import com.yunke.xiaovo.widget.PorkerListView;
 
 import java.util.ArrayList;
@@ -34,6 +35,18 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
     ImageView ivLeftNoPlay;
     @BindView(R.id.iv_right_no_play)
     ImageView ivRightNoPlay;
+    @BindView(R.id.tv_left_nick_name)
+    CommonTextView tvLeftNickname;
+    @BindView(R.id.tv_right_nick_name)
+    CommonTextView tvRightNickname;
+    @BindView(R.id.iv_left_is_landlord)
+    ImageView ivLeftIsLandlord;
+    @BindView(R.id.iv_right_is_landlord)
+    ImageView ivRightIsLandlord;
+    @BindView(R.id.iv_left_count_down)
+    ImageView ivLeftCountDown;
+    @BindView(R.id.iv_right_count_down)
+    ImageView ivRightCountDown;
     private User leftUser;
     private User rightUser;
 
@@ -52,18 +65,22 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
 
 
     private void updateLeftUI() {
-        if(leftUser != null) {
+        if (leftUser != null) {
             Picasso.with(getActivity()).load(leftUser.getHeadimgurl()).into(ivLeftUser);
-        }else {
-            Picasso.with(getActivity()).load(R.mipmap.ic_launcher).into(ivLeftUser);
+            tvLeftNickname.setText(leftUser.getNickname());
+        } else {
+            Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivLeftUser);
+            tvRightNickname.setText("");
         }
     }
 
     private void updateRightUI() {
         if (rightUser != null) {
             Picasso.with(getActivity()).load(rightUser.getHeadimgurl()).into(ivRightUser);
-        }else {
-            Picasso.with(getActivity()).load(R.mipmap.ic_launcher).into(ivRightUser);
+            tvRightNickname.setText(rightUser.getNickname());
+        } else {
+            Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivRightUser);
+            tvRightNickname.setText("");
         }
 
     }
@@ -77,6 +94,14 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
             rightUser = activity.rightUser;
             updateRightUI();
             updateLeftUI();
+        }
+    }
+
+
+    private void notifyLeftUpdateCountDownUI() {
+        if(leftUser != null) {
+            ivRightCountDown.setVisibility(View.GONE);
+            processCountDown(leftUser.getUserId());
         }
     }
 
@@ -102,9 +127,13 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
     public void processNoPlay(int userId) {
         if (rightUser != null && rightUser.getUserId() == userId) {
             ivRightNoPlay.setVisibility(View.VISIBLE);
+            ivRightNoPlay.setImageResource(R.drawable.game_no_play);
             rightPlayPorker.clear();
+            notifyLeftUpdateCountDownUI();
         } else if (leftUser != null && leftUser.getUserId() == userId) {
             ivLeftNoPlay.setVisibility(View.VISIBLE);
+            ivLeftNoPlay.setImageResource(R.drawable.game_no_play);
+            ivLeftCountDown.setVisibility(View.GONE);
             leftPlayPorker.clear();
         }
     }
@@ -142,6 +171,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (rightUser != null && rightUser.getUserId() == socketBean.uid) {
             rightPlayPorker.upDatePorker(socketBean.params);
             ivRightNoPlay.setVisibility(View.GONE);
+            notifyLeftUpdateCountDownUI();
         } else if (leftUser != null && leftUser.getUserId() == socketBean.uid) {
             leftPlayPorker.upDatePorker(socketBean.params);
             ivLeftNoPlay.setVisibility(View.GONE);
@@ -155,6 +185,56 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
 
     @Override
     public void processLandlord(int userId) {
-
+        if (rightUser != null && rightUser.getUserId() == userId) {
+            ivRightIsLandlord.setVisibility(View.VISIBLE);
+        } else if (leftUser != null && leftUser.getUserId() == userId) {
+            ivLeftIsLandlord.setVisibility(View.VISIBLE);
+        }
     }
+
+    @Override
+    public void processGameOver() {
+        ivRightIsLandlord.setVisibility(View.GONE);
+        ivLeftIsLandlord.setVisibility(View.GONE);
+        ivLeftReady.setVisibility(View.GONE);
+        ivRightReady.setVisibility(View.GONE);
+        ivLeftNoPlay.setVisibility(View.GONE);
+        ivRightNoPlay.setVisibility(View.GONE);
+        ivRightCountDown.setVisibility(View.GONE);
+        ivLeftCountDown.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void processNoLandlord(int userId) {
+        if (rightUser != null && rightUser.getUserId() == userId) {
+            ivRightNoPlay.setImageResource(R.drawable.no_landlord);
+            ivRightCountDown.setVisibility(View.GONE);
+            ivRightNoPlay.setVisibility(View.VISIBLE);
+            notifyLeftUpdateCountDownUI();
+        } else if (leftUser != null && leftUser.getUserId() == userId) {
+            ivLeftNoPlay.setImageResource(R.drawable.no_landlord);
+            ivLeftNoPlay.setVisibility(View.VISIBLE);
+            ivLeftCountDown.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void processCountDown(int userId) {
+        if (rightUser != null && rightUser.getUserId() == userId) {
+            ivRightReady.setVisibility(View.GONE);
+            ivRightNoPlay.setVisibility(View.GONE);
+            ivRightCountDown.setVisibility(View.VISIBLE);
+            rightPlayPorker.clear();
+        } else if (leftUser != null && leftUser.getUserId() == userId) {
+            ivLeftReady.setVisibility(View.GONE);
+            ivLeftNoPlay.setVisibility(View.GONE);
+            ivLeftCountDown.setVisibility(View.VISIBLE);
+            leftPlayPorker.clear();
+        }
+    }
+
+
+
+
+
 }

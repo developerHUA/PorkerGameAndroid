@@ -31,4 +31,16 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+
+
+    <style name="game_user_head_img">
+        <item name="android:background">@drawable/game_head_img_bg</item>
+        <item name="android:padding">@dimen/x15</item>
+        <item name="android:src">@drawable/room_user_default_head</item>
+        <item name="android:layout_width">@dimen/y140</item>
+        <item name="android:layout_height">@dimen/y145</item>
+    </style>
+
+
+
 </resources>

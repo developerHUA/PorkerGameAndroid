@@ -10,8 +10,6 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
-import com.yunke.xiaovo.bean.DDZPorker;
-import com.yunke.xiaovo.bean.Porker;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.bean.UserResult;
 import com.yunke.xiaovo.manage.AppManager;
@@ -21,13 +19,7 @@ import com.yunke.xiaovo.net.HRRequestUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.CommonButton;
-import com.yunke.xiaovo.widget.PorkerListView;
-import com.yunke.xiaovo.widget.PorkerView;
 import com.yunke.xiaovo.wxapi.WXConstants;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 
@@ -44,13 +36,13 @@ public class LoginActivity extends BaseActivity {
     public void initData() {
         super.initData();
         api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID);
-        User user = new User();
-        user.setOpenid("120190sd934");
-        user.setSex(2);
-        user.setUnionid("321312ds3");
-        user.setNickname("司马仲达");
-        user.setHeadimgurl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517637195346&di=08758661e3c1ca3c2fabb4caf8df9c7c&imgtype=jpg&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D801756313%2C1418308637%26fm%3D214%26gp%3D0.jpg");
-        UserManager.getInstance().upDateUser(user);
+//        User user = new User();
+//        user.setOpenid("120190asdsd934");
+//        user.setSex(2);
+//        user.setUnionid("321312dsasds3");
+//        user.setNickname("诸葛孔明");
+//        user.setHeadimgurl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1518414346250&di=9931a5f9c531a2330f0e41f8f8a60a4e&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1710418891%2C2621614720%26fm%3D214%26gp%3D0.jpg");
+//        UserManager.getInstance().upDateUser(user);
     }
 
     @Override

@@ -55,6 +55,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
 
     @BindView(R.id.iv_user_headimg)
     ImageView ivUserHeadimg;
+    @BindView(R.id.tv_nick_name)
+    TextView tvNickname;
     @BindView(R.id.iv_no_play)
     ImageView ivNoPlay;
     @BindView(R.id.pv_porker_view)
@@ -110,6 +112,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         User mUser = UserManager.getInstance().getUser();
         room = (RoomResult.Result) getIntent().getSerializableExtra(IntentConstants.ROOM_KEY);
         Picasso.with(this).load(mUser.getHeadimgurl()).into(ivUserHeadimg);
+        tvNickname.setText(mUser.getNickname());
         tvRoomNumber.setText(String.format("房间号：%s", room.roomNumber));
         if (room.users.size() == 2) {
             leftUser = room.users.get(0);
@@ -295,6 +298,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         pvPlayView.setVisibility(View.VISIBLE);
         pvPlayView.clear();
         pvPlayView.upDatePorker(playPorkers);
+        porkerView.clearIndex();
         porkerView.upDatePorker(porkers);
     }
 
@@ -304,7 +308,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private void processNoPlayPorkerUI() {
         llButtons.setVisibility(View.GONE);
         ivNoPlay.setVisibility(View.VISIBLE);
-        ivNoPlay.setImageResource(R.drawable.no_play);
+        ivNoPlay.setImageResource(R.drawable.game_no_play);
         pvPlayView.setVisibility(View.GONE);
         pvPlayView.clear();
     }
@@ -413,6 +417,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processFarmerVictory() {
         processReadyUI();
+        fSocketNotify.processGameOver();
         if (isLandlord) {
             ToastUtils.showToast("你是地主，你输了");
         } else {
@@ -425,6 +430,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processLandlordVictory() {
         processReadyUI();
+        fSocketNotify.processGameOver();
         if (isLandlord) {
             ToastUtils.showToast("你是地主，你赢了");
         } else {
@@ -463,7 +469,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnReady.setEnabled(true);
         isLandlord = false;
         if (userId == this.userId) {
-
+            btnReady.setVisibility(View.GONE);
         } else {
             fSocketNotify.processReady(userId);
         }
@@ -507,10 +513,11 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 }
                 // 当前用户出牌了 更新UI
                 processPlayPorkerUI(socketBean.params, currentPorker);
+                fSocketNotify.processCountDown(rightUser.getUserId());
             } else {
                 isFirstPlay = false;
                 if (socketBean.uid == leftUser.getUserId()) {
-                    // 该当前用户出牌了 更新UI
+                    // 该当前用户出牌了 更新准备出牌UI
 
                     processReadyPlayPorkerUI();
                 }
@@ -529,6 +536,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         if (userId == this.userId) {
             // 当前用户不出牌
             processNoPlayPorkerUI();
+            fSocketNotify.processCountDown(rightUser.getUserId());
         } else {
             if (leftUser.getUserId() == userId) {
                 // 该当前用户出牌
@@ -589,7 +597,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         if (userId == this.userId) {
             processReadyLandlordUI();
         } else {
-            fSocketNotify.processLandlord(userId);
+            fSocketNotify.processCountDown(userId);
         }
     }
 
@@ -611,6 +619,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 isFirstPlay = true;
                 isLandlord = true;
                 processReadyPlayPorkerUI();
+                fSocketNotify.processCountDown(rightUser.getUserId());
             } else {
                 llButtons.setVisibility(View.GONE);
                 fSocketNotify.processLandlord(userId);
@@ -628,8 +637,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private void processNoLandlord(int userId) {
         if (userId == this.userId) {
             processNoLandlordUI();
+            fSocketNotify.processCountDown(rightUser.getUserId());
         } else {
-            fSocketNotify.processLandlord(userId);
+            fSocketNotify.processNoLandlord(userId);
         }
     }
 

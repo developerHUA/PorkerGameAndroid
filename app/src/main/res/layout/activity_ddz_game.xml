@@ -22,25 +22,49 @@
 
     <RelativeLayout
         android:id="@+id/rl_user_info"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
         <ImageView
             android:id="@+id/iv_user_headimg"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:background="@drawable/head_image_border_bg"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+            style="@style/game_user_head_img"
+            android:layout_centerHorizontal="true" />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/x120"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_user_headimg"
+            android:background="@drawable/game_user_info_bg"
+            >
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <ImageView
+                android:id="@+id/iv_is_landlord"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/y20"
+                android:layout_toRightOf="@id/tv_nick_name"
+                android:src="@drawable/game_landlord_tag" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <com.yunke.xiaovo.widget.PorkerListView
         android:id="@+id/pv_porker_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/rl_user_info" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/rl_user_info" />
+
 
     <ImageView
         android:id="@+id/iv_no_play"
@@ -48,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/pv_porker_view"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/no_play"
+        android:src="@drawable/game_no_play"
         android:visibility="gone" />
 
     <com.yunke.xiaovo.widget.PorkerListView

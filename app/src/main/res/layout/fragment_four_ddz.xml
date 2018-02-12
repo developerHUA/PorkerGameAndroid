@@ -9,36 +9,69 @@
         android:id="@+id/rl_top_user_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/iv_top_user"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher" />
+            style="@style/game_user_head_img"
+            android:layout_alignParentRight="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/iv_top_user"
+            android:background="@drawable/game_user_info_bg"
+            android:minWidth="@dimen/x120">
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_top_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <ImageView
+                android:id="@+id/iv_top_is_landlord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/y20"
+                android:layout_toRightOf="@id/tv_nick_name"
+                android:src="@drawable/game_landlord_tag"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/iv_top_ready"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_top_user"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_top_user"
             android:src="@drawable/game_ready"
             android:visibility="gone" />
 
         <com.yunke.xiaovo.widget.PorkerListView
             android:id="@+id/pv_top_porker"
-            android:layout_below="@id/iv_top_user"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/iv_top_user" />
+
         <ImageView
-            android:layout_below="@id/iv_top_user"
             android:id="@+id/iv_top_no_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/no_play"
-            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@id/iv_top_user"
+            android:src="@drawable/game_no_play"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_top_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_top_user"
+            android:src="@drawable/game_count_down"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -50,9 +83,33 @@
 
         <ImageView
             android:id="@+id/iv_left_user"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:src="@mipmap/ic_launcher" />
+            style="@style/game_user_head_img" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_left_user"
+            android:background="@drawable/game_user_info_bg"
+            android:minWidth="@dimen/x120">
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_left_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <ImageView
+                android:id="@+id/iv_left_is_landlord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/y20"
+                android:layout_toRightOf="@id/tv_nick_name"
+                android:src="@drawable/game_landlord_tag"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/iv_left_ready"
@@ -74,9 +131,34 @@
 
         <ImageView
             android:id="@+id/iv_right_user"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:src="@mipmap/ic_launcher" />
+            style="@style/game_user_head_img" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_right_user"
+
+            android:background="@drawable/game_user_info_bg"
+            android:minWidth="@dimen/x120">
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_right_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <ImageView
+                android:id="@+id/iv_right_is_landlord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/y20"
+                android:layout_toRightOf="@id/tv_nick_name"
+                android:src="@drawable/game_landlord_tag"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/iv_right_ready"
@@ -99,11 +181,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <com.yunke.xiaovo.widget.PorkerListView
                 android:id="@+id/pv_left_porker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
             <com.yunke.xiaovo.widget.PorkerListView
                 android:id="@+id/pv_right_porker"
                 android:layout_width="0dp"
@@ -116,7 +200,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/no_play"
+            android:src="@drawable/game_no_play"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_left_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/game_count_down"
             android:visibility="gone" />
 
         <ImageView
@@ -125,7 +217,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/no_play"
+            android:src="@drawable/game_no_play"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_right_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/game_count_down"
             android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

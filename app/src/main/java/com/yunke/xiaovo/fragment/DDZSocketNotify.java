@@ -24,4 +24,11 @@ public interface DDZSocketNotify {
     void processSurplus(int userId, int surplus);
 
     void processLandlord(int userId);
+
+    void processGameOver();
+
+    void processNoLandlord(int userId);
+
+
+    void processCountDown(int userId);
 }

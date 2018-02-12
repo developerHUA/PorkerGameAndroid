@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/x120"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -11,9 +12,33 @@
 
         <ImageView
             android:id="@+id/iv_left_user"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:src="@mipmap/ic_launcher" />
+            style="@style/game_user_head_img" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_left_user"
+            android:minWidth="@dimen/x120"
+            android:background="@drawable/game_user_info_bg">
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_left_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <ImageView
+                android:id="@+id/iv_left_is_landlord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/y20"
+                android:layout_toRightOf="@id/tv_nick_name"
+                android:src="@drawable/game_landlord_tag"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/iv_left_ready"
@@ -34,17 +59,42 @@
 
         <ImageView
             android:id="@+id/iv_right_user"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:src="@mipmap/ic_launcher" />
+            style="@style/game_user_head_img" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_right_user"
+            android:minWidth="@dimen/x120"
+            android:background="@drawable/game_user_info_bg">
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_right_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <ImageView
+                android:id="@+id/iv_right_is_landlord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/y20"
+                android:layout_toRightOf="@id/tv_nick_name"
+                android:src="@drawable/game_landlord_tag"
+                android:visibility="gone" />
+        </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/iv_right_ready"
             android:layout_width="wrap_content"
-            android:src="@drawable/game_ready"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_right_user"
             android:layout_centerHorizontal="true"
+            android:src="@drawable/game_ready"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -57,7 +107,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="horizontal">
 
             <com.yunke.xiaovo.widget.PorkerListView
@@ -77,16 +126,35 @@
             android:id="@+id/iv_left_no_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_centerVertical="true"
-            android:src="@drawable/no_play" />
+            android:src="@drawable/game_no_play"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_left_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/game_count_down"
+            android:visibility="gone" />
+
+
         <ImageView
             android:id="@+id/iv_right_no_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/no_play" />
+            android:src="@drawable/game_no_play"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_right_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/game_count_down"
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>
