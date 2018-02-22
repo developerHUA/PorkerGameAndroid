@@ -34,6 +34,7 @@ import com.yunke.xiaovo.utils.LogUtil;
 import com.yunke.xiaovo.utils.StringUtil;
 import com.yunke.xiaovo.utils.ToastUtils;
 import com.yunke.xiaovo.widget.CommonButton;
+import com.yunke.xiaovo.widget.CommonTextView;
 import com.yunke.xiaovo.widget.PorkerListView;
 
 import org.json.JSONException;
@@ -79,6 +80,11 @@ public class DouDiZhuGameActivity extends BaseActivity {
     TextView tvRoomNumber;
     @BindView(R.id.btn_back)
     CommonButton btnBack;
+    @BindView(R.id.tv_score)
+    CommonTextView tvScore;
+    @BindView(R.id.iv_is_landlord)
+    ImageView ivIsLandlord;
+
 
     private int userId;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
@@ -91,6 +97,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private boolean isFirstPlay;
     private boolean isLandlord; // 是否为地主
     private NetworkChange mNetworkChange;
+    private String score; // 当前分数
 
     @Override
     public void initView() {
@@ -102,8 +109,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         porkerView.isClick(true);
         pvPlayView.isClick(false);
         btnNoLandlord.setOnClickListener(this);
-        pvPlayView.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
-
+        pvPlayView.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99), getResources().getDimension(R.dimen.x129));
         showProgressDialog("正在连接...");
     }
 
@@ -263,7 +269,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
      */
     private void processReadyUI() {
         llButtons.setVisibility(View.VISIBLE);
-//        btnReady.setText("准备");
+        pvPlayView.clear();
         porkerView.clear();
         btnReady.setVisibility(View.VISIBLE);
         btnReady.setEnabled(true);
@@ -272,6 +278,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnNoPlay.setVisibility(View.GONE);
         btnOutPorker.setVisibility(View.GONE);
         ivNoPlay.setVisibility(View.GONE);
+        tvScore.setText(getString(R.string.game_score, room.getDefaultScore()));
     }
 
     /**
@@ -290,6 +297,14 @@ public class DouDiZhuGameActivity extends BaseActivity {
         ivNoPlay.setVisibility(View.GONE);
         btnReady.setEnabled(false);
         btnLandlord.setVisibility(View.GONE);
+        ivIsLandlord.setVisibility(View.GONE);
+        if (isLandlord) {
+            ivIsLandlord.setVisibility(View.VISIBLE);
+        } else {
+            ivIsLandlord.setVisibility(View.GONE);
+        }
+
+
     }
 
     /**
@@ -312,6 +327,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         ivNoPlay.setVisibility(View.VISIBLE);
         ivNoPlay.setImageResource(R.drawable.game_no_play);
         pvPlayView.setVisibility(View.GONE);
+        porkerView.clearIndex();
         pvPlayView.clear();
     }
 
@@ -409,8 +425,24 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 case PorkerGameWebSocketManager.UNKNOWN_PORKER: // 牌型不正确
                     processUnknownType();
                     break;
+                case PorkerGameWebSocketManager.SCORE_CHANGED: // 当前游戏分数发生改变
+                    processScoreChanged(json);
+                    break;
 
             }
+        }
+    }
+
+    /**
+     * 处理当前游戏分数发生改变
+     */
+    private void processScoreChanged(String json) {
+        Type type = new TypeToken<SocketBean<String>>() {
+        }.getType();
+        SocketBean<String> socketBean = StringUtil.jsonToObject(json, type);
+        if (socketBean != null) {
+            score = socketBean.params;
+            tvScore.setText(getString(R.string.game_score, score));
         }
     }
 
@@ -647,7 +679,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
 
     /**
      * 处理用户剩牌
-     *
      */
     private void processSurplus(int userId, int surplus) {
         if (userId == this.userId) {
@@ -665,7 +696,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     }
 
     private void showExitDialog() {
-        showConfirmDialog("确定要退出房间吗？", "","");
+        showConfirmDialog("确定要退出房间吗？", "", "");
     }
 
     @Override
@@ -682,7 +713,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
             NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            LogUtil.i(TAG,"NetworkChange");
+            LogUtil.i(TAG, "NetworkChange");
             if (!networkInfo.isConnected() && !wifiInfo.isConnected()) {
                 // 网络不可用!
                 ToastUtils.showToast("无网络!");

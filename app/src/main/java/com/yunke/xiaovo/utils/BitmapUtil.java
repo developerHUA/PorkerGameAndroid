@@ -15,8 +15,6 @@ public class BitmapUtil {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
-//        Bitmap mBitmap = Bitmap.createBitmap(bitmap);
-        LogUtil.i(" scaleX "+scaleX + "---- scaleY "+scaleY);
         // 取得想要缩放的matrix参数
         Matrix matrix = new Matrix();
         matrix.postScale(scaleX, scaleY);

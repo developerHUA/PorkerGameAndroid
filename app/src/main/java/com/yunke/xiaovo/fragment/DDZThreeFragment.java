@@ -47,8 +47,15 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
     ImageView ivLeftCountDown;
     @BindView(R.id.iv_right_count_down)
     ImageView ivRightCountDown;
+    @BindView(R.id.tv_left_score)
+    CommonTextView tvLeftScore;
+    @BindView(R.id.tv_right_score)
+    CommonTextView tvRightScore;
     private User leftUser;
     private User rightUser;
+
+    private String leftScore = "0";
+    private String rightScore = "0";
 
     @Override
     protected int getLayoutId() {
@@ -61,8 +68,9 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         super.initView(view);
         leftPlayPorker.setGravity(PorkerListView.LEFT);
         rightPlayPorker.setGravity(PorkerListView.RIGHT);
-        leftPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
-        rightPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99),getResources().getDimension(R.dimen.x129));
+        leftPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99), getResources().getDimension(R.dimen.x129));
+        rightPlayPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99), getResources().getDimension(R.dimen.x129));
+
     }
 
 
@@ -70,9 +78,11 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (leftUser != null) {
             Picasso.with(getActivity()).load(leftUser.getHeadimgurl()).into(ivLeftUser);
             tvLeftNickname.setText(leftUser.getNickname());
+            tvLeftScore.setText(getString(R.string.game_score, leftScore));
         } else {
             Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivLeftUser);
             tvRightNickname.setText("");
+            tvLeftScore.setVisibility(View.GONE);
         }
     }
 
@@ -80,9 +90,11 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (rightUser != null) {
             Picasso.with(getActivity()).load(rightUser.getHeadimgurl()).into(ivRightUser);
             tvRightNickname.setText(rightUser.getNickname());
+            tvRightScore.setText(getString(R.string.game_score, rightScore));
         } else {
             Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivRightUser);
             tvRightNickname.setText("");
+            tvRightScore.setVisibility(View.GONE);
         }
 
     }
@@ -101,7 +113,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
 
 
     private void notifyLeftUpdateCountDownUI() {
-        if(leftUser != null) {
+        if (leftUser != null) {
             ivRightCountDown.setVisibility(View.GONE);
             processCountDown(leftUser.getUserId());
         }
@@ -197,6 +209,8 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
 
     @Override
     public void processGameOver() {
+        leftPlayPorker.clear();
+        rightPlayPorker.clear();
         ivRightIsLandlord.setVisibility(View.GONE);
         ivLeftIsLandlord.setVisibility(View.GONE);
         ivLeftReady.setVisibility(View.GONE);
@@ -235,9 +249,6 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
             leftPlayPorker.clear();
         }
     }
-
-
-
 
 
 }

@@ -48,6 +48,7 @@ public class PorkerGameWebSocketManager {
     public static final int LANDLORD_COUNT_FINISH = 14;// 不叫地主次数已用完
     public static final int LANDLORD_VICTORY = 15;// 游戏结束,地主胜利
     public static final int FARMER_VICTORY = 16;//游戏结束,农民胜利
+    public static final int SCORE_CHANGED = 18;// 当前分数发生变化
 
     private static final java.lang.String TAG = PorkerGameWebSocketManager.class.getName();
     private static PorkerGameWebSocketManager socketManager;

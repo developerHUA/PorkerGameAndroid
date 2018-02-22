@@ -37,11 +37,11 @@ public class LoginActivity extends BaseActivity {
         super.initData();
         api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID);
 //        User user = new User();
-//        user.setOpenid("120190asdsd934");
+//        user.setOpenid("1201sd90asdsssd934");
 //        user.setSex(2);
-//        user.setUnionid("321312dsasds3");
+//        user.setUnionid("321312d2sasd3ds3");
 //        user.setNickname("诸葛孔明");
-//        user.setHeadimgurl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1518414346250&di=9931a5f9c531a2330f0e41f8f8a60a4e&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1710418891%2C2621614720%26fm%3D214%26gp%3D0.jpg");
+//        user.setHeadimgurl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1710418891,2621614720&fm=27&gp=0.jpg");
 //        UserManager.getInstance().upDateUser(user);
 
 

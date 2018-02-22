@@ -15,7 +15,6 @@ import android.view.View;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.bean.Porker;
 import com.yunke.xiaovo.utils.BitmapUtil;
-import com.yunke.xiaovo.utils.LogUtil;
 
 /**
  *

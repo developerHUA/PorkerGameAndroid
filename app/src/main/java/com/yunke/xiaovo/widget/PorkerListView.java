@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.bean.DDZPorker;
-import com.yunke.xiaovo.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -152,6 +151,7 @@ public class PorkerListView extends ViewGroup {
     }
 
     public void clear() {
+        clickIndex.clear();
         removeAllViews();
         viewCount = 0;
     }
@@ -285,10 +285,6 @@ public class PorkerListView extends ViewGroup {
             initLocation();
             layoutChildView();
         }
-        LogUtil.i("onSizeChanged width = " + mWidth);
-        LogUtil.i("onSizeChanged mHeight = " + mHeight);
-        LogUtil.i("onSizeChanged porkerMarginTop = " + porkerMarginTop);
-        LogUtil.i("onSizeChanged porkerHeight = " + porkerHeight);
     }
 
 }

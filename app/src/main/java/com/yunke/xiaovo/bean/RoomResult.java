@@ -1,5 +1,7 @@
 package com.yunke.xiaovo.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +24,15 @@ public class RoomResult extends Result {
         public int ruletype; //去牌类型
         public List<User> users; // 房间内用户
         public int roomNumber; //房间号
+        public String defaultScore;
+
+        public String getDefaultScore() {
+            if(TextUtils.isEmpty(defaultScore)) {
+                return "";
+            }
+            return defaultScore;
+        }
+
     }
 
 }

@@ -19,6 +19,7 @@ public class CropSquareTransformation implements Transformation {
 
     @Override
     public Bitmap transform(Bitmap source) {
+        if(source == null) return null;
         int size = Math.min(source.getWidth(), source.getHeight());
 
         int x = (source.getWidth() - size) / 2;
