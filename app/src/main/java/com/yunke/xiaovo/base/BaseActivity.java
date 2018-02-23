@@ -1,5 +1,8 @@
 package com.yunke.xiaovo.base;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,9 +19,13 @@ import android.widget.LinearLayout;
 
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.manage.AppManager;
+import com.yunke.xiaovo.manage.MusicManager;
+import com.yunke.xiaovo.utils.LogUtil;
 import com.yunke.xiaovo.widget.CommonButton;
 import com.yunke.xiaovo.widget.CommonTextView;
 import com.yunke.xiaovo.widget.WrapContentView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     CommonButton btnDialogConfirm;
     @BindView(R.id.dv_confirm)
     WrapContentView dvConfirm;
-
+    private boolean isActive = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,5 +218,56 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             }
         });
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!isActive) {
+            LogUtil.i("BAST","进入前台");
+            isActive = true;
+        }
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(!isAppOnForeground(this)) {
+            isActive = false;
+            LogUtil.i("BAST","退出前台");
+            MusicManager.getInstance().stopMusic();
+        }
+    }
+
+
+    /**
+     * 程序是否在前台运行
+     *
+     * @return
+     */
+    public static boolean isAppOnForeground(Activity activity) {
+
+        ActivityManager activityManager = (ActivityManager) activity.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = activity.getApplicationContext().getPackageName();
+
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        if (appProcesses == null)
+            return false;
+
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            // The name of the process that this object is associated with.
+            if (appProcess.processName.equals(packageName)
+                    && appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
 
 }

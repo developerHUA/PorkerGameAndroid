@@ -15,9 +15,11 @@ import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
+import com.yunke.xiaovo.bean.MusicConstants;
 import com.yunke.xiaovo.bean.RoomParams;
 import com.yunke.xiaovo.bean.RoomResult;
 import com.yunke.xiaovo.bean.User;
+import com.yunke.xiaovo.manage.MusicManager;
 import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.net.HRNetConfig;
 import com.yunke.xiaovo.net.HRRequestUtil;
@@ -255,4 +257,11 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         tvRoomNumber.setText(roomNumber.toString());
         btnJoin.setVisibility(View.GONE);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MusicManager.getInstance().playMusic(MusicConstants.COMMON);
+    }
+
 }

@@ -19,7 +19,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.yunke.xiaovo.ui.LoginActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,11 +27,9 @@
         </activity>
         <activity
             android:name="com.yunke.xiaovo.ui.MainActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.yunke.xiaovo.ui.DouDiZhuGameActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.yunke.xiaovo.wxapi.WXEntryActivity"
@@ -43,7 +40,6 @@
             android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name="com.yunke.xiaovo.ui.RoomActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
     </application>
 

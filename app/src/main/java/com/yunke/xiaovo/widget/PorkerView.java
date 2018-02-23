@@ -20,7 +20,7 @@ import com.yunke.xiaovo.utils.BitmapUtil;
  *
  */
 public class PorkerView extends View {
-    private Bitmap mPorkerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.porker_bg);
+    private Bitmap mPorkerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.porker_back_bg);
     private Bitmap mPorkerText; // 扑克文字
     private Bitmap mPorkerType; //扑克类型
     private Bitmap mPorkerTextRB; // 扑克文字右下角
@@ -62,9 +62,16 @@ public class PorkerView extends View {
 
 
     public void setPorker(int porkerId, int porkerType) {
-        porkerId = porkerId % 13;
         mPorkerText = null;
-
+        if (porkerId != -1 && porkerType != -1) {
+            mPorkerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.porker_bg);
+        } else {
+            mPorkerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.porker_back_bg);
+            mPorkerType = null;
+            scaleAllBitmap();
+            return;
+        }
+        porkerId = porkerId % 13;
         if (porkerType == Porker.RED_HEART || porkerType == Porker.BLOCK) {
             mPorkerText = BitmapFactory.decodeResource(getResources(), PORKER_RED_TEXT_ID[porkerId]);
         } else if (porkerType == Porker.BLACK_HEART || porkerType == Porker.PLUM_BLOSSOM) {
@@ -144,7 +151,7 @@ public class PorkerView extends View {
             canvas.drawBitmap(mPorkerTextRB, mPorkerBitmap.getWidth() - mPorkerTextRB.getWidth(), mPorkerBitmap.getHeight() - mPorkerTextRB.getHeight(), mPaint);
             canvas.drawBitmap(mPorkerTypeRB, mPorkerBitmap.getWidth() - mPorkerTypeRB.getWidth() - (mPorkerTextRB.getWidth()
                     / 2 - mPorkerTypeRB.getWidth() / 2), mPorkerBitmap.getHeight() - mPorkerTextRB.getHeight() - mPorkerTypeRB.getHeight(), mPaint);
-        } else {
+        } else if (mPorkerType != null) {
             canvas.drawBitmap(mPorkerType, 0, 0, mPaint);
         }
 
@@ -173,17 +180,17 @@ public class PorkerView extends View {
 
 
     private void scaleAllBitmap() {
-        if (mPorkerType == null) {
-            return;
-        }
+
 
         float scaleWidth = mWidth / mPorkerBitmap.getWidth();
         float scaleHeight = mHeight / mPorkerBitmap.getHeight();
         if (mPorkerBitmap != null) {
-
             mPorkerBitmap = BitmapUtil.scaleBitmap(mPorkerBitmap, scaleWidth, scaleHeight);
         }
-        mPorkerType = BitmapUtil.scaleBitmap(mPorkerType, scaleWidth, scaleHeight);
+        if (mPorkerType != null) {
+            mPorkerType = BitmapUtil.scaleBitmap(mPorkerType, scaleWidth, scaleHeight);
+        }
+
         if (mPorkerText != null) {
             mPorkerText = BitmapUtil.scaleBitmap(mPorkerText, scaleWidth, scaleHeight);
 

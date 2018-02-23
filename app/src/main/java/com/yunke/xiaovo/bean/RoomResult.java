@@ -19,18 +19,25 @@ public class RoomResult extends Result {
 
     public Result result;
 
-    public static class Result implements Serializable{
+    public static class Result implements Serializable {
         public int playType; //房间类型
-        public int ruletype; //去牌类型
+        public int ruleType; //去牌类型
         public List<User> users; // 房间内用户
         public int roomNumber; //房间号
         public String defaultScore;
 
         public String getDefaultScore() {
-            if(TextUtils.isEmpty(defaultScore)) {
-                return "";
+            if (TextUtils.isEmpty(defaultScore)) {
+                return "1";
             }
             return defaultScore;
+        }
+
+        public int getLandlordPorkerCount() {
+            if (playType == D_D_Z_THREE_TYPE && ruleType == NO_REMOVE) {
+                return 3;
+            }
+            return 4;
         }
 
     }

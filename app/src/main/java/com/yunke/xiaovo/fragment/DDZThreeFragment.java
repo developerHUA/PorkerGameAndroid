@@ -7,6 +7,7 @@ import com.squareup.picasso.Picasso;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseFragment;
 import com.yunke.xiaovo.bean.DDZPorker;
+import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.SocketBean;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.ui.DouDiZhuGameActivity;
@@ -181,13 +182,13 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
     }
 
     @Override
-    public void processPlayPorker(SocketBean<ArrayList<DDZPorker>> socketBean) {
+    public void processPlayPorker(SocketBean<PlayPorker> socketBean) {
         if (rightUser != null && rightUser.getUserId() == socketBean.uid) {
-            rightPlayPorker.upDatePorker(socketBean.params);
+            rightPlayPorker.upDatePorker(socketBean.params.getPorkerList());
             ivRightNoPlay.setVisibility(View.GONE);
             notifyLeftUpdateCountDownUI();
         } else if (leftUser != null && leftUser.getUserId() == socketBean.uid) {
-            leftPlayPorker.upDatePorker(socketBean.params);
+            leftPlayPorker.upDatePorker(socketBean.params.getPorkerList());
             ivLeftNoPlay.setVisibility(View.GONE);
             ivLeftCountDown.setVisibility(View.GONE);
         }

@@ -22,12 +22,16 @@ import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
 import com.yunke.xiaovo.bean.DDZPorker;
 import com.yunke.xiaovo.bean.IntentConstants;
+import com.yunke.xiaovo.bean.MusicConstants;
+import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.RoomResult;
 import com.yunke.xiaovo.bean.SocketBean;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.fragment.DDZFourFragment;
 import com.yunke.xiaovo.fragment.DDZSocketNotify;
 import com.yunke.xiaovo.fragment.DDZThreeFragment;
+import com.yunke.xiaovo.manage.GameMusicManager;
+import com.yunke.xiaovo.manage.MusicManager;
 import com.yunke.xiaovo.manage.PorkerGameWebSocketManager;
 import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.utils.LogUtil;
@@ -84,7 +88,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
     CommonTextView tvScore;
     @BindView(R.id.iv_is_landlord)
     ImageView ivIsLandlord;
-
+    @BindView(R.id.pv_landlord_porker)
+    PorkerListView pvLandlordPorker;
 
     private int userId;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
@@ -110,6 +115,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
         pvPlayView.isClick(false);
         btnNoLandlord.setOnClickListener(this);
         pvPlayView.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99), getResources().getDimension(R.dimen.x129));
+        pvLandlordPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y71), getResources().getDimension(R.dimen.x92));
+
         showProgressDialog("正在连接...");
     }
 
@@ -279,6 +286,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnOutPorker.setVisibility(View.GONE);
         ivNoPlay.setVisibility(View.GONE);
         tvScore.setText(getString(R.string.game_score, room.getDefaultScore()));
+        pvLandlordPorker.upDatePorker(room.getLandlordPorkerCount());
     }
 
     /**
@@ -375,7 +383,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
             }
 
             switch (msg.what) {
-                case PorkerGameWebSocketManager.CONNECT_SUCCESS: // 准备
+                case PorkerGameWebSocketManager.CONNECT_SUCCESS: // 连接成功
                     initNetBroadcast();
                     break;
                 case PorkerGameWebSocketManager.READY: // 准备
@@ -392,22 +400,25 @@ public class DouDiZhuGameActivity extends BaseActivity {
                     break;
                 case PorkerGameWebSocketManager.LANDLORD: // 叫地主
                 case PorkerGameWebSocketManager.LANDLORD_COUNT_FINISH: // 不叫地主次数已用完(直接是地主)
+                    GameMusicManager.getInstance().playMusicByType(GameMusicManager.LANDLORD);
                     processLandlord(userId, json);
                     break;
                 case PorkerGameWebSocketManager.NO_LANDLORD: // 不叫地主
                     btnNoLandlord.setEnabled(false);
+                    GameMusicManager.getInstance().playMusicByType(GameMusicManager.NO_LANDLORD);
                     processNoLandlord(userId);
                     break;
                 case PorkerGameWebSocketManager.CURRENT_IS_LANDLORD: // 地主信号
                     processIsLandlord(userId);
                     break;
                 case PorkerGameWebSocketManager.SURPLUS_ONE: // 剩余一张牌
-                    processSurplus(userId, PorkerGameWebSocketManager.SURPLUS_ONE);
+                    GameMusicManager.getInstance().playMusicByType(GameMusicManager.SURPLUS_ONE);
                     break;
                 case PorkerGameWebSocketManager.SURPLUS_TWO: // 剩余两张牌
-                    processSurplus(userId, PorkerGameWebSocketManager.SURPLUS_TWO);
+                    GameMusicManager.getInstance().playMusicByType(GameMusicManager.SURPLUS_TWO);
                     break;
                 case PorkerGameWebSocketManager.NO_PLAY: // 不出牌
+                    GameMusicManager.getInstance().playMusicByType(GameMusicManager.NO_PLAY);
                     processNoPlay(userId);
                     break;
                 case PorkerGameWebSocketManager.CANCEL_READY: // 取消准备
@@ -452,11 +463,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private void processFarmerVictory() {
         processReadyUI();
         fSocketNotify.processGameOver();
-        if (isLandlord) {
-            ToastUtils.showToast("你是地主，你输了");
-        } else {
-            ToastUtils.showToast("你是农民，你赢了");
-        }
     }
 
     /**
@@ -465,12 +471,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private void processLandlordVictory() {
         processReadyUI();
         fSocketNotify.processGameOver();
-        if (isLandlord) {
-            ToastUtils.showToast("你是地主，你赢了");
-        } else {
-            ToastUtils.showToast("你是农民，你输了");
-        }
-
 
     }
 
@@ -532,21 +532,23 @@ public class DouDiZhuGameActivity extends BaseActivity {
      * 处理用户出牌
      */
     private void processPlayPorker(String message) {
-        Type type = new TypeToken<SocketBean<ArrayList<DDZPorker>>>() {
+        Type type = new TypeToken<SocketBean<PlayPorker>>() {
         }.getType();
-        SocketBean<ArrayList<DDZPorker>> socketBean = StringUtil.jsonToObject(message, type);
-        if (socketBean != null) {
+        SocketBean<PlayPorker> socketBean = StringUtil.jsonToObject(message, type);
+        if (socketBean != null && socketBean.params != null) {
+            int porkerNumber = DDZPorker.getPorkerNumberBySize(socketBean.params.getPorkerSize());
+            GameMusicManager.getInstance().playMusicByType(socketBean.params.getType(),porkerNumber);
             if (socketBean.uid == this.userId) {
                 for (int i = currentPorker.size() - 1; i >= 0; i--) {
-                    for (int j = socketBean.params.size() - 1; j >= 0; j--) {
-                        if (currentPorker.get(i).porkerId == socketBean.params.get(j).porkerId) {
+                    for (int j = socketBean.params.getPorkerList().size() - 1; j >= 0; j--) {
+                        if (currentPorker.get(i).porkerId == socketBean.params.getPorkerList().get(j).porkerId) {
                             currentPorker.remove(i);
                             break;
                         }
                     }
                 }
                 // 当前用户出牌了 更新UI
-                processPlayPorkerUI(socketBean.params, currentPorker);
+                processPlayPorkerUI(socketBean.params.getPorkerList(), currentPorker);
                 fSocketNotify.processCountDown(rightUser.getUserId());
             } else {
                 isFirstPlay = false;
@@ -642,6 +644,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         Type type = new TypeToken<SocketBean<ArrayList<DDZPorker>>>() {
         }.getType();
         SocketBean<ArrayList<DDZPorker>> socketBean = StringUtil.jsonToObject(message, type);
+
         if (socketBean != null) {
             if (userId == this.userId) {
                 for (int i = 0; i < socketBean.params.size(); i++) {
@@ -652,6 +655,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 porkerView.upDatePorker(currentPorker);
                 isFirstPlay = true;
                 isLandlord = true;
+                pvLandlordPorker.upDatePorker(socketBean.params);
                 processReadyPlayPorkerUI();
             } else {
                 llButtons.setVisibility(View.GONE);
@@ -677,18 +681,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     }
 
 
-    /**
-     * 处理用户剩牌
-     */
-    private void processSurplus(int userId, int surplus) {
-        if (userId == this.userId) {
-            ToastUtils.showToast("我就剩两张牌了，注意点");
-        } else {
-            ToastUtils.showToast("别人剩两张牌了，注意点");
-            fSocketNotify.processSurplus(userId, surplus);
-        }
 
-    }
 
     @Override
     public void onBackPressed() {
@@ -731,6 +724,11 @@ public class DouDiZhuGameActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MusicManager.getInstance().playMusic(MusicConstants.GAMW);
+    }
 
     @Override
     protected void onDestroy() {

@@ -10,9 +10,11 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseActivity;
+import com.yunke.xiaovo.bean.MusicConstants;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.bean.UserResult;
 import com.yunke.xiaovo.manage.AppManager;
+import com.yunke.xiaovo.manage.MusicManager;
 import com.yunke.xiaovo.manage.UserManager;
 import com.yunke.xiaovo.net.HRNetConfig;
 import com.yunke.xiaovo.net.HRRequestUtil;
@@ -43,8 +45,6 @@ public class LoginActivity extends BaseActivity {
 //        user.setNickname("诸葛孔明");
 //        user.setHeadimgurl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1710418891,2621614720&fm=27&gp=0.jpg");
 //        UserManager.getInstance().upDateUser(user);
-
-
 
 
     }
@@ -107,7 +107,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        MusicManager.getInstance().playMusic(MusicConstants.LOGIN);
     }
+
 
     @Override
     protected void onDestroy() {

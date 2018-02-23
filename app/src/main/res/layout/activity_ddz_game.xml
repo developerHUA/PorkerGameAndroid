@@ -8,9 +8,12 @@
 
 
     <FrameLayout
-        android:id="@+id/fl_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    android:id="@+id/fl_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+
+    <!--<include layout="@layout/fragment_three_ddz" />-->
+
 
     <TextView
         android:id="@+id/tv_room_number"
@@ -152,15 +155,25 @@
         android:layout_height="wrap_content"
         android:background="@drawable/back_img" />
 
-
-    <com.yunke.xiaovo.widget.CommonTextView
-        android:id="@+id/tv_score"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/game_score"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_13" />
+        android:layout_centerHorizontal="true">
 
+        <com.yunke.xiaovo.widget.PorkerListView
+            android:id="@+id/pv_landlord_porker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.yunke.xiaovo.widget.CommonTextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pv_landlord_porker"
+            android:layout_centerHorizontal="true"
+            android:text="@string/game_score"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_13" />
+    </RelativeLayout>
 
 </RelativeLayout>

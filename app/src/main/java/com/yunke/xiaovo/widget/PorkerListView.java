@@ -166,6 +166,9 @@ public class PorkerListView extends ViewGroup {
         return clickIndex;
     }
 
+    /**
+     *  根据开始索引和结束索引把中间落下的给选中
+     */
     private void completionIndex(int startIndex, int endIndex) {
         int completionIndex = startIndex - endIndex;
         if (completionIndex > 1) {
@@ -273,7 +276,16 @@ public class PorkerListView extends ViewGroup {
         viewCount = getChildCount();
     }
 
-
+    public void upDatePorker(int porkerCount) {
+        List<DDZPorker> listPorker = new ArrayList<>();
+        for (int i = 0; i < porkerCount; i++) {
+            DDZPorker ddzPorker = new DDZPorker();
+            ddzPorker.porkerType = -1;
+            ddzPorker.porkerId = -1;
+            listPorker.add(ddzPorker);
+        }
+        upDatePorker(listPorker);
+    }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);

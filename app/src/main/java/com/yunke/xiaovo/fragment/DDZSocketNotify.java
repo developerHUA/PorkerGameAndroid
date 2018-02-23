@@ -1,6 +1,7 @@
 package com.yunke.xiaovo.fragment;
 
 import com.yunke.xiaovo.bean.DDZPorker;
+import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.SocketBean;
 import com.yunke.xiaovo.bean.User;
 
@@ -19,7 +20,7 @@ public interface DDZSocketNotify {
     void processJoin(User user);
     void processExit(int userId);
 
-    void processPlayPorker(SocketBean<ArrayList<DDZPorker>> socketBean);
+    void processPlayPorker(SocketBean<PlayPorker> socketBean);
 
     void processSurplus(int userId, int surplus);
 
