@@ -366,7 +366,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private class NotifyHandler extends Handler {
 
 
-        
+
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
