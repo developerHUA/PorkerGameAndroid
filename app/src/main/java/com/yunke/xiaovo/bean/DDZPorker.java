@@ -33,7 +33,7 @@ public class DDZPorker extends Porker implements Comparable<DDZPorker> {
             return 2;
         } else if (porkerSize == SMALL_KING_SIZE) {
             return 14;
-        } else if (porkerSize == BIG_KING) {
+        } else if (porkerSize == BIG_KING_SIZE) {
             return 15;
         } else {
             return porkerSize + 3;

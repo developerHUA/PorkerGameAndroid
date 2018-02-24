@@ -6,15 +6,15 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.yunke.xiaovo.R;
 import com.yunke.xiaovo.base.BaseFragment;
-import com.yunke.xiaovo.bean.DDZPorker;
 import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.SocketBean;
+import com.yunke.xiaovo.bean.SocketUserScore;
 import com.yunke.xiaovo.bean.User;
+import com.yunke.xiaovo.bean.UserScore;
 import com.yunke.xiaovo.ui.DouDiZhuGameActivity;
 import com.yunke.xiaovo.widget.CommonTextView;
 import com.yunke.xiaovo.widget.PorkerListView;
 
-import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -79,6 +79,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (leftUser != null) {
             Picasso.with(getActivity()).load(leftUser.getHeadimgurl()).into(ivLeftUser);
             tvLeftNickname.setText(leftUser.getNickname());
+            tvLeftScore.setVisibility(View.VISIBLE);
             tvLeftScore.setText(getString(R.string.game_score, leftScore));
         } else {
             Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivLeftUser);
@@ -91,6 +92,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (rightUser != null) {
             Picasso.with(getActivity()).load(rightUser.getHeadimgurl()).into(ivRightUser);
             tvRightNickname.setText(rightUser.getNickname());
+            tvRightScore.setVisibility(View.VISIBLE);
             tvRightScore.setText(getString(R.string.game_score, rightScore));
         } else {
             Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivRightUser);
@@ -248,6 +250,19 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
             ivLeftNoPlay.setVisibility(View.GONE);
             ivLeftCountDown.setVisibility(View.VISIBLE);
             leftPlayPorker.clear();
+        }
+    }
+
+    @Override
+    public void processUserScoreChanged(SocketBean<SocketUserScore> socketBean) {
+        for (UserScore userScore : socketBean.params.getUserScoreList()) {
+            if (rightUser != null && userScore.getUserId() == rightUser.getUserId()) {
+                rightScore = userScore.getScore();
+                tvRightScore.setText(getString(R.string.game_score, rightScore));
+            } else if (leftUser != null && userScore.getUserId() == leftUser.getUserId()) {
+                leftScore = userScore.getScore();
+                tvLeftScore.setText(getString(R.string.game_score, leftScore));
+            }
         }
     }
 

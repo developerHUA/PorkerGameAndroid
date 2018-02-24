@@ -9,6 +9,7 @@ import com.yunke.xiaovo.base.BaseFragment;
 import com.yunke.xiaovo.bean.DDZPorker;
 import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.SocketBean;
+import com.yunke.xiaovo.bean.SocketUserScore;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.ui.DouDiZhuGameActivity;
 import com.yunke.xiaovo.widget.CommonTextView;
@@ -296,6 +297,10 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
         }
     }
 
+    @Override
+    public void processUserScoreChanged(SocketBean<SocketUserScore> socketBean) {
+
+    }
 
 
     private void notifyLeftUpdateCountDownUI() {

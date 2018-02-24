@@ -3,6 +3,7 @@ package com.yunke.xiaovo.fragment;
 import com.yunke.xiaovo.bean.DDZPorker;
 import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.SocketBean;
+import com.yunke.xiaovo.bean.SocketUserScore;
 import com.yunke.xiaovo.bean.User;
 
 import java.util.ArrayList;
@@ -32,4 +33,6 @@ public interface DDZSocketNotify {
 
 
     void processCountDown(int userId);
+
+    void processUserScoreChanged(SocketBean<SocketUserScore> socketBean);
 }

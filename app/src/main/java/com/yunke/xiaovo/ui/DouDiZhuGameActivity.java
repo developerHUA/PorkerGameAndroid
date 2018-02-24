@@ -26,7 +26,9 @@ import com.yunke.xiaovo.bean.MusicConstants;
 import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.RoomResult;
 import com.yunke.xiaovo.bean.SocketBean;
+import com.yunke.xiaovo.bean.SocketUserScore;
 import com.yunke.xiaovo.bean.User;
+import com.yunke.xiaovo.bean.UserScore;
 import com.yunke.xiaovo.fragment.DDZFourFragment;
 import com.yunke.xiaovo.fragment.DDZSocketNotify;
 import com.yunke.xiaovo.fragment.DDZThreeFragment;
@@ -90,6 +92,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
     ImageView ivIsLandlord;
     @BindView(R.id.pv_landlord_porker)
     PorkerListView pvLandlordPorker;
+    @BindView(R.id.tv_user_score)
+    CommonTextView tvUserScore;
 
     private int userId;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
@@ -285,6 +289,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnNoPlay.setVisibility(View.GONE);
         btnOutPorker.setVisibility(View.GONE);
         ivNoPlay.setVisibility(View.GONE);
+        ivIsLandlord.setVisibility(View.GONE);
         tvScore.setText(getString(R.string.game_score, room.getDefaultScore()));
         pvLandlordPorker.upDatePorker(room.getLandlordPorkerCount());
     }
@@ -366,7 +371,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
     private class NotifyHandler extends Handler {
 
 
-
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -441,8 +445,31 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 case PorkerGameWebSocketManager.SCORE_CHANGED: // 当前游戏分数发生改变
                     processScoreChanged(json);
                     break;
+                case PorkerGameWebSocketManager.USER_SCORE_CHANGED:
+                    processUserScoreChanged(json);
+                    break;
 
             }
+        }
+    }
+
+    /**
+     * 处理当前用户分数发生改变
+     */
+    private void processUserScoreChanged(String json) {
+        Type type = new TypeToken<SocketBean<SocketUserScore>>() {
+        }.getType();
+        SocketBean<SocketUserScore> socketBean = StringUtil.jsonToObject(json, type);
+        if (socketBean != null && socketBean.params != null) {
+            for (UserScore userScore : socketBean.params.getUserScoreList()) {
+                if (userScore.getUserId() == userId) {
+                    tvUserScore.setText(getString(R.string.game_score, userScore.getScore()));
+                    break;
+                }
+            }
+
+            fSocketNotify.processUserScoreChanged(socketBean);
+
         }
     }
 
@@ -524,6 +551,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         if (socketBean != null) {
             currentPorker = socketBean.params;
             Collections.sort(currentPorker);
+            porkerView.clear();
             porkerView.upDatePorker(currentPorker);
             fSocketNotify.processSendPoker();
         }
@@ -539,7 +567,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         SocketBean<PlayPorker> socketBean = StringUtil.jsonToObject(message, type);
         if (socketBean != null && socketBean.params != null) {
             int porkerNumber = DDZPorker.getPorkerNumberBySize(socketBean.params.getPorkerSize());
-            GameMusicManager.getInstance().playMusicByType(socketBean.params.getType(),porkerNumber);
+            GameMusicManager.getInstance().playMusicByType(socketBean.params.getType(), porkerNumber);
             if (socketBean.uid == this.userId) {
                 for (int i = currentPorker.size() - 1; i >= 0; i--) {
                     for (int j = socketBean.params.getPorkerList().size() - 1; j >= 0; j--) {
@@ -681,8 +709,6 @@ public class DouDiZhuGameActivity extends BaseActivity {
             fSocketNotify.processNoLandlord(userId);
         }
     }
-
-
 
 
     @Override
