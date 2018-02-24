@@ -328,7 +328,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         pvPlayView.setVisibility(View.VISIBLE);
         pvPlayView.clear();
         pvPlayView.upDatePorker(playPorkers);
-        porkerView.clearIndex(); 
+        porkerView.clearIndex();
         porkerView.upDatePorker(porkers);
     }
 
