@@ -167,6 +167,10 @@ public class RoomActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         public void onSuccess(Response<String> response) {
             RoomResult roomResult = StringUtil.jsonToObject(response.body(), RoomResult.class);
             if (roomResult != null && roomResult.result != null) {
+                if(room.users != null && room.users.size() >= room.getRoomPersonCount()) {
+                    ToastUtils.showToast("房间人数已满");
+                    return;
+                }
                 btnJoin.setVisibility(View.VISIBLE);
                 room = roomResult.result;
             } else {

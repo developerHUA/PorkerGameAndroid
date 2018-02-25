@@ -17,18 +17,23 @@ import com.yunke.xiaovo.widget.CommonTextView;
 public class ToastUtils {
 
 
-
+    private static Toast toast;
 
 
     public static void showToast(String text) {
         View toastView = View.inflate(AppManager.getInstance(), R.layout.view_toast,null);
         CommonTextView tvToastView = toastView.findViewById(R.id.tv_toast_message);
         tvToastView.setText(text);
-        Toast toast = new Toast(AppManager.getInstance());
-        toast.setDuration(Toast.LENGTH_SHORT);
-//        toast.setGravity(Gravity.BOTTOM,20,20);
-        toast.setView(toastView);
+        if(toast == null) {
+            toast = new Toast(AppManager.getInstance());
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(toastView);
+        }else {
+            toast.setView(toastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+        }
         toast.show();
+
     }
 
 }

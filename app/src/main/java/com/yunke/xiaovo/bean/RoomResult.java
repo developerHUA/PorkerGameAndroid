@@ -40,6 +40,17 @@ public class RoomResult extends Result {
             return 4;
         }
 
+
+        public int getRoomPersonCount() {
+            if (this.playType == D_D_Z_FOUR_TYPE) {
+                return 4;
+            } else if (this.playType == D_D_Z_THREE_TYPE) {
+                return 3;
+            }
+
+            return 0;
+        }
+
     }
 
 }
