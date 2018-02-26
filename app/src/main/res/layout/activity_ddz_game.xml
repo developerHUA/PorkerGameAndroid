@@ -8,9 +8,9 @@
 
 
     <FrameLayout
-    android:id="@+id/fl_fragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        android:id="@+id/fl_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <!--<include layout="@layout/fragment_three_ddz" />-->
 
@@ -29,50 +29,46 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <ImageView
-            android:id="@+id/iv_user_headimg"
-            style="@style/game_user_head_img" />
-
         <RelativeLayout
+            android:id="@+id/rl_user_headimg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_user_headimg"
-            android:background="@drawable/game_user_info_bg"
-            android:minWidth="@dimen/x120">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/ll_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.yunke.xiaovo.widget.CommonTextView
-                    android:id="@+id/tv_nick_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_13" />
-
-                <com.yunke.xiaovo.widget.CommonTextView
-                    android:id="@+id/tv_user_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="分数: 0"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_13" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_user_headimg"
+                style="@style/game_user_head_img" />
 
             <ImageView
                 android:id="@+id/iv_is_landlord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/y20"
-                android:layout_toRightOf="@id/ll_score"
                 android:src="@drawable/game_landlord_tag"
                 android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_user_headimg"
+            android:background="@drawable/game_user_info_bg">
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <com.yunke.xiaovo.widget.CommonTextView
+                android:id="@+id/tv_user_score"
+                android:layout_below="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="分数: 0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -116,6 +112,7 @@
             android:background="@drawable/confirm_button_long_bg"
             CommonButton:textImage="@drawable/game_start_game_text" />
 
+
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_no_play"
             style="@style/button_style"
@@ -123,6 +120,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/x20"
             CommonButton:textImage="@drawable/game_no_play_text" />
+
+        <com.yunke.xiaovo.widget.CommonButton
+            android:id="@+id/btn_tip"
+            style="@style/button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x20"
+            CommonButton:textImage="@drawable/game_tip_text" />
+
 
         <com.yunke.xiaovo.widget.CommonButton
             android:id="@+id/btn_out_porker"

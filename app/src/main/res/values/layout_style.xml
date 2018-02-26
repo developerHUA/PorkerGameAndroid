@@ -35,10 +35,13 @@
 
     <style name="game_user_head_img">
         <item name="android:background">@drawable/game_head_img_bg</item>
-        <item name="android:padding">@dimen/x15</item>
+        <item name="android:paddingTop">@dimen/x13</item>
+        <item name="android:paddingBottom">@dimen/x18</item>
+        <item name="android:paddingLeft">@dimen/y13</item>
+        <item name="android:paddingRight">@dimen/y13</item>
         <item name="android:src">@drawable/room_user_default_head</item>
-        <item name="android:layout_width">@dimen/y140</item>
-        <item name="android:layout_height">@dimen/y145</item>
+        <item name="android:layout_width">@dimen/y120</item>
+        <item name="android:layout_height">@dimen/y125</item>
     </style>
 
 

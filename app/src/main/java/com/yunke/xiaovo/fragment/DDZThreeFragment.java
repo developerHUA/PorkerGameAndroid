@@ -79,11 +79,13 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
         if (leftUser != null) {
             Picasso.with(getActivity()).load(leftUser.getHeadimgurl()).into(ivLeftUser);
             tvLeftNickname.setText(leftUser.getNickname());
+            tvLeftNickname.setVisibility(View.VISIBLE);
             tvLeftScore.setVisibility(View.VISIBLE);
             tvLeftScore.setText(getString(R.string.game_score, leftScore));
         } else {
             Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivLeftUser);
-            tvRightNickname.setText("");
+            tvLeftNickname.setVisibility(View.GONE);
+            tvLeftNickname.setText("");
             tvLeftScore.setVisibility(View.GONE);
         }
     }
@@ -91,11 +93,13 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
     private void updateRightUI() {
         if (rightUser != null) {
             Picasso.with(getActivity()).load(rightUser.getHeadimgurl()).into(ivRightUser);
+            tvRightNickname.setVisibility(View.VISIBLE);
             tvRightNickname.setText(rightUser.getNickname());
             tvRightScore.setVisibility(View.VISIBLE);
             tvRightScore.setText(getString(R.string.game_score, rightScore));
         } else {
             Picasso.with(getActivity()).load(R.drawable.room_user_default_head).into(ivRightUser);
+            tvRightNickname.setVisibility(View.GONE);
             tvRightNickname.setText("");
             tvRightScore.setVisibility(View.GONE);
         }
@@ -178,7 +182,7 @@ public class DDZThreeFragment extends BaseFragment implements DDZSocketNotify {
             rightUser = null;
             updateRightUI();
         } else if (leftUser != null && leftUser.getUserId() == userId) {
-            rightUser = null;
+            leftUser = null;
             updateLeftUI();
         }
     }

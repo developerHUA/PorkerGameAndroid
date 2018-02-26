@@ -94,6 +94,8 @@ public class DouDiZhuGameActivity extends BaseActivity {
     PorkerListView pvLandlordPorker;
     @BindView(R.id.tv_user_score)
     CommonTextView tvUserScore;
+    @BindView(R.id.btn_tip)
+    CommonButton btnTip;
 
     private int userId;
     private PorkerGameWebSocketManager mSocketManager = PorkerGameWebSocketManager.getInstance();
@@ -115,11 +117,12 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnLandlord.setOnClickListener(this);
         btnNoPlay.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        btnTip.setOnClickListener(this);
         porkerView.isClick(true);
         pvPlayView.isClick(false);
         btnNoLandlord.setOnClickListener(this);
         pvPlayView.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y99), getResources().getDimension(R.dimen.x129));
-        pvLandlordPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y71), getResources().getDimension(R.dimen.x92));
+        pvLandlordPorker.setPorkerWidthAndHeight(getResources().getDimension(R.dimen.y65), getResources().getDimension(R.dimen.x92));
 
         showProgressDialog("正在连接...");
     }
@@ -157,10 +160,12 @@ public class DouDiZhuGameActivity extends BaseActivity {
     }
 
     private void initNetBroadcast() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        mNetworkChange = new NetworkChange();
-        registerReceiver(mNetworkChange, filter);
+        if (mNetworkChange == null) {
+            IntentFilter filter = new IntentFilter();
+            filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+            mNetworkChange = new NetworkChange();
+            registerReceiver(mNetworkChange, filter);
+        }
     }
 
     @Override
@@ -188,6 +193,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
                 break;
             case R.id.btn_back:
                 showExitDialog();
+                break;
+            case R.id.btn_tip:
+
                 break;
 
         }
@@ -289,6 +297,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnNoPlay.setVisibility(View.GONE);
         btnOutPorker.setVisibility(View.GONE);
         ivNoPlay.setVisibility(View.GONE);
+        btnTip.setVisibility(View.GONE);
         ivIsLandlord.setVisibility(View.GONE);
         tvScore.setText(getString(R.string.game_score, room.getDefaultScore()));
         pvLandlordPorker.upDatePorker(room.getLandlordPorkerCount());
@@ -302,6 +311,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         btnNoPlay.setVisibility(isFirstPlay ? View.GONE : View.VISIBLE);
         pvPlayView.clear();
         pvPlayView.setVisibility(View.VISIBLE);
+        btnTip.setVisibility(View.VISIBLE);
         btnOutPorker.setVisibility(View.VISIBLE);
         btnOutPorker.setEnabled(true);
         btnNoPlay.setEnabled(true);
