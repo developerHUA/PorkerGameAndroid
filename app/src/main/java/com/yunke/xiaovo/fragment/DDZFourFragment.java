@@ -315,6 +315,11 @@ public class DDZFourFragment extends BaseFragment implements DDZSocketNotify {
             ivLeftNoPlay.setVisibility(View.GONE);
             ivLeftCountDown.setVisibility(View.VISIBLE);
             leftPlayPorker.clear();
+        } else {
+            ivRightCountDown.setVisibility(View.GONE);
+            ivTopCountDown.setVisibility(View.GONE);
+            ivLeftCountDown.setVisibility(View.GONE);
+
         }
     }
 

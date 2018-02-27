@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.yunke.xiaovo.bean.MusicConstants;
 import com.yunke.xiaovo.bean.PlayPorker;
 import com.yunke.xiaovo.bean.RoomResult;
 import com.yunke.xiaovo.bean.SocketBean;
+import com.yunke.xiaovo.bean.SocketReconnectBean;
 import com.yunke.xiaovo.bean.SocketUserScore;
 import com.yunke.xiaovo.bean.User;
 import com.yunke.xiaovo.bean.UserScore;
@@ -105,10 +107,9 @@ public class DouDiZhuGameActivity extends BaseActivity {
     public User topUser; // 上边玩家
     public User rightUser;// 右边玩家
     private List<DDZPorker> currentPorker = new ArrayList<>();
-    private boolean isFirstPlay;
     private boolean isLandlord; // 是否为地主
     private NetworkChange mNetworkChange;
-    private String score; // 当前分数
+    private boolean isFirstPlay;
 
     @Override
     public void initView() {
@@ -299,7 +300,7 @@ public class DouDiZhuGameActivity extends BaseActivity {
         ivNoPlay.setVisibility(View.GONE);
         btnTip.setVisibility(View.GONE);
         ivIsLandlord.setVisibility(View.GONE);
-        tvScore.setText(getString(R.string.game_score, room.getDefaultScore()));
+        updateGameScoreUI(room.getDefaultScore());
         pvLandlordPorker.upDatePorker(room.getLandlordPorkerCount());
     }
 
@@ -399,8 +400,20 @@ public class DouDiZhuGameActivity extends BaseActivity {
             }
 
             switch (msg.what) {
-                case PorkerGameWebSocketManager.CONNECT_SUCCESS: // 连接成功
+                case PorkerGameWebSocketManager.CONNECTED: // 连接成功
                     initNetBroadcast();
+                    break;
+                case PorkerGameWebSocketManager.RECONNECTED: // 重新连接成功
+                    try {
+                        processReconnected(jsonObject.getString("params"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+                case PorkerGameWebSocketManager.ROOM_IS_FULL: //房间人满
+                    llButtons.setVisibility(View.GONE);
+                    ToastUtils.showToast("房间人已满");
                     break;
                 case PorkerGameWebSocketManager.READY: // 准备
                     processReady(userId);
@@ -463,6 +476,84 @@ public class DouDiZhuGameActivity extends BaseActivity {
         }
     }
 
+
+    /**
+     * 更新重新连接以后牌局信息
+     */
+    private void processReconnected(String json) {
+        SocketReconnectBean socketReconnect = StringUtil.jsonToObject(json, SocketReconnectBean.class);
+        if (socketReconnect != null) {
+
+            if (socketReconnect.getGameStatus() == SocketReconnectBean.IN_THE_GAME) {
+                //更新当前游戏分数UI
+                updateGameScoreUI(socketReconnect.getGameScore());
+
+
+                // 更新当前玩家剩余牌UI
+                currentPorker = socketReconnect.getCurrentUserPorker();
+                Collections.sort(currentPorker);
+                porkerView.upDatePorker(currentPorker);
+
+                // 更新所有玩家分数
+                for (UserScore userScore : socketReconnect.getUserScoreList()) {
+                    if (userScore.getUserId() == userId) {
+                        tvUserScore.setText(getString(R.string.game_score, userScore.getScore()));
+                        break;
+                    }
+                }
+                SocketBean<SocketUserScore> socketBean = new SocketBean<>();
+                socketBean.params = new SocketUserScore();
+                socketBean.params.setUserScoreList(socketReconnect.getUserScoreList());
+                fSocketNotify.processUserScoreChanged(socketBean);
+
+                //更新地主UI
+                if (socketReconnect.getLandlordUserId() == userId) {
+                    ivIsLandlord.setVisibility(View.VISIBLE);
+                    isLandlord = true;
+                    fSocketNotify.processCountDown(userId);
+                } else if (socketReconnect.getLandlordUserId() != 0) {
+                    fSocketNotify.processLandlord(socketReconnect.getLandlordUserId());
+                } else {
+                    processIsLandlord(socketReconnect.getNextPlayUserId());
+                    return;
+                }
+                // 更新所有玩家出牌情况
+                for (PlayPorker playPorker : socketReconnect.getPlayPorkers()) {
+                    if (playPorker.getUserId() == userId) {
+                        if (playPorker.getPlayStatus() == PlayPorker.NO_PLAY_STATUS) {
+                            // 当前用户不出牌
+                            processNoPlayPorkerUI();
+                            fSocketNotify.processCountDown(userId);
+                        } else if (playPorker.getPlayStatus() == PlayPorker.PLAY_PORKER_STATUS) {
+                            pvPlayView.upDatePorker(playPorker.getPorkerList());
+                        }
+                    } else {
+                        if (playPorker.getPlayStatus() == PlayPorker.NO_PLAY_STATUS) {
+                            // 其他用户不出牌
+                            fSocketNotify.processNoPlay(playPorker.getUserId());
+                        } else if (playPorker.getPlayStatus() == PlayPorker.PLAY_PORKER_STATUS) {
+                            SocketBean<PlayPorker> playPorkerSocketBean = new SocketBean<>();
+                            playPorkerSocketBean.params = playPorker;
+                            playPorkerSocketBean.uid = playPorker.getUserId();
+                            fSocketNotify.processPlayPorker(playPorkerSocketBean);
+                        }
+                    }
+                }
+
+                // 更新玩家出牌准备
+                if (socketReconnect.getNextPlayUserId() == userId) {//该当前玩家出牌了
+                    processReadyPlayPorkerUI();
+                } else {
+                    fSocketNotify.processCountDown(socketReconnect.getNextPlayUserId());
+                }
+
+            } else {
+
+            }
+        }
+
+    }
+
     /**
      * 处理当前用户分数发生改变
      */
@@ -491,10 +582,16 @@ public class DouDiZhuGameActivity extends BaseActivity {
         }.getType();
         SocketBean<String> socketBean = StringUtil.jsonToObject(json, type);
         if (socketBean != null) {
-            score = socketBean.params;
-            tvScore.setText(getString(R.string.game_score, score));
+            updateGameScoreUI(socketBean.params);
         }
     }
+
+
+    private void updateGameScoreUI(String gameScore) {
+        if (TextUtils.isEmpty(gameScore)) return;
+        tvScore.setText(getString(R.string.game_score, gameScore));
+    }
+
 
     /**
      * 处理农民胜利

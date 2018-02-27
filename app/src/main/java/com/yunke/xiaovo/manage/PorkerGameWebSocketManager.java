@@ -27,10 +27,6 @@ public class PorkerGameWebSocketManager {
     public static final String MESSAGE_PARAMS_KEY = "message_params_key"; //用户id
 
 
-    // APP常量
-    public static final int CONNECT_SUCCESS = -1;
-
-
     // 服务端常量
     public static final int READY = 1; //准备
     public static final int PLAY_PORKER = 2;//出牌
@@ -50,6 +46,9 @@ public class PorkerGameWebSocketManager {
     public static final int FARMER_VICTORY = 16;//游戏结束,农民胜利
     public static final int SCORE_CHANGED = 18;// 当前游戏分数发生变化
     public static final int USER_SCORE_CHANGED = 19;// 当前用户分数发生变化
+    public static final int CONNECTED = 20;// 连接成功
+    public static final int RECONNECTED = 21;// 重新连接成功
+    public static final int ROOM_IS_FULL = 22;// 房间人数已满
 
     private static final java.lang.String TAG = PorkerGameWebSocketManager.class.getName();
     private static PorkerGameWebSocketManager socketManager;
@@ -136,11 +135,11 @@ public class PorkerGameWebSocketManager {
 
         @Override
         public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception {
-            LogUtil.i(TAG, "连接成功");
-            Message message = Message.obtain();
-            message.what = CONNECT_SUCCESS;
-            message.obj = "{\"message\":\"连接成功\",\"uid\":0}";
-            mHandler.sendMessage(message);
+//            LogUtil.i(TAG, "连接成功");
+//            Message message = Message.obtain();
+//            message.what = CONNECT_SUCCESS;
+//            message.obj = "{\"message\":\"连接成功\",\"uid\":0}";
+//            mHandler.sendMessage(message);
         }
 
         @Override
