@@ -38,13 +38,13 @@ public class LoginActivity extends BaseActivity {
     public void initData() {
         super.initData();
         api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID);
-//        User user = new User();
-//        user.setOpenid("1201sd90asdsssd934");
-//        user.setSex(2);
-//        user.setUnionid("321312d2sasd3ds3");
-//        user.setNickname("诸葛孔明");
-//        user.setHeadimgurl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1710418891,2621614720&fm=27&gp=0.jpg");
-//        UserManager.getInstance().upDateUser(user);
+        User user = new User();
+        user.setOpenid("1201sd90asdsssd934");
+        user.setSex(2);
+        user.setUnionid("321312d2sasd3ds3");
+        user.setNickname("诸葛孔明");
+        user.setHeadimgurl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1710418891,2621614720&fm=27&gp=0.jpg");
+        UserManager.getInstance().upDateUser(user);
 
 
     }
